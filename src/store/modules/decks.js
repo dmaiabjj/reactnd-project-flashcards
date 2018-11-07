@@ -2,7 +2,9 @@ import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
 import { createActions, handleActions, combineActions } from 'redux-actions';
 
-import { getDecks, getDeck, saveDeck, removeDeck } from '../../api/ServerAPI';
+import normalize from '@helpers/normalize';
+import schema from '@store/schemas';
+import { getDecks, getDeck, saveDeck, removeDeck } from '@api/ServerAPI';
 
 const INITIAL_STATE_COLLECTION = Immutable({});
 
@@ -69,8 +71,10 @@ export const Creators = {
     return (dispatch) => {
       dispatch(Actions.fetchRequest());
       return getDecks()
-        .then((decks) => {
-          dispatch(Actions.fetchSuccess(decks));
+        .then((data) => {
+          const normalized = Object.keys(data).map((key) => data[key]);
+          const { decks, result } = normalize.apply(normalized, schema, 'entities.decks', 'result');
+          dispatch(Actions.fetchSuccess({ decks, ids: result }));
         })
         .catch((error) => {
           dispatch(Actions.fetchFailure(error));
@@ -88,8 +92,10 @@ export const Creators = {
     return (dispatch) => {
       dispatch(Actions.fetchRequest());
       return getDeck(title)
-        .then((deck) => {
-          dispatch(Actions.fetchSuccess(deck));
+        .then((data) => {
+          const normalized = Object.keys(data).map((key) => data[key]);
+          const { decks, result } = normalize.apply(normalized, schema, 'entities.decks', 'result');
+          dispatch(Actions.fetchSuccess({ decks, ids: result }));
         })
         .catch((error) => {
           dispatch(Actions.fetchFailure(error));
@@ -107,8 +113,10 @@ export const Creators = {
     return (dispatch) => {
       dispatch(Actions.saveRequest());
       return saveDeck(title)
-        .then((deck) => {
-          dispatch(Actions.saveSuccess(deck));
+        .then((data) => {
+          const normalized = Object.keys(data).map((key) => data[key]);
+          const { decks, result } = normalize.apply(normalized, schema, 'entities.decks', 'result');
+          dispatch(Actions.saveSuccess({ decks, ids: result }));
         })
         .catch((error) => {
           dispatch(Actions.saveFailure(error));
@@ -118,16 +126,18 @@ export const Creators = {
   /**
    * @description Remove Deck
    * @param {Object} title - Deck`s title
-   * Step 1                - Dispatch SAVE_REQUEST action
-   * Step 2.1  - Success   - Dispatch SAVE_SUCCESS action
-   * Step 2.2  - Failure   - Dispatch SAVE_FAILURE action
+   * Step 1                - Dispatch DELETE_REQUEST action
+   * Step 2.1  - Success   - Dispatch DELETE_SUCCESS action
+   * Step 2.2  - Failure   - Dispatch DELETE_FAILURE action
    */
   delete: (title) => {
     return (dispatch) => {
       dispatch(Actions.deleteRequest());
       return removeDeck(title)
-        .then((deck) => {
-          dispatch(Actions.deleteSuccess(deck));
+        .then((data) => {
+          const normalized = Object.keys(data).map((key) => data[key]);
+          const { decks, result } = normalize.apply(normalized, schema, 'entities.decks', 'result');
+          dispatch(Actions.deleteSuccess({ decks, ids: result }));
         })
         .catch((error) => {
           dispatch(Actions.deleteFailure(error));
@@ -140,9 +150,11 @@ export const Creators = {
 const collection = handleActions(
   {
     [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
-      return Immutable.merge(state, payload);
+      return Immutable.merge(state, payload.decks);
     },
-    [Actions.deleteSuccess]: (state, { payload }) => Immutable.without(state, payload),
+    [Actions.deleteSuccess]: (state, { payload }) => {
+      return Immutable.without(state, payload.ids);
+    },
   },
   INITIAL_STATE_COLLECTION,
 );
@@ -150,9 +162,11 @@ const collection = handleActions(
 const ids = handleActions(
   {
     [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
-      return state.concat(Object.keys(payload));
+      return state.concat(payload.ids);
     },
-    [Actions.deleteSuccess]: (state, { payload }) => state.filter((d) => d !== payload),
+    [Actions.deleteSuccess]: (state, { payload }) => {
+      return state.filter((id) => !payload.ids.includes(id));
+    },
   },
   INITIAL_STATE_IDS,
 );

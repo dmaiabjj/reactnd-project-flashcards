@@ -25,14 +25,17 @@
   },
   "dependencies": {
     "expo": "^31.0.2",
+    "install": "^0.12.2",
     "lodash": "^4.17.11",
+    "normalizr": "^3.3.0",
     "prop-types": "^15.6.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
     "redux-thunk": "^2.3.0",
-    "seamless-immutable": "^7.1.4"
+    "seamless-immutable": "^7.1.4",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

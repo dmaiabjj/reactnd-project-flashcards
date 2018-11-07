@@ -9,6 +9,7 @@
         "@screens": ["./src/screens"],
         "@store": ["./src/store"],
         "@styles": ["./src/styles"],
+        "@helpers": ["./src/helpers"],
         "@@api": ["./tests/api"],
         "@@components": ["./tests/components"],
         "@@routes": ["./tests/routes"],

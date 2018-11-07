@@ -203,11 +203,7 @@
 158
 159
 160
-161
-162
-163
-164
-165</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+161</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,7 +239,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -352,7 +347,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -362,7 +356,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -370,10 +363,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
-import { createActions, handleActions, combineActions} from 'redux-actions';
+import { createActions, handleActions, combineActions } from 'redux-actions';
 &nbsp;
 import { getDecks, getDeck, saveDeck, removeDeck } from '../../api/ServerAPI';
 &nbsp;
@@ -383,16 +375,16 @@ const INITIAL_STATE_IDS = Immutable([]);
 &nbsp;
 /* Action Types */
 export const Types = {
-  FETCH_REQUEST       : 'FETCH_REQUEST',
-  FETCH_SUCCESS       : 'FETCH_SUCCESS',
-  FETCH_FAILURE       : 'FETCH_FAILURE',
-  SAVE_REQUEST        : 'SAVE_REQUEST',
-  SAVE_SUCCESS        : 'SAVE_SUCCESS',
-  SAVE_FAILURE        : 'SAVE_FAILURE',
-  DELETE_REQUEST      : 'DELETE_REQUEST',
-  DELETE_SUCCESS      : 'DELETE_SUCCESS',
-  DELETE_FAILURE      : 'DELETE_FAILURE'
-}
+  FETCH_REQUEST: 'FETCH_REQUEST',
+  FETCH_SUCCESS: 'FETCH_SUCCESS',
+  FETCH_FAILURE: 'FETCH_FAILURE',
+  SAVE_REQUEST: 'SAVE_REQUEST',
+  SAVE_SUCCESS: 'SAVE_SUCCESS',
+  SAVE_FAILURE: 'SAVE_FAILURE',
+  DELETE_REQUEST: 'DELETE_REQUEST',
+  DELETE_SUCCESS: 'DELETE_SUCCESS',
+  DELETE_FAILURE: 'DELETE_FAILURE',
+};
 &nbsp;
 const INITIAL_PAYLOAD = null;
 /* Actions  */
@@ -405,19 +397,18 @@ const {
   saveFailure,
   deleteRequest,
   deleteSuccess,
-  deleteFailure
+  deleteFailure,
 } = createActions({
-  [Types.FETCH_REQUEST]     : INITIAL_PAYLOAD,
-  [Types.FETCH_SUCCESS]     : INITIAL_PAYLOAD,
-  [Types.FETCH_FAILURE]     : INITIAL_PAYLOAD,
-  [Types.SAVE_REQUEST]      : INITIAL_PAYLOAD,
-  [Types.SAVE_SUCCESS]      : INITIAL_PAYLOAD,
-  [Types.SAVE_FAILURE]      : INITIAL_PAYLOAD,
-  [Types.DELETE_REQUEST]    : INITIAL_PAYLOAD,
-  [Types.DELETE_SUCCESS]    : INITIAL_PAYLOAD,
-  [Types.DELETE_FAILURE]    : INITIAL_PAYLOAD,
+  [Types.FETCH_REQUEST]: INITIAL_PAYLOAD,
+  [Types.FETCH_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.FETCH_FAILURE]: INITIAL_PAYLOAD,
+  [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
+  [Types.SAVE_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
+  [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
+  [Types.DELETE_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
 });
-&nbsp;
 &nbsp;
 export const Actions = {
   fetchRequest,
@@ -428,8 +419,8 @@ export const Actions = {
   saveFailure,
   deleteRequest,
   deleteSuccess,
-  deleteFailure
-}
+  deleteFailure,
+};
 &nbsp;
 /* Action Creators */
 export const Creators = {
@@ -492,9 +483,9 @@ export const Creators = {
   /**
    * @description Remove Deck
    * @param {Object} title - Deck`s title
-   * Step 1                - Dispatch SAVE_REQUEST action
-   * Step 2.1  - Success   - Dispatch SAVE_SUCCESS action
-   * Step 2.2  - Failure   - Dispatch SAVE_FAILURE action
+   * Step 1                - Dispatch DELETE_REQUEST action
+   * Step 2.1  - Success   - Dispatch DELETE_SUCCESS action
+   * Step 2.2  - Failure   - Dispatch DELETE_FAILURE action
    */
   delete: (title) =&gt; {
     return (dispatch) =&gt; {
@@ -513,35 +504,32 @@ export const Creators = {
 /* Reducer  */
 const collection = handleActions(
   {
-    [combineActions(Actions.fetchSuccess,Actions.saveSuccess)]: (state, { payload }) =&gt;(
-      Immutable.merge(state,payload)
-    ),
-    [Actions.deleteSuccess]: (state, { payload }) =&gt; (
-      Immutable.without(state, payload)
-    )},
-    INITIAL_STATE_COLLECTION,
+    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) =&gt; {
+      return Immutable.merge(state, payload);
+    },
+    [Actions.deleteSuccess]: (state, { payload }) =&gt; Immutable.without(state, payload),
+  },
+  INITIAL_STATE_COLLECTION,
 );
 &nbsp;
 const ids = handleActions(
   {
-    [combineActions(Actions.fetchSuccess,Actions.saveSuccess)]: (state, { payload }) =&gt;(
-      state.concat(Object.keys(payload))
-    ),
-    [Actions.deleteSuccess]: (state, { payload }) =&gt;(
-      state.filter((d) =&gt; d !== payload)
-    )
+    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) =&gt; {
+      return state.concat(Object.keys(payload));
+    },
+    [Actions.deleteSuccess]: (state, { payload }) =&gt; state.filter((d) =&gt; d !== payload),
   },
   INITIAL_STATE_IDS,
 );
 &nbsp;
-export default combineReducers({collection,ids})
+export default combineReducers({ collection, ids });
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 10:57:36 GMT-0200 (-02)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 16:10:03 GMT-0200 (-02)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

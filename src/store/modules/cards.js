@@ -1,56 +1,135 @@
-/*
+import { combineReducers } from 'redux';
+import Immutable from 'seamless-immutable';
+import { createActions, handleActions } from 'redux-actions';
+
+import normalize from '@helpers/normalize';
+import schema from '@store/schemas';
+import cardSchema from '@store/schemas/cards';
 import { saveCard, removeCard } from '@api/ServerAPI';
-import { createAction, handleActions } from 'redux-actions';
+import { Actions as DeckActions } from '@store/modules/decks';
 
-import _ from 'lodash';
+const INITIAL_STATE_COLLECTION = Immutable({});
+const INITIAL_STATE_IDS = Immutable([]);
 
-const INITIAL_STATE = {
-  cards: {},
-  ids: [],
-};
-
-
+/* Action Types */
 export const Types = {
-  FETCH_REQUEST: 'CARD/FETCH_REQUEST',
-  FETCH_SUCCESS: 'CARD/FETCH_SUCCESS',
-  FETCH_FAILURE: 'CARD/FETCH_FAILURE',
-  SAVE_REQUEST: 'CARD/SAVE_REQUEST',
-  SAVE_SUCCESS: 'CARD/SAVE_SUCCESS',
-  SAVE_FAILURE: 'CARD/SAVE_FAILURE',
-  DELETE_REQUEST: 'CARD/DELETE_REQUEST',
-  DELETE_SUCCESS: 'CARD/DELETE_SUCCESS',
-  DELETE_FAILURE: 'CARD/DELETE_FAILURE',
+  SAVE_REQUEST: 'SAVE_REQUEST',
+  SAVE_SUCCESS: 'SAVE_SUCCESS',
+  SAVE_FAILURE: 'SAVE_FAILURE',
+  DELETE_REQUEST: 'DELETE_REQUEST',
+  DELETE_SUCCESS: 'DELETE_SUCCESS',
+  DELETE_FAILURE: 'DELETE_FAILURE',
 };
 
+const INITIAL_PAYLOAD = null;
+/* Actions  */
+const {
+  saveRequest,
+  saveSuccess,
+  saveFailure,
+  deleteRequest,
+  deleteSuccess,
+  deleteFailure,
+} = createActions({
+  [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
+  [Types.SAVE_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
+  [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
+  [Types.DELETE_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
+});
 
 export const Actions = {
-  fetchRequest: createAction(Types.FETCH_REQUEST),
-  fetchRequestSuccess: createAction(Types.FETCH_SUCCESS),
-  fetchRequestFailure: createAction(Types.FETCH_FAILURE),
-  saveRequest: createAction(Types.SAVE_REQUEST),
-  saveRequestSuccess: createAction(Types.SAVE_SUCCESS),
-  saveRequestFailure: createAction(Types.SAVE_FAILURE),
-  removeRequest: createAction(Types.DELETE_REQUEST),
-  removeRequestSucess: createAction(Types.DELETE_SUCCESS),
-  removeRequestFailure: createAction(Types.DELETE_FAILURE),
+  saveRequest,
+  saveSuccess,
+  saveFailure,
+  deleteRequest,
+  deleteSuccess,
+  deleteFailure,
 };
 
+/* Action Creators */
+export const Creators = {
+  /**
+   * @description Add Deck
+   * @param {Object} title - Deck`s title
+   * Step 1                - Dispatch SAVE_REQUEST action
+   * Step 2.1  - Success   - Dispatch SAVE_SUCCESS action
+   * Step 2.2  - Failure   - Dispatch SAVE_FAILURE action
+   */
+  add: (title, card) => {
+    return (dispatch) => {
+      dispatch(Actions.saveRequest());
+      return saveCard(title, card)
+        .then((data) => {
+          const normalized = Object.keys(data).map((key) => data[key]);
+          const { decks, questions, result: deckIds } = normalize.apply(
+            normalized,
+            schema,
+            'entities.decks',
+            'entities.questions',
+            'result',
+          );
 
-export default handleActions(
-  {
-    [Types.FETCH_SUCCESS]: (state, { payload }) => ({
-      ...state,
-      ...payload.cards,
-      ids: Object.keys(payload.cards),
-    }),
-    [Types.SAVE_SUCCESS]: (state, { payload }) => ({
-      ...state,
-      ...payload.card,
-      ids: [...state.ids, payload.card.id],
-    }),
-    [Types.DELETE_SUCCESS]: (state, { payload }) => _.omit(state, payload.id),
+          const { questions: cards, result: cardIds } = normalize.apply(
+            questions,
+            cardSchema,
+            'entities.questions',
+            'result',
+          );
+
+          dispatch(DeckActions.saveSuccess({ decks, ids: deckIds }));
+          dispatch(Actions.saveSuccess({ cards, ids: cardIds }));
+        })
+        .catch((error) => {
+          dispatch(Actions.saveFailure(error));
+        });
+    };
   },
-  INITIAL_STATE,
+  /**
+   * @description Remove Deck
+   * @param {Object} title - Deck`s title
+   * Step 1                - Dispatch DELETE_REQUEST action
+   * Step 2.1  - Success   - Dispatch DELETE_SUCCESS action
+   * Step 2.2  - Failure   - Dispatch DELETE_FAILURE action
+   */
+  delete: (title, card) => {
+    return (dispatch) => {
+      dispatch(Actions.deleteRequest());
+      return removeCard(title, card)
+        .then((deck) => {
+          dispatch(Actions.deleteSuccess(deck));
+        })
+        .catch((error) => {
+          dispatch(Actions.deleteFailure(error));
+        });
+    };
+  },
+};
+
+/* Reducer  */
+const collection = handleActions(
+  {
+    [Actions.saveSuccess]: (state, { payload }) => {
+      return Immutable.merge(state, payload.cards);
+    },
+    [Actions.deleteSuccess]: (state, { payload }) => {
+      return Immutable.without(state, payload.ids);
+    },
+  },
+  INITIAL_STATE_COLLECTION,
 );
 
-*/
+const ids = handleActions(
+  {
+    [Actions.saveSuccess]: (state, { payload }) => {
+      return state.concat(payload.ids);
+    },
+    [Actions.deleteSuccess]: (state, { payload }) => {
+      return state.filter((id) => !payload.ids.includes(id));
+    },
+  },
+  INITIAL_STATE_IDS,
+);
+
+export default combineReducers({ collection, ids });

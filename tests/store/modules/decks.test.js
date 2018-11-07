@@ -31,8 +31,8 @@ describe('MODULE - DECK', () => {
 
   beforeEach(async () => {
     store.clearActions();
-    await ServerAPI.saveDeck(props.ids[0]);
-    await ServerAPI.saveDeck(props.ids[1]);
+    await ServerAPI.saveDeck(props.title.react);
+    await ServerAPI.saveDeck(props.title.javascript);
   });
 
   /* ACTIONS  */
@@ -87,7 +87,10 @@ describe('MODULE - DECK', () => {
   /* ACTION CREATORS  */
 
   it('[ACTION CREATORS] should dispatch a FETCH_REQUEST ->  FETCH_SUCCESS action ', async () => {
-    const expectedActions = [Actions.fetchRequest(), Actions.fetchSuccess(props.decks)];
+    const expectedActions = [
+      Actions.fetchRequest(),
+      Actions.fetchSuccess({ decks: props.decks, ids: props.ids }),
+    ];
 
     return store
       .dispatch(Creators.fetch())
@@ -109,7 +112,7 @@ describe('MODULE - DECK', () => {
   it('[ACTION CREATORS] should dispatch a FETCH_REQUEST->FETCH_SUCCESS action Decks', async () => {
     const expectedActions = [
       Actions.fetchRequest(),
-      Actions.fetchSuccess(props.deck(props.title.react)),
+      Actions.fetchSuccess({ decks: props.deck(props.title.react), ids: [props.title.react] }),
     ];
 
     return store
@@ -132,7 +135,7 @@ describe('MODULE - DECK', () => {
   it('[ACTION CREATORS] should dispatch a SAVE_REQUEST->SAVE_SUCCESS action on Deck', async () => {
     const expectedActions = [
       Actions.saveRequest(),
-      Actions.saveSuccess(props.deck(props.title.react)),
+      Actions.saveSuccess({ decks: props.deck(props.title.react), ids: [props.title.react] }),
     ];
 
     return store
@@ -155,7 +158,10 @@ describe('MODULE - DECK', () => {
   it('[ACTION CREATORS] should dispatch a DELETE_REQUEST ->  DELETE_SUCCESS action ', async () => {
     const expectedActions = [
       Actions.deleteRequest(),
-      Actions.deleteSuccess(props.deck(props.title.javascript)),
+      Actions.deleteSuccess({
+        decks: props.deck(props.title.javascript),
+        ids: [props.title.javascript],
+      }),
     ];
 
     return store
@@ -184,7 +190,8 @@ describe('MODULE - DECK', () => {
 
   it('[REDUCERS] should handle FETCH_ALL_SUCCESS action for all decks', () => {
     const expected = { collection: props.decks, ids: props.ids };
-    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(props.decks))).toEqual(expected);
+    const request = { decks: expected.collection, ids: expected.ids };
+    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(request))).toEqual(expected);
   });
 
   it('[REDUCERS] should handle FETCH_SUCCESS action for a specific deck', () => {
@@ -192,9 +199,8 @@ describe('MODULE - DECK', () => {
       collection: props.deck(props.title.react),
       ids: props.ids.filter((id) => id === props.title.react),
     };
-    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(props.deck(props.title.react)))).toEqual(
-      expected,
-    );
+    const request = { decks: expected.collection, ids: expected.ids };
+    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(request))).toEqual(expected);
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action with INITIAL_STATE EMPTY', () => {
@@ -202,9 +208,8 @@ describe('MODULE - DECK', () => {
       collection: props.deck(props.title.react),
       ids: props.ids.filter((id) => id === props.title.react),
     };
-    expect(reducer(INITIAL_STATE, Actions.saveSuccess(props.deck(props.title.react)))).toEqual(
-      expected,
-    );
+    const request = { decks: expected.collection, ids: expected.ids };
+    expect(reducer(INITIAL_STATE, Actions.saveSuccess(request))).toEqual(expected);
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action', () => {
@@ -212,25 +217,30 @@ describe('MODULE - DECK', () => {
       collection: props.decks,
       ids: props.ids,
     };
-    const entity = { Redux: { title: 'Redux', questions: [] } };
+    const entity = { [props.title.react]: { title: props.title.react, questions: [] } };
     const expected = {
       collection: { ...props.decks, ...entity },
       ids: props.ids.concat(Object.keys(entity)),
     };
-    expect(reducer(state, Actions.saveSuccess(entity))).toEqual(expected);
+    const request = { decks: entity, ids: [props.title.react] };
+    expect(reducer(state, Actions.saveSuccess(request))).toEqual(expected);
   });
 
   it('[REDUCERS] should handle DELETE_SUCCESS action', () => {
-    const expected = {
+    const state = {
       collection: props.decks,
       ids: props.ids,
     };
-    const entity = { Redux: { title: 'Redux', questions: [] } };
-    const state = {
-      collection: { ...props.decks, ...entity },
-      ids: props.ids.concat(Object.keys(entity)),
+
+    const entity = { [props.title.javascript]: { title: props.title.javascript, questions: [] } };
+
+    const expected = {
+      collection: Immutable.without(state.collection, props.title.javascript),
+      ids: state.ids.filter((id) => id !== props.title.javascript),
     };
-    expect(reducer(state, Actions.deleteSuccess(Object.keys(entity)[0]))).toEqual(expected);
+
+    const request = { decks: entity, ids: [props.title.javascript] };
+    expect(reducer(state, Actions.deleteSuccess(request))).toEqual(expected);
   });
 
   /* REDUCERS */
