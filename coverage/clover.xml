@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1541595456743" clover="3.2.0">
+  <project timestamp="1541595456743" name="All files">
+    <metrics statements="60" coveredstatements="60" conditionals="6" coveredconditionals="6" methods="33" coveredmethods="33" elements="99" coveredelements="99" complexity="0" loc="60" ncloc="60" packages="4" files="5" classes="5">
+      <package name="src.api">
+        <metrics statements="24" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="11" coveredmethods="11"/>
+        <file name="ServerAPI.js" path="/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/api/ServerAPI.js">
+          <metrics statements="24" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="11" coveredmethods="11"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="10" count="36" type="stmt"/>
+          <line num="11" count="36" type="cond" truecount="2" falsecount="0"/>
+          <line num="21" count="37" type="stmt"/>
+          <line num="22" count="37" type="cond" truecount="4" falsecount="0"/>
+          <line num="31" count="27" type="stmt"/>
+          <line num="32" count="27" type="stmt"/>
+          <line num="37" count="27" type="stmt"/>
+          <line num="38" count="27" type="stmt"/>
+          <line num="47" count="6" type="stmt"/>
+          <line num="48" count="6" type="stmt"/>
+          <line num="53" count="6" type="stmt"/>
+          <line num="55" count="6" type="stmt"/>
+          <line num="63" count="2" type="stmt"/>
+          <line num="64" count="2" type="stmt"/>
+          <line num="65" count="2" type="stmt"/>
+          <line num="66" count="2" type="stmt"/>
+          <line num="67" count="2" type="stmt"/>
+          <line num="68" count="2" type="stmt"/>
+          <line num="78" count="1" type="stmt"/>
+          <line num="79" count="1" type="stmt"/>
+          <line num="80" count="2" type="stmt"/>
+          <line num="81" count="1" type="stmt"/>
+          <line num="82" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.store.modules">
+        <metrics statements="33" coveredstatements="33" conditionals="0" coveredconditionals="0" methods="21" coveredmethods="21"/>
+        <file name="decks.js" path="/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/decks.js">
+          <metrics statements="33" coveredstatements="33" conditionals="0" coveredconditionals="0" methods="21" coveredmethods="21"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="9" count="1" type="stmt"/>
+          <line num="12" count="1" type="stmt"/>
+          <line num="24" count="1" type="stmt"/>
+          <line num="36" count="1" type="stmt"/>
+          <line num="49" count="1" type="stmt"/>
+          <line num="62" count="1" type="stmt"/>
+          <line num="70" count="2" type="stmt"/>
+          <line num="71" count="2" type="stmt"/>
+          <line num="72" count="2" type="stmt"/>
+          <line num="74" count="1" type="stmt"/>
+          <line num="77" count="1" type="stmt"/>
+          <line num="89" count="2" type="stmt"/>
+          <line num="90" count="2" type="stmt"/>
+          <line num="91" count="2" type="stmt"/>
+          <line num="93" count="1" type="stmt"/>
+          <line num="96" count="1" type="stmt"/>
+          <line num="108" count="2" type="stmt"/>
+          <line num="109" count="2" type="stmt"/>
+          <line num="110" count="2" type="stmt"/>
+          <line num="112" count="1" type="stmt"/>
+          <line num="115" count="1" type="stmt"/>
+          <line num="127" count="2" type="stmt"/>
+          <line num="128" count="2" type="stmt"/>
+          <line num="129" count="2" type="stmt"/>
+          <line num="131" count="1" type="stmt"/>
+          <line num="134" count="1" type="stmt"/>
+          <line num="141" count="1" type="stmt"/>
+          <line num="144" count="4" type="stmt"/>
+          <line num="147" count="1" type="stmt"/>
+          <line num="152" count="1" type="stmt"/>
+          <line num="155" count="4" type="stmt"/>
+          <line num="158" count="3" type="stmt"/>
+        </file>
+      </package>
+      <package name="tests">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="setup.js" path="/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/tests/setup.js">
+          <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="4" count="2" type="stmt"/>
+          <line num="5" count="2" type="stmt"/>
+        </file>
+      </package>
+      <package name="tests.stubs">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <file name="card.js" path="/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/tests/stubs/card.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="deck.js" path="/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/tests/stubs/deck.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+      </package>
+    </metrics>
+  </project>
+</coverage>
