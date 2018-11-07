@@ -1,21 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import styled from 'styled-components/native';
+import { Font } from 'expo';
+import Route from '@routes/index';
+import Roboto from './assets/fonts/Roboto-Regular.ttf';
+
+const AppStyled = styled.View`
+  flex: 1;
+`;
 
 export default class App extends React.Component {
+  state = { isReady: false };
+
+  componentDidMount() {
+    (async () => {
+      await Font.loadAsync({
+        Roboto,
+      });
+
+      this.setState({ isReady: true });
+    })();
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
+    const { isReady } = this.state;
+    return <AppStyled>{isReady && <Route />}</AppStyled>;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

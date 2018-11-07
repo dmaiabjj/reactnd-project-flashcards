@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import cards from '../stubs/card';
-import decks from '../stubs/deck';
+import cards from '@@stubs/card';
+import decks from '@@stubs/deck';
 import {
   getDecks,
   getDeck,

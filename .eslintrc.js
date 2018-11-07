@@ -55,7 +55,8 @@ module.exports = {
 				"every": ["id"]
 			}
 		}], // for nested label htmlFor error
-
+    'import/no-unresolved' : 'off',
+    'import/no-extraneous-dependencies' : 'off',
 		'prettier/prettier': ['error'],
 	},
 };

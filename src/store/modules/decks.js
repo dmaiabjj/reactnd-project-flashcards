@@ -118,9 +118,9 @@ export const Creators = {
   /**
    * @description Remove Deck
    * @param {Object} title - Deck`s title
-   * Step 1                - Dispatch DELETE_REQUEST action
-   * Step 2.1  - Success   - Dispatch DELETE_SUCCESS action
-   * Step 2.2  - Failure   - Dispatch DELETE_FAILURE action
+   * Step 1                - Dispatch SAVE_REQUEST action
+   * Step 2.1  - Success   - Dispatch SAVE_SUCCESS action
+   * Step 2.2  - Failure   - Dispatch SAVE_FAILURE action
    */
   delete: (title) => {
     return (dispatch) => {

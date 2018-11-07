@@ -35,6 +35,7 @@ export async function saveDeck(title) {
   };
 
   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
+
   return getDeck(title);
 }
 

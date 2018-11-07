@@ -1,9 +1,9 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Immutable from 'seamless-immutable';
-import decks from '../../stubs/deck';
-import reducer, { Actions, Types, Creators } from '../../../src/store/modules/decks';
-import * as ServerAPI from '../../../src/api/ServerAPI';
+import decks from '@@stubs/deck';
+import reducer, { Actions, Types, Creators } from '@store/modules/decks';
+import * as ServerAPI from '@api/ServerAPI';
 
 const INITIAL_STATE = Immutable({
   collection: {},

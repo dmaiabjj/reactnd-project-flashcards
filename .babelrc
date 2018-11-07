@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    ["module-resolver", {
+      "cwd": "babelrc",
+      "alias": {
+        "@api": ["./src/api"],
+        "@components": ["./src/components"],
+        "@routes": ["./src/routes"],
+        "@screens": ["./src/screens"],
+        "@store": ["./src/store"],
+        "@styles": ["./src/styles"],
+        "@@api": ["./tests/api"],
+        "@@components": ["./tests/components"],
+        "@@routes": ["./tests/routes"],
+        "@@screens": ["./tests/screens"],
+        "@@store": ["./tests/store"],
+        "@@stubs": ["./tests/stubs"],
+        "@@styles": ["./tests/styles"]
+      }
+    }]
+  ]
+}
