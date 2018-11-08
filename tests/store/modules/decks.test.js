@@ -158,10 +158,7 @@ describe('MODULE - DECK', () => {
   it('[ACTION CREATORS] should dispatch a DELETE_REQUEST ->  DELETE_SUCCESS action ', async () => {
     const expectedActions = [
       Actions.deleteRequest(),
-      Actions.deleteSuccess({
-        decks: props.deck(props.title.javascript),
-        ids: [props.title.javascript],
-      }),
+      Actions.deleteSuccess({ id: props.title.react }),
     ];
 
     return store
@@ -232,14 +229,12 @@ describe('MODULE - DECK', () => {
       ids: props.ids,
     };
 
-    const entity = { [props.title.javascript]: { title: props.title.javascript, questions: [] } };
-
     const expected = {
       collection: Immutable.without(state.collection, props.title.javascript),
       ids: state.ids.filter((id) => id !== props.title.javascript),
     };
 
-    const request = { decks: entity, ids: [props.title.javascript] };
+    const request = { id: props.title.javascript };
     expect(reducer(state, Actions.deleteSuccess(request))).toEqual(expected);
   });
 

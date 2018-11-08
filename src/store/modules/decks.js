@@ -134,10 +134,8 @@ export const Creators = {
     return (dispatch) => {
       dispatch(Actions.deleteRequest());
       return removeDeck(title)
-        .then((data) => {
-          const normalized = Object.keys(data).map((key) => data[key]);
-          const { decks, result } = normalize.apply(normalized, schema, 'entities.decks', 'result');
-          dispatch(Actions.deleteSuccess({ decks, ids: result }));
+        .then(() => {
+          dispatch(Actions.deleteSuccess({ id: title }));
         })
         .catch((error) => {
           dispatch(Actions.deleteFailure(error));
@@ -153,7 +151,7 @@ const collection = handleActions(
       return Immutable.merge(state, payload.decks);
     },
     [Actions.deleteSuccess]: (state, { payload }) => {
-      return Immutable.without(state, payload.ids);
+      return Immutable.without(state, payload.id);
     },
   },
   INITIAL_STATE_COLLECTION,
@@ -165,7 +163,7 @@ const ids = handleActions(
       return state.concat(payload.ids);
     },
     [Actions.deleteSuccess]: (state, { payload }) => {
-      return state.filter((id) => !payload.ids.includes(id));
+      return state.filter((id) => id !== payload.id);
     },
   },
   INITIAL_STATE_IDS,

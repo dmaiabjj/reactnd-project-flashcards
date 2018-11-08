@@ -48,7 +48,7 @@ export async function saveCard(title, card) {
   const all = await getDecks();
   const decks = {
     ...all,
-    [title]: { ...all[title], questions: [...all[title].questions, card] },
+    [title]: { ...all[title], questions: all[title].questions.concat(card) },
   };
 
   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
@@ -66,7 +66,6 @@ export async function removeDeck(title) {
     data[title] = undefined;
     delete data[title];
     AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    return data;
   });
 }
 
@@ -80,6 +79,5 @@ export function removeCard(title, id) {
     const data = JSON.parse(results);
     data[title].questions = data[title].questions.filter((c) => c.id !== id);
     AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    return data;
   });
 }

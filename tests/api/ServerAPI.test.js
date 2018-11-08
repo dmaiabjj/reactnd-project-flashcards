@@ -22,9 +22,9 @@ describe('API', () => {
     },
     decks,
     card: {
-      react: cards[0],
-      ajax: cards[1],
-      closure: cards[2],
+      react: cards[1],
+      ajax: cards[2],
+      closure: cards[3],
     },
     cards,
   };
@@ -71,14 +71,18 @@ describe('API', () => {
 
     const expected = await getDeck(props.title.react);
 
-    expect(expected[props.title.react].questions).toEqual(props.cards);
+    expect(expected[props.title.react].questions).toEqual(
+      Object.keys(props.cards).map((key) => props.cards[key]),
+    );
   });
 
   it('[Method - removeDeck] should handle remove deck', async () => {
     await saveDeck(props.title.react);
     await saveDeck(props.title.javascript);
 
-    const expected = await removeDeck(props.title.react);
+    await removeDeck(props.title.react);
+
+    const expected = await getDecks();
 
     expect(expected).toEqual(_.omit(decks, props.title.react));
   });
@@ -90,7 +94,10 @@ describe('API', () => {
     await saveCard(props.title.javascript, props.card.ajax);
     await saveCard(props.title.react, props.card.closure);
 
-    const expected = await removeCard(props.title.react, props.card.react.id);
+    await removeCard(props.title.react, props.card.react.id);
+
+    const expected = await getDecks();
+
     expect(expected[props.title.react].questions).toEqual([props.card.closure]);
   });
 });
