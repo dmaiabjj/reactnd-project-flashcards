@@ -1,4 +1,3 @@
-/*
 import { handleActions, combineActions } from 'redux-actions';
 import { Actions as ActionDeck } from '@store/modules/decks';
 import { Actions as ActionCard } from '@store/modules/cards';
@@ -9,16 +8,14 @@ const INITIAL_STATE = {
   error: null,
 };
 
-
 export default handleActions(
   {
     [combineActions(
       ActionDeck.fetchRequest,
       ActionDeck.saveRequest,
-      ActionDeck.removeRequest,
-      ActionCard.fetchRequest,
+      ActionDeck.deleteRequest,
       ActionCard.saveRequest,
-      ActionCard.removeRequest,
+      ActionCard.deleteRequest,
     )]: (state) => ({
       ...state,
       fetched: false,
@@ -26,32 +23,28 @@ export default handleActions(
       error: null,
     }),
     [combineActions(
-      ActionDeck.fetchRequestSuccess,
-      ActionDeck.saveRequestSuccess,
-      ActionDeck.removeRequestSucess,
-      ActionCard.fetchRequestSuccess,
-      ActionCard.saveRequestSuccess,
-      ActionCard.removeRequestSucess,
+      ActionDeck.fetchSuccess,
+      ActionDeck.saveSuccess,
+      ActionDeck.deleteSuccess,
+      ActionCard.saveSuccess,
+      ActionCard.deleteSuccess,
     )]: (state) => ({
       ...state,
       fetched: true,
       fetching: false,
     }),
     [combineActions(
-      ActionDeck.fetchRequestFailure,
-      ActionDeck.saveRequestFailure,
-      ActionDeck.removeRequestFailure,
-      ActionCard.fetchRequestFailure,
-      ActionCard.saveRequestFailure,
-      ActionCard.removeRequestFailure,
+      ActionDeck.fetchFailure,
+      ActionDeck.saveFailure,
+      ActionDeck.deleteFailure,
+      ActionCard.saveFailure,
+      ActionCard.deleteFailure,
     )]: (state, { payload }) => ({
       ...state,
-      fetched: false,
-      fetching: true,
-      error: payload.error,
+      fetched: true,
+      fetching: false,
+      error: payload,
     }),
   },
   INITIAL_STATE,
 );
-
-*/
