@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import reducer from '@store/modules/app';
 import { Actions as DeckActions } from '@store/modules/decks';
-import { Actions as CardActions } from '@store/modules/cards';
+import { Actions as CardActions } from '@store/modules/questions';
 
 const INITIAL_STATE = Immutable({
   fetching: false,

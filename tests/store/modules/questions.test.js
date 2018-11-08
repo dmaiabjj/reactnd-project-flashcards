@@ -2,8 +2,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Immutable from 'seamless-immutable';
 import decks from '@@stubs/deck';
-import cards from '@@stubs/card';
-import reducer, { Actions, Types, Creators } from '@store/modules/cards';
+import questions from '@@stubs/question';
+import reducer, { Actions, Types, Creators } from '@store/modules/questions';
 import { Actions as DeckActions } from '@store/modules/decks';
 import * as ServerAPI from '@api/ServerAPI';
 
@@ -17,7 +17,7 @@ const store = mockStore({
   INITIAL_STATE,
 });
 
-describe('MODULE - CARDS', () => {
+describe('MODULE - QUESTIONS', () => {
   const props = {
     deck: {
       title: {
@@ -32,18 +32,18 @@ describe('MODULE - CARDS', () => {
         closure: 3,
       },
     },
-    getDeck: (title, questions) => {
-      return { [title]: { ...decks[title], questions } };
+    getDeck: (title, question = []) => {
+      return { [title]: { ...decks[title], questions: question } };
     },
     getCard: (id) => {
-      return { [id]: cards[id] };
+      return { [id]: questions[id] };
     },
     decks: {
       collection: decks,
       ids: Object.keys(decks),
     },
     cards: {
-      collection: cards,
+      collection: questions,
       ids: [1, 2, 3],
     },
     error: new Error('Something went wrong'),

@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import _ from 'lodash';
 
 const STORAGE_KEY = 'FLASHCARDS:DATABASE';
 
@@ -31,7 +32,7 @@ export async function saveDeck(title) {
   const all = await getDecks();
   const decks = {
     ...all,
-    [title]: { title, questions: [] },
+    [title]: { title, questions: [], quizzes: [] },
   };
 
   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
@@ -80,4 +81,23 @@ export function removeCard(title, id) {
     data[title].questions = data[title].questions.filter((c) => c.id !== id);
     AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   });
+}
+
+/**
+ * @description Add/Up a card on a specific Deck
+ * @param {String} title - Deck Title
+ * @param {Number}  points  - Points
+ * @param {Array}  cards  - List of Questions
+ */
+export async function saveQuiz(title, quiz) {
+  const all = await getDecks();
+  const quizzes = all[title].quizzes.concat(quiz);
+  const decks = {
+    ...all,
+    [title]: { ...all[title], quizzes: _.take(_.sortBy(quizzes, ['points'], ['desc']), 3) },
+  };
+
+  AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
+
+  return getDeck(title);
 }

@@ -160,7 +160,7 @@ const collection = handleActions(
 const ids = handleActions(
   {
     [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
-      return state.concat(payload.ids);
+      return [...state, ...payload.ids];
     },
     [Actions.deleteSuccess]: (state, { payload }) => {
       return state.filter((id) => id !== payload.id);

@@ -4,10 +4,9 @@ import { createActions, handleActions } from 'redux-actions';
 
 import normalize from '@helpers/normalize';
 import schema from '@store/schemas';
-import cardSchema from '@store/schemas/cards';
-import { saveCard, removeCard } from '@api/ServerAPI';
+import questionSchema from '@store/schemas/questions';
+import { saveCard, removeCard, getDeck } from '@api/ServerAPI';
 import { Actions as DeckActions } from '@store/modules/decks';
-import { getDeck } from '../../api/ServerAPI';
 
 const INITIAL_STATE_COLLECTION = Immutable({});
 const INITIAL_STATE_IDS = Immutable([]);
@@ -54,14 +53,15 @@ export const Creators = {
   /**
    * @description Add Deck
    * @param {Object} title - Deck`s title
+   * @param {Object} question - Question
    * Step 1                - Dispatch SAVE_REQUEST action
    * Step 2.1  - Success   - Dispatch SAVE_SUCCESS action
    * Step 2.2  - Failure   - Dispatch SAVE_FAILURE action
    */
-  add: (title, card) => {
+  add: (title, question) => {
     return (dispatch) => {
       dispatch(Actions.saveRequest());
-      return saveCard(title, card)
+      return saveCard(title, question)
         .then((data) => {
           let normalized = Object.keys(data).map((key) => data[key]);
           const { decks, questions, result: deckIds } = normalize.apply(
@@ -74,8 +74,8 @@ export const Creators = {
 
           normalized = Object.keys(questions).map((key) => questions[key]);
           const { questions: cards, result: cardIds } = normalize.apply(
-            questions,
-            cardSchema,
+            normalized,
+            questionSchema,
             'entities.questions',
             'result',
           );
@@ -91,14 +91,15 @@ export const Creators = {
   /**
    * @description Remove Deck
    * @param {Object} title - Deck`s title
+   * @param {Object} id - Card id
    * Step 1                - Dispatch DELETE_REQUEST action
    * Step 2.1  - Success   - Dispatch DELETE_SUCCESS action
    * Step 2.2  - Failure   - Dispatch DELETE_FAILURE action
    */
-  delete: (title, card) => {
+  delete: (title, id) => {
     return (dispatch) => {
       dispatch(Actions.deleteRequest());
-      return removeCard(title, card)
+      return removeCard(title, id)
         .then(() => {
           return getDeck(title).then((data) => {
             const normalized = Object.keys(data).map((key) => data[key]);
@@ -109,7 +110,7 @@ export const Creators = {
               'result',
             );
             dispatch(DeckActions.fetchSuccess({ decks, ids: result }));
-            dispatch(Actions.deleteSuccess({ id: card }));
+            dispatch(Actions.deleteSuccess({ id }));
           });
         })
         .catch((error) => {
@@ -135,7 +136,7 @@ const collection = handleActions(
 const ids = handleActions(
   {
     [Actions.saveSuccess]: (state, { payload }) => {
-      return state.concat(payload.ids);
+      return [...state, ...payload.ids];
     },
     [Actions.deleteSuccess]: (state, { payload }) => {
       return state.filter((id) => id !== payload.id);

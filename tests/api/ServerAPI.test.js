@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import cards from '@@stubs/card';
+import questions from '@@stubs/question';
 import decks from '@@stubs/deck';
+import quizzes from '@@stubs/quiz';
 import {
   getDecks,
   getDeck,
@@ -8,6 +9,7 @@ import {
   saveCard,
   removeDeck,
   removeCard,
+  saveQuiz,
 } from '../../src/api/ServerAPI';
 
 describe('API', () => {
@@ -20,13 +22,17 @@ describe('API', () => {
     deck: (title) => {
       return { [title]: decks[title] };
     },
+    quiz: (id) => {
+      return quizzes[id];
+    },
     decks,
     card: {
-      react: cards[1],
-      ajax: cards[2],
-      closure: cards[3],
+      react: questions[1],
+      ajax: questions[2],
+      closure: questions[3],
     },
-    cards,
+    quizzes,
+    cards: questions,
   };
 
   it('[Method - getDecks] should handle initial state', async () => {
@@ -99,5 +105,19 @@ describe('API', () => {
     const expected = await getDecks();
 
     expect(expected[props.title.react].questions).toEqual([props.card.closure]);
+  });
+
+  it('[Method - saveQuiz] should handle add a quiz', async () => {
+    const deck = props.deck(props.title.react);
+    const quiz = props.quiz(1);
+    await saveDeck(props.title.react);
+    await saveQuiz(props.title.react, quiz);
+
+    const expected = await getDeck(props.title.react);
+    const result = {
+      ...deck,
+      [props.title.react]: { ...deck[props.title.react], quizzes: [quiz] },
+    };
+    expect(expected).toEqual(result);
   });
 });

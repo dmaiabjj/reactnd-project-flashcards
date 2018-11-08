@@ -1,6 +1,6 @@
 import { handleActions, combineActions } from 'redux-actions';
 import { Actions as ActionDeck } from '@store/modules/decks';
-import { Actions as ActionCard } from '@store/modules/cards';
+import { Actions as ActionCard } from '@store/modules/questions';
 
 const INITIAL_STATE = {
   fetching: false,
