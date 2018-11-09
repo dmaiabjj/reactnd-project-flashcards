@@ -1,14 +1,12 @@
 import React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
-import styled from 'styled-components/native';
-
-const IconStyled = styled.View``;
+import Styles from '@components/Icon/styles';
 
 const Icon = ({ container, font }) => {
   return (
-    <IconStyled {...container}>
+    <Styles.IconView {...container}>
       <FontAwesome {...font} />
-    </IconStyled>
+    </Styles.IconView>
   );
 };
 

@@ -1,27 +1,11 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import colors from '@styles/settings/colors';
 import Icon from '@components/Icon';
-
-const TitleContainerStyled = styled.View`
-  flex-grow: 8;
-  height: 50px;
-  flex-flow: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  align-content: center;
-`;
-
-const TitleStyled = styled.Text`
-  flex-grow: 1;
-  color: ${colors.zero};
-  font-family: Roboto;
-  font-weight: bold;
-`;
+import colors from '@styles/settings/colors';
+import Styles from '@components/Header/styles';
 
 const Title = () => {
   return (
-    <TitleContainerStyled>
+    <Styles.TitleView>
       <Icon
         font={{ name: 'book', size: 24, style: { color: colors.zero } }}
         container={{
@@ -32,8 +16,8 @@ const Title = () => {
           marginRight: '5%',
         }}
       />
-      <TitleStyled>FLASHCARDS</TitleStyled>
-    </TitleContainerStyled>
+      <Styles.TitleText>FLASHCARDS</Styles.TitleText>
+    </Styles.TitleView>
   );
 };
 

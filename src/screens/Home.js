@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
 import Header from '@components/Header';
-import StatusBar from '@components/StatusBar/StatusBar';
+import StatusBar from '@components/StatusBar';
+import MainContent from '@components/MainContent';
+import Footer from '@components/Footer';
+import { Text } from 'react-native';
 
-const HomeStyled = styled.View`
+const HomeStyled = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
-  flex-wrap: nowrap;
-  width: 100%;
-  align-items: center;
 `;
 
 class Home extends PureComponent {
@@ -21,6 +21,10 @@ class Home extends PureComponent {
       <HomeStyled>
         <StatusBar />
         <Header {...this.props} />
+        <MainContent>
+          <Text>AAAAA</Text>
+          <Footer />
+        </MainContent>
       </HomeStyled>
     );
   }

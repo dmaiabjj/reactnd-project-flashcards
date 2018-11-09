@@ -1,20 +1,12 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import MenuButton from '@components/MenuButton';
-
-const MenuLeftStyled = styled.View`
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  align-self: center;
-`;
+import MenuButton from '@components/Header/MenuButton';
+import Styles from '@components/Header/styles';
 
 const MenuLeft = (props) => {
   return (
-    <MenuLeftStyled>
+    <Styles.MenuLeftView>
       <MenuButton {...props} />
-    </MenuLeftStyled>
+    </Styles.MenuLeftView>
   );
 };
 
