@@ -7,7 +7,7 @@ import Footer from '@components/Footer';
 import { Text } from 'react-native';
 
 const HomeStyled = styled.SafeAreaView`
-  flex-grow: 1;
+  flex: 1;
 `;
 
 class Home extends PureComponent {

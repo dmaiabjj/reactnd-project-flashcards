@@ -4,9 +4,9 @@ import Styles from '@components/Icon/styles';
 
 const Icon = ({ container, font }) => {
   return (
-    <Styles.IconView {...container}>
+    <Styles.IconStyledView {...container}>
       <FontAwesome {...font} />
-    </Styles.IconView>
+    </Styles.IconStyledView>
   );
 };
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { Constants } from 'expo';
-import View from '@components/StatusBar/View';
+import Styles from '@components/StatusBar/styles';
 
 const Status = () => {
   return (
-    <View size={Constants.statusBarHeight}>
+    <Styles.StatusBarStyledView size={Constants.statusBarHeight}>
       <StatusBar />
-    </View>
+    </Styles.StatusBarStyledView>
   );
 };
 

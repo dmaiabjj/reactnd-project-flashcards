@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
-const IconView = styled.View``;
+const IconStyledView = styled.View``;
 
 export default {
-  IconView,
+  IconStyledView,
 };

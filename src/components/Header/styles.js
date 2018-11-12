@@ -1,37 +1,37 @@
 import styled from 'styled-components/native';
-import colors from '@styles/settings/colors';
+import base from '@styles/base';
 
-const HeaderView = styled.View`
-  background: ${colors.primary};
+const HeaderStyledView = styled.View`
+  background: ${(props) => props.theme.background.primary};
   flex-flow: row nowrap;
   height: 50px;
 `;
 
-const MenuLeftView = styled.View`
+const MenuLeftStyledView = styled.View`
   flex-grow: 1;
   justify-content: center;
   align-items: center;
 `;
 
-const MenuButtonTouchable = styled.TouchableOpacity``;
+const MenuButtonStyledTouchable = styled.TouchableOpacity``;
 
-const TitleView = styled.View`
+const TitleStyledView = styled.View`
   flex-grow: 8;
   flex-flow: row;
   justify-content: center;
   align-items: center;
 `;
 
-const TitleText = styled.Text`
-  color: ${colors.zero};
-  font-family: Roboto;
+const TitleStyledText = styled.Text`
+  color: ${(props) => props.theme.fonts.zero};
+  font-family: ${base.FontFamily};
   font-weight: bold;
 `;
 
 export default {
-  HeaderView,
-  MenuLeftView,
-  MenuButtonTouchable,
-  TitleView,
-  TitleText,
+  HeaderStyledView,
+  MenuLeftStyledView,
+  MenuButtonStyledTouchable,
+  TitleStyledView,
+  TitleStyledText,
 };

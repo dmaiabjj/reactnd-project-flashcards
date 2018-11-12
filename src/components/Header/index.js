@@ -5,10 +5,10 @@ import MenuLeft from '@components/Header/MenuLeft';
 
 const Header = (props) => {
   return (
-    <Styles.HeaderView>
+    <Styles.HeaderStyledView>
       <MenuLeft {...props} />
       <Title />
-    </Styles.HeaderView>
+    </Styles.HeaderStyledView>
   );
 };
 

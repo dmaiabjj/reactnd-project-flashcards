@@ -1,17 +1,18 @@
 import React from 'react';
 import Icon from '@components/Icon';
-import colors from '@styles/settings/colors';
+import sizes from '@styles/settings/sizes';
 import Styles from '@components/Header/styles';
+import colors from '@styles/settings/colors';
 
 const Title = () => {
   return (
-    <Styles.TitleView>
+    <Styles.TitleStyledView>
       <Icon
-        font={{ name: 'book', size: 24, style: { color: colors.zero } }}
+        font={{ name: 'book', size: sizes.icon.min, color: colors.light.fonts.zero }}
         container={{ marginRight: '5%' }}
       />
-      <Styles.TitleText>FLASHCARDS</Styles.TitleText>
-    </Styles.TitleView>
+      <Styles.TitleStyledText>FLASHCARDS</Styles.TitleStyledText>
+    </Styles.TitleStyledView>
   );
 };
 

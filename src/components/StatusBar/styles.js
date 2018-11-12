@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 
-const StatusBarView = styled.View`
+const StatusBarStyledView = styled.View`
   height: ${(props) => {
     return props.size;
   }};
 `;
 
-export default { StatusBarView };
+export default { StatusBarStyledView };

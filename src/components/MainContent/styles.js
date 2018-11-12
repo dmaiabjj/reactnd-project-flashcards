@@ -1,12 +1,11 @@
 import styled from 'styled-components/native';
 
-const ContentView = styled.View`
+const MainContentStyledView = styled.View`
   flex-grow: 1;
-  flex-flow: column;
-  justify-content: center;
-  background-color: red;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export default {
-  ContentView,
+  MainContentStyledView,
 };

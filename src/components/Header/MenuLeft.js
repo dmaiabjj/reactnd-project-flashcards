@@ -4,9 +4,9 @@ import Styles from '@components/Header/styles';
 
 const MenuLeft = (props) => {
   return (
-    <Styles.MenuLeftView>
+    <Styles.MenuLeftStyledView>
       <MenuButton {...props} />
-    </Styles.MenuLeftView>
+    </Styles.MenuLeftStyledView>
   );
 };
 

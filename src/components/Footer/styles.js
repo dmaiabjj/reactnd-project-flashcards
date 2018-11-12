@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
 
-const FooterView = styled.View`
-  flex-grow: 1;
-  background: #a8aab9;
+const FooterStyledView = styled.View`
+  height: 50px;
+  background: ${(props) => props.theme.background.tertiary};
 `;
 
 export default {
-  FooterView,
+  FooterStyledView,
 };
