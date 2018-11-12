@@ -1,11 +1,10 @@
 import styled from 'styled-components/native';
 
 const ContentView = styled.View`
+  flex-grow: 1;
+  flex-flow: column;
+  justify-content: center;
   background-color: red;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  align-items: flex-start;
 `;
 
 export default {
