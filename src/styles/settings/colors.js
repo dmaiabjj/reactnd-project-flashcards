@@ -1,16 +1,20 @@
 export default {
   light: {
-    background: { zero: '#fff', primary: '#007bff', tertiary: '#a8aab9' },
+    background: { first: '#fff', second: '#007bff', third: '#007bff', fourth: '#007bff' },
     fonts: {
-      zero: '#fff',
-      primary: '#007bff',
+      first: '#007bff',
+      second: '#fff',
+      third: '#000',
+      fourth: '#000',
     },
   },
   dark: {
-    background: { zero: '#000', primary: '#007bff', tertiary: '#a8aab9' },
+    background: { first: '#000', second: '#007bff', third: '#e8eaf3', fourth: '#000' },
     fonts: {
-      zero: '#fff',
-      secondary: '#007bff',
+      first: '#fff',
+      second: '#fff',
+      third: '#000',
+      fourth: '#000',
     },
   },
 };

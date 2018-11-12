@@ -8,7 +8,7 @@ const Title = () => {
   return (
     <Styles.TitleStyledView>
       <Icon
-        font={{ name: 'book', size: sizes.icon.min, color: colors.light.fonts.zero }}
+        font={{ name: 'book', size: sizes.icon.min, color: colors.light.fonts.first }}
         container={{ marginRight: '5%' }}
       />
       <Styles.TitleStyledText>FLASHCARDS</Styles.TitleStyledText>

@@ -8,7 +8,7 @@ import Styles from '@components/Header/styles';
 const MenuButton = ({ navigation }) => {
   return (
     <Styles.MenuButtonStyledTouchable onPress={() => navigation.toggleDrawer()}>
-      <Icon font={{ name: 'navicon', size: sizes.icon.min, color: colors.light.fonts.zero }} />
+      <Icon font={{ name: 'navicon', size: sizes.icon.min, color: colors.light.fonts.first }} />
     </Styles.MenuButtonStyledTouchable>
   );
 };

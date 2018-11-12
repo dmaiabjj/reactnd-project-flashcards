@@ -7,7 +7,7 @@ const HomeContentStyledView = styled.View`
 
 const BackgroundStyledView = styled.View`
   height: 170px;
-  background: ${(props) => props.theme.background.primary};
+  background: ${(props) => props.theme.background.second};
 `;
 
 const BackgroundStyledImage = styled.Image`
@@ -27,7 +27,7 @@ const MessageStyledView = styled.View`
 const MessageStyledText = styled.Text`
   font-size: ${(props) => props.size};
   font-weight: ${(props) => props.weight};
-  color: ${(props) => props.theme.fonts.zero};
+  color: ${(props) => props.theme.fonts.second};
   margin: 0 40% 0 40%;
   text-align: center;
   width: 100%;
