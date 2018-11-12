@@ -1,4 +1,4 @@
 export default {
-  font: { min: '14px' },
+  font: { min: 15, medium: 25 },
   icon: { min: 24 },
 };
