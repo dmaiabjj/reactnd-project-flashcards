@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { ThemeProvider } from 'styled-components/native';
 import { Font } from 'expo';
 import Route from '@routes/index';
-import colors from '@styles/settings/colors';
+import themes from '@styles/settings/themes';
 import Roboto from './assets/fonts/Roboto-Regular.ttf';
 
 const AppSection = styled.View`
@@ -25,7 +25,7 @@ export default class App extends React.Component {
   render() {
     const { isReady, theme } = this.state;
     return (
-      <ThemeProvider theme={colors[theme]}>
+      <ThemeProvider theme={themes[theme]}>
         <AppSection>{isReady && <Route />}</AppSection>
       </ThemeProvider>
     );

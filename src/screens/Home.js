@@ -7,7 +7,7 @@ import Footer from '@components/Footer';
 
 const HomeStyled = styled.SafeAreaView`
   flex: 1;
-  background-color: ${(props) => props.theme.background.first};
+  background-color: ${(props) => props.theme.background.color.first};
 `;
 
 class Home extends PureComponent {

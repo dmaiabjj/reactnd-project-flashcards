@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 const FooterStyledView = styled.View`
   height: 50px;
-  background: ${(props) => props.theme.background.fourth};
+  background: ${(props) => props.theme.background.color.fourth};
 `;
 
 export default {

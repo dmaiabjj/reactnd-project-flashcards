@@ -1,14 +1,13 @@
 import styled from 'styled-components/native';
-import base from '@styles/base';
 
 const HeaderStyledView = styled.View`
-  background: ${(props) => props.theme.background.first};
+  background: ${(props) => props.theme.background.color.first};
   flex-flow: row nowrap;
   height: 50px;
   border-radius: 1px;
   border-style: solid;
   border-top-width: 1px;
-  border-top-color: ${(props) => props.theme.fonts.first};
+  border-top-color: ${(props) => props.theme.font.color.first};
 `;
 
 const MenuLeftStyledView = styled.View`
@@ -27,8 +26,8 @@ const TitleStyledView = styled.View`
 `;
 
 const TitleStyledText = styled.Text`
-  color: ${(props) => props.theme.fonts.first};
-  font-family: ${base.FontFamily};
+  color: ${(props) => props.theme.font.color.first};
+  font-family: ${(props) => props.theme.font.family.first};
   font-weight: bold;
 `;
 

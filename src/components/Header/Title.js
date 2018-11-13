@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { withTheme } from 'styled-components/native';
+import PropTypes from 'prop-types';
 import Icon from '@components/Icon';
-import sizes from '@styles/settings/sizes';
 import Styles from '@components/Header/styles';
-import colors from '@styles/settings/colors';
 
-const Title = () => {
-  return (
-    <Styles.TitleStyledView>
-      <Icon
-        font={{ name: 'book', size: sizes.icon.min, color: colors.light.fonts.first }}
-        container={{ marginRight: '5%' }}
-      />
-      <Styles.TitleStyledText>FLASHCARDS</Styles.TitleStyledText>
-    </Styles.TitleStyledView>
-  );
+class Title extends PureComponent {
+  render() {
+    const { theme } = this.props;
+    return (
+      <Styles.TitleStyledView>
+        <Icon
+          font={{ name: 'book', size: theme.icon.size.first, color: theme.font.color.first }}
+          container={{ marginRight: '5%' }}
+        />
+        <Styles.TitleStyledText>FLASHCARDS</Styles.TitleStyledText>
+      </Styles.TitleStyledView>
+    );
+  }
+}
+
+Title.propTypes = {
+  theme: PropTypes.object.isRequired,
 };
 
-export default Title;
+export default withTheme(Title);

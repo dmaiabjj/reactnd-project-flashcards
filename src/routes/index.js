@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from 'react-navigation';
 import Home from '@screens/Home';
-import colors from '@styles/settings/colors';
+import themes from '@styles/settings/themes';
 
 const DrawerComponent = createDrawerNavigator(
   {
@@ -11,10 +11,10 @@ const DrawerComponent = createDrawerNavigator(
       header: null,
     },
     drawerOptions: {
-      activeTintColor: colors.primary,
+      activeTintColor: themes.light.background.color.primary,
       style: {
         height: 56,
-        backgroundColor: colors.primary,
+        backgroundColor: themes.light.background.color.primary,
         shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
           width: 0,
