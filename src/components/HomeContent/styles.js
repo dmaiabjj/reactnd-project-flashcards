@@ -15,7 +15,6 @@ const BackgroundStyledView = styled.View`
 const BackgroundStyledImage = styled.Image`
   flex: 1;
   position: absolute;
-  resize-mode: cover;
   opacity: 0.5;
   width: 100%;
 `;
@@ -38,37 +37,10 @@ const MessageStyledText = styled.Text`
   line-height: 25px;
 `;
 
-const CardStyledView = styled.View`
-  border: 0px solid ${(props) => props.theme.border.color.first};
-  background: ${(props) => props.theme.background.color.first};
-  border-radius: 10px;
-  height: 120px;
-  padding: 15px;
-  margin: 40px 0 0 0;
-  flex: 1;
-  flex-flow: column;
-  justify-content: space-around;
-`;
-
-const CardTitleStyledText = styled.Text`
-  font-size: ${(props) => props.theme.font.size.first};
-  line-height: 18px;
-  font-weight: 400;
-  color: ${(props) => props.theme.font.color.third};
-`;
-
-const CardDescriptionStyledText = styled.Text`
-  color: ${(props) => props.theme.font.color.fourth};
-  font-size: ${(props) => props.theme.font.size.second};
-`;
-
 export default {
   HomeContentStyledView,
   BackgroundStyledView,
   BackgroundStyledImage,
   MessageStyledView,
   MessageStyledText,
-  CardStyledView,
-  CardTitleStyledText,
-  CardDescriptionStyledText,
 };

@@ -12,6 +12,7 @@ export default {
         second: '#fff',
         third: '#000',
         fourth: '#007bff',
+        fifth: '#666666',
       },
       size: { first: 15, second: 18, third: 25 },
       weight: { first: 300, second: 600 },
@@ -19,6 +20,9 @@ export default {
     },
     icon: {
       size: { first: 24 },
+    },
+    shadow: {
+      color: { first: 'rgba(68, 68, 68, 0.6)' },
     },
   },
   dark: {
@@ -34,6 +38,7 @@ export default {
         second: '#fff',
         third: '#fff',
         fourth: '#007bff',
+        fifth: '#666666',
       },
       size: { first: 15, second: 18, third: 25 },
       family: { first: 'Roboto' },
@@ -41,6 +46,9 @@ export default {
     },
     icon: {
       size: { first: 24 },
+    },
+    shadow: {
+      color: { first: 'rgba(255, 255, 255, 0.3)' },
     },
   },
 };
