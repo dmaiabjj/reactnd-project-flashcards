@@ -1,20 +1,13 @@
 import React, { PureComponent } from 'react';
 import { withTheme } from 'styled-components/native';
 import PropTypes from 'prop-types';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { Dimensions } from 'react-native';
 import Styles from '@components/HomeContent/styles';
 import DeckCard from '@components/DeckCard';
+import CarouselCard from '@components/CarouselCard';
 
 const imageSrc = require('../../../assets/images/background.png');
 
 class HomeContent extends PureComponent {
-  FIRST_SLIDE_INDEX = 1;
-
-  state = {
-    activeSlide: this.FIRST_SLIDE_INDEX,
-  };
-
   data = this.getData();
 
   getData() {
@@ -67,8 +60,6 @@ class HomeContent extends PureComponent {
 
   render() {
     const { theme } = this.props;
-    const { activeSlide } = this.state;
-    const { width } = Dimensions.get('window');
     return (
       <Styles.HomeContentStyledView>
         <Styles.BackgroundStyledView>
@@ -81,38 +72,7 @@ class HomeContent extends PureComponent {
           <Styles.MessageStyledText size={theme.font.size.second} weight={theme.font.weight.second}>
             Udacitizens
           </Styles.MessageStyledText>
-          <Carousel
-            ref={(c) => {
-              this.carousel = c;
-            }}
-            data={this.data}
-            renderItem={this.renderItem}
-            sliderWidth={width}
-            sliderHeight={200}
-            itemWidth={150}
-            itemHeight={120}
-            showSpinner
-            inactiveSlideScale={0.9}
-            inactiveSlideOpacity={0.6}
-            firstItem={this.FIRST_SLIDE_INDEX}
-            onSnapToItem={(index) => this.setState({ activeSlide: index })}
-            activeAnimationType="spring"
-            activeAnimationOptions={{
-              friction: 4,
-              tension: 40,
-            }}
-            callbackOffsetMargin={1}
-          />
-          <Pagination
-            activeDotIndex={activeSlide}
-            dotsLength={this.data.length}
-            dotColor={theme.font.color.first}
-            inactiveDotColor={theme.font.color.fifth}
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.5}
-            carouselRef={this.carousel}
-            tappableDots={!!this.carousel}
-          />
+          <CarouselCard data={this.data} renderItem={this.renderItem} />
         </Styles.MessageStyledView>
       </Styles.HomeContentStyledView>
     );
