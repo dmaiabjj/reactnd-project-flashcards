@@ -14,7 +14,6 @@ const CardStyledView = styled.View`
 
 const CardTitleStyledText = styled.Text`
   font-size: ${(props) => props.theme.font.size.first};
-  line-height: 20px;
   font-weight: ${(props) => props.theme.font.weight.second};
   color: ${(props) => props.theme.font.color.third};
   align-self: center;
@@ -26,13 +25,11 @@ const CardTitleStyledText = styled.Text`
 const CardDescriptionStyledText = styled.Text`
   color: ${(props) => props.theme.font.color.fifth};
   font-size: ${(props) => props.theme.font.size.first};
-  width: 100%;
   margin-top: 5px;
 `;
 
 const CardQuizScoreStyledView = styled.View`
   align-self: flex-end;
-  width: 100%;
   flex: 1;
   flex-direction: row;
   justify-content: space-between;

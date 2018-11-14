@@ -10,7 +10,7 @@ class Title extends PureComponent {
     return (
       <Styles.TitleStyledView>
         <Icon
-          font={{ name: 'book', size: theme.icon.size.first, color: theme.font.color.first }}
+          font={{ name: 'leanpub', size: theme.icon.size.first, color: theme.font.color.first }}
           container={{ marginRight: '5%' }}
         />
         <Styles.TitleStyledText>FLASHCARDS</Styles.TitleStyledText>
