@@ -22,7 +22,7 @@ export default {
       size: { first: 24 },
     },
     shadow: {
-      color: { first: 'rgba(68, 68, 68, 0.6)' },
+      color: { first: 'rgba(68, 68, 68, 0.6)', second: 'rgba(68, 68, 68, 0.1)' },
     },
   },
   dark: {
@@ -48,7 +48,7 @@ export default {
       size: { first: 24 },
     },
     shadow: {
-      color: { first: 'rgba(255, 255, 255, 0.3)' },
+      color: { first: 'rgba(68, 68, 68, 0.3)', second: 'rgba(68, 68, 68, 0.1)' },
     },
   },
 };

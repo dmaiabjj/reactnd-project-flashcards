@@ -10,7 +10,7 @@ const AppSection = styled.View`
 `;
 
 export default class App extends React.Component {
-  state = { isReady: false, theme: 'light' };
+  state = { isReady: false, theme: 'dark' };
 
   componentDidMount() {
     (async () => {

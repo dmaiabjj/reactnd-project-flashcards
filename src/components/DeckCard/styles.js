@@ -1,10 +1,9 @@
 import styled from 'styled-components/native';
 
 const CardStyledView = styled.View`
-  border: 1px solid ${(props) => props.theme.border.color.first};
+  border: 3px solid ${(props) => props.theme.border.color.first};
   background: ${(props) => props.theme.background.color.first};
   border-radius: 10px;
-  padding: 15px;
   margin: 40px 0 10px 0;
   flex: 1;
   flex-flow: column wrap;
@@ -12,28 +11,43 @@ const CardStyledView = styled.View`
   box-shadow: 5px 5px 5px ${(props) => props.theme.shadow.color.first};
 `;
 
+const CardTitleStyledView = styled.View`
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: ${(props) => props.theme.border.color.first};
+  background: ${(props) => props.theme.shadow.color.second};
+  height: 53px;
+  margin: 0 0 10px 0;
+  box-shadow: 5px 5px 5px ${(props) => props.theme.shadow.color.first};
+`;
+
 const CardTitleStyledText = styled.Text`
   font-size: ${(props) => props.theme.font.size.first};
   font-weight: ${(props) => props.theme.font.weight.second};
   color: ${(props) => props.theme.font.color.third};
-  align-self: center;
   text-align: center;
   text-transform: uppercase;
-  height: 50px;
 `;
 
 const CardDescriptionStyledText = styled.Text`
   color: ${(props) => props.theme.font.color.fifth};
   font-size: ${(props) => props.theme.font.size.first};
-  margin-top: 5px;
+  text-align: center;
 `;
 
 const CardQuizScoreStyledView = styled.View`
-  align-self: flex-end;
+  padding-bottom: 15px;
   flex: 1;
   flex-direction: row;
-  justify-content: space-between;
   margin-top: 10px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const QuizScoreStyledText = styled.Text`
@@ -43,6 +57,7 @@ const QuizScoreStyledText = styled.Text`
 
 export default {
   CardStyledView,
+  CardTitleStyledView,
   CardTitleStyledText,
   CardDescriptionStyledText,
   CardQuizScoreStyledView,

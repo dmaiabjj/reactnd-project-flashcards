@@ -24,7 +24,9 @@ class DeckCard extends PureComponent {
 
     return (
       <Styles.CardStyledView>
-        <Styles.CardTitleStyledText>{deck.name}</Styles.CardTitleStyledText>
+        <Styles.CardTitleStyledView>
+          <Styles.CardTitleStyledText>{deck.name}</Styles.CardTitleStyledText>
+        </Styles.CardTitleStyledView>
         <Styles.CardDescriptionStyledText>{deck.cards} card(s)</Styles.CardDescriptionStyledText>
         <Styles.CardQuizScoreStyledView>
           <Styles.QuizScoreStyledText>Score: </Styles.QuizScoreStyledText>

@@ -40,7 +40,7 @@ class CarouselCard extends PureComponent {
           renderItem={renderItem}
           sliderWidth={width}
           sliderHeight={200}
-          itemWidth={150}
+          itemWidth={160}
           itemHeight={120}
           showSpinner
           inactiveSlideScale={0.9}
