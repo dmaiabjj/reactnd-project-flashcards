@@ -7,7 +7,9 @@ const QuizContent = ({ quizzes }) => {
   const generateComponent = () => {
     const hasQuizzes = quizzes && quizzes.length > 0;
     if (hasQuizzes) {
-      return quizzes.map((quizz) => <QuizCard key={quizz.name} quizz={quizz} />);
+      return quizzes.map((quizz, index) => (
+        <QuizCard key={quizz.name} ranking={index} quizz={quizz} />
+      ));
     }
 
     return <QuizCardEmpty />;
@@ -17,7 +19,7 @@ const QuizContent = ({ quizzes }) => {
 };
 
 QuizContent.propTypes = {
-  quizzes: PropTypes.array.isRequired,
+  quizzes: PropTypes.array,
 };
 
 export default QuizContent;

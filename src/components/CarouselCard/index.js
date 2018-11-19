@@ -26,7 +26,7 @@ class CarouselCard extends PureComponent {
   };
 
   render() {
-    const { theme, data, renderItem } = this.props;
+    const { theme, data, renderItem, selectedItem } = this.props;
     const { activeSlide } = this.state;
     const { width } = Dimensions.get('window');
     return (
@@ -48,6 +48,7 @@ class CarouselCard extends PureComponent {
           firstItem={this.FIRST_SLIDE_INDEX}
           onSnapToItem={(index) => {
             this.setState({ activeSlide: index });
+            selectedItem(index);
           }}
           activeAnimationType="spring"
           activeAnimationOptions={{
@@ -74,6 +75,6 @@ CarouselCard.propTypes = {
   theme: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
   renderItem: PropTypes.func.isRequired,
+  selectedItem: PropTypes.func.isRequired,
 };
-
 export default withTheme(CarouselCard);

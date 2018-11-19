@@ -10,17 +10,15 @@ const DescriptionCardStyledView = styled.View`
 `;
 
 const DescriptionCardTitleStyledText = styled.Text`
-  margin: 0;
   font-size: ${(props) => props.theme.font.size.first};
   font-weight: ${(props) => props.theme.font.weight.second};
   color: ${(props) => props.theme.font.color.third};
   text-transform: uppercase;
-  line-height: 30px;
 `;
 
 const DescriptionCardDateStyledText = styled.Text`
+  margin-top: 5px;
   color: ${(props) => props.theme.font.color.fifth};
-  margin: 0;
   font-size: ${(props) => props.theme.font.size.first};
 `;
 
