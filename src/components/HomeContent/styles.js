@@ -45,7 +45,7 @@ const QuizTitleStyledText = styled.Text`
   overflow: hidden;
   font-size: ${(props) => props.theme.font.size.first};
   font-weight: ${(props) => props.theme.font.weight.second};
-  color: ${(props) => props.theme.font.color.first};
+  color: ${(props) => props.theme.font.color.fourth};
 `;
 
 export default {

@@ -3,9 +3,9 @@ import styled from 'styled-components/native';
 const DescriptionCardStyledView = styled.View`
   flex: 1;
   width: 100%;
-  border-width: 1px 0 1px 0;
+  border-top-width: 1px;
   padding: 10px 15px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top-color: ${(props) => props.theme.border.color.first};
   background: ${(props) => props.theme.background.color.first};
 `;
 

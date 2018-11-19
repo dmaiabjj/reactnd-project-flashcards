@@ -27,10 +27,10 @@ export default {
   },
   dark: {
     background: {
-      color: { first: '#1b1b1b', second: '#007bff', third: '#e8eaf3', fourth: '#1b1b1b' },
+      color: { first: '#222', second: '#007bff', third: '#e8eaf3', fourth: '#1b1b1b' },
     },
     border: {
-      color: { first: '#444' },
+      color: { first: '#333' },
     },
     font: {
       color: {
