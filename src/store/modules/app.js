@@ -1,12 +1,13 @@
 import { handleActions, combineActions } from 'redux-actions';
 import { Actions as ActionDeck } from '@store/modules/decks';
 import { Actions as ActionCard } from '@store/modules/questions';
+import Immutable from 'seamless-immutable';
 
-const INITIAL_STATE = {
+const INITIAL_STATE = Immutable({
   fetching: false,
   fetched: false,
   error: null,
-};
+});
 
 export default handleActions(
   {
