@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
 import { createActions, handleActions } from 'redux-actions';
-
+import { createSelector } from 'reselect';
+import _ from 'lodash';
 import normalize from '@helpers/normalize';
 import schema from '@store/schemas';
 import quizSchema from '@store/schemas/quizzes';
@@ -95,5 +96,32 @@ const ids = handleActions(
 );
 
 /* REDUCERS  */
+
+/* SELECTORS */
+
+const quizzesEntitiesSelector = (state) => {
+  return {
+    quizzes: state.collection,
+    subjects: state.ids,
+  };
+};
+
+/**
+ * @description
+ * Returns all quizzes inside an array
+ *
+ * @returns {Function} Returns a function that will receive the state and return an array with all
+ * quizzes
+ */
+export const getAll = () => {
+  return createSelector(
+    quizzesEntitiesSelector,
+    ({ quizzes, subjects }) => {
+      return subjects && _.orderBy(subjects.map((id) => quizzes[id]));
+    },
+  );
+};
+
+/* SELECTORS */
 
 export default combineReducers({ collection, ids });

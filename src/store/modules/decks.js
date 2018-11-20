@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
 import { createActions, handleActions, combineActions } from 'redux-actions';
-
+import { createSelector } from 'reselect';
+import _ from 'lodash';
 import normalize from '@helpers/normalize';
 import schema from '@store/schemas';
 import { getDecks, getDeck, saveDeck, removeDeck } from '@api/ServerAPI';
@@ -168,5 +169,32 @@ const ids = handleActions(
   },
   INITIAL_STATE_IDS,
 );
+
+/* SELECTORS */
+
+const decksEntitiesSelector = (state) => {
+  return {
+    decks: state.collection,
+    subjects: state.ids,
+  };
+};
+
+/**
+ * @description
+ * Returns all decks inside an array
+ *
+ * @returns {Function} Returns a function that will receive the state and return an array with all
+ * decks
+ */
+export const getAll = () => {
+  return createSelector(
+    decksEntitiesSelector,
+    ({ decks, subjects }) => {
+      return subjects && _.orderBy(subjects.map((id) => decks[id]));
+    },
+  );
+};
+
+/* SELECTORS */
 
 export default combineReducers({ collection, ids });

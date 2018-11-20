@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import reducer, { Actions, Types, Creators } from '@store/modules/theme';
+import reducer, { Actions, Types, Creators } from '@store/modules/themes';
 
 const INITIAL_STATE = Immutable({ theme: 'light' });
 

@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { withTheme } from 'styled-components/native';
 import PropTypes from 'prop-types';
 import Styles from '@components/HomeContent/styles';
 import DeckCard from '@components/DeckCard';
 import CarouselCard from '@components/CarouselCard';
 import QuizContent from '@components/QuizContent';
+import { getAll as getDecks } from '@store/modules/decks';
+import { getAll as getQuizzes } from '@store/modules/quizzes';
 
 const imageSrc = require('../../../assets/images/background.png');
 
@@ -50,10 +53,20 @@ class HomeContent extends PureComponent {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    decks: getDecks()(state),
+    quizzes: getQuizzes()(state),
+  };
+}
+
 HomeContent.propTypes = {
   theme: PropTypes.object.isRequired,
   decks: PropTypes.array,
   quizzes: PropTypes.array,
 };
 
-export default withTheme(HomeContent);
+export default connect(
+  mapStateToProps,
+  null,
+)(withTheme(HomeContent));

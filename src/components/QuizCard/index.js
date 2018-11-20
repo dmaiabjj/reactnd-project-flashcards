@@ -26,7 +26,7 @@ const QuizCardEmpty = () => {
   return (
     <Styles.DescriptionCardStyledView>
       <Styles.DescriptionCardTitleStyledText style={{ textTransform: 'none', textAlign: 'center' }}>
-        This deck does not have any quizzes yet!!!
+        No quizzes at all!
       </Styles.DescriptionCardTitleStyledText>
     </Styles.DescriptionCardStyledView>
   );

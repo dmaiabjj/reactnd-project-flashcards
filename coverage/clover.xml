@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1542666135996" clover="3.2.0">
-  <project timestamp="1542666135996" name="All files">
+<coverage generated="1542670339102" clover="3.2.0">
+  <project timestamp="1542670339103" name="All files">
     <metrics statements="144" coveredstatements="144" conditionals="6" coveredconditionals="6" methods="71" coveredmethods="71" elements="221" coveredelements="221" complexity="0" loc="144" ncloc="144" packages="6" files="15" classes="15">
       <package name="src.api">
         <metrics statements="27" coveredstatements="27" conditionals="6" coveredconditionals="6" methods="12" coveredmethods="12"/>
@@ -156,7 +156,7 @@
           <line num="88" count="1" type="stmt"/>
           <line num="91" count="2" type="stmt"/>
         </file>
-        <file name="theme.js" path="/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/theme.js">
+        <file name="themes.js" path="/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/themes.js">
           <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
           <line num="4" count="1" type="stmt"/>
           <line num="9" count="1" type="stmt"/>
