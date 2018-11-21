@@ -125,13 +125,15 @@ const quizzesEntitiesSelector = (state) => {
  * @returns {Function} Returns a function that will receive the state and return an array with all
  * quizzes
  */
-export const getAll = () => {
-  return createSelector(
-    quizzesEntitiesSelector,
-    ({ quizzes, subjects }) => {
-      return subjects && _.orderBy(subjects.map((id) => quizzes[id]));
-    },
-  );
+const getAll = createSelector(
+  [quizzesEntitiesSelector],
+  ({ quizzes, subjects }) => {
+    return subjects && _.orderBy(subjects.map((id) => quizzes[id]));
+  },
+);
+
+export const Selectors = {
+  getAll,
 };
 
 /* SELECTORS */

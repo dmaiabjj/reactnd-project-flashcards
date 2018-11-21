@@ -1,12 +1,13 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Immutable from 'seamless-immutable';
+import _ from 'lodash';
 
 import decks from '@@stubs/deck';
 import questions from '@@stubs/question';
 import quizzes from '@@stubs/quiz';
 
-import reducer, { Actions, Types, Creators } from '@store/modules/decks';
+import reducer, { Actions, Types, Creators, Selectors } from '@store/modules/decks';
 import { Actions as QuestionActions } from '@store/modules/questions';
 import { Actions as QuizzActions } from '@store/modules/quizzes';
 
@@ -272,4 +273,21 @@ describe('MODULE - DECK', () => {
   });
 
   /* REDUCERS */
+
+  /* SELECTORS */
+
+  it('[SELECTORS] should handle getAll decks', () => {
+    const state = {
+      decks: {
+        collection: props.decks,
+        ids: props.ids,
+      },
+    };
+
+    const expected = _.orderBy(state.decks.ids.map((id) => state.decks.collection[id]));
+
+    expect(Selectors.getAll(state)).toEqual(expected);
+  });
+
+  /* SELECTORS */
 });

@@ -1,10 +1,13 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Immutable from 'seamless-immutable';
+import _ from 'lodash';
+
 import quizzes from '@@stubs/quiz';
 import decks from '@@stubs/deck';
-import reducer, { Actions, Types, Creators } from '@store/modules/quizzes';
+import reducer, { Actions, Types, Creators, Selectors } from '@store/modules/quizzes';
 import { Actions as DeckActions } from '@store/modules/decks';
+
 import * as ServerAPI from '@api/ServerAPI';
 
 const INITIAL_STATE = Immutable({
@@ -23,6 +26,7 @@ describe('MODULE - QUIZZES', () => {
       title: {
         react: 'React',
         javascript: 'JavaScript',
+        graphQL: 'GraphQL',
       },
     },
     quiz: {
@@ -166,4 +170,21 @@ describe('MODULE - QUIZZES', () => {
   });
 
   /* REDUCERS */
+
+  /* SELECTORS */
+
+  it('[SELECTORS] should handle getAll quizzes', () => {
+    const state = {
+      quizzes: {
+        collection: props.quizzes.collection,
+        ids: props.quizzes.ids,
+      },
+    };
+
+    const expected = _.orderBy(state.quizzes.ids.map((id) => state.quizzes.collection[id]));
+
+    expect(Selectors.getAll(state)).toEqual(expected);
+  });
+
+  /* SELECTORS */
 });

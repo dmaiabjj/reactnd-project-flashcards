@@ -1,5 +1,5 @@
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/api/ServerAPI.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/api/ServerAPI.js
 FN:10,getDecks
 FN:11,(anonymous_1)
 FN:21,getDeck
@@ -14,11 +14,11 @@ FN:81,(anonymous_10)
 FN:92,saveQuiz
 FNF:12
 FNH:12
-FNDA:89,getDecks
-FNDA:89,(anonymous_1)
-FNDA:90,getDeck
-FNDA:90,(anonymous_3)
-FNDA:73,saveDeck
+FNDA:91,getDecks
+FNDA:91,(anonymous_1)
+FNDA:92,getDeck
+FNDA:92,(anonymous_3)
+FNDA:75,saveDeck
 FNDA:8,saveCard
 FNDA:2,removeDeck
 FNDA:2,(anonymous_7)
@@ -27,14 +27,14 @@ FNDA:2,(anonymous_9)
 FNDA:2,(anonymous_10)
 FNDA:3,saveQuiz
 DA:4,5
-DA:11,89
-DA:12,89
-DA:22,90
-DA:23,90
-DA:32,73
-DA:33,73
-DA:38,73
-DA:40,73
+DA:11,91
+DA:12,91
+DA:22,92
+DA:23,92
+DA:32,75
+DA:33,75
+DA:38,75
+DA:40,75
 DA:49,8
 DA:50,8
 DA:55,8
@@ -55,17 +55,17 @@ DA:100,3
 DA:102,3
 LF:27
 LH:27
-BRDA:12,0,0,84
+BRDA:12,0,0,86
 BRDA:12,0,1,5
-BRDA:23,1,0,89
+BRDA:23,1,0,91
 BRDA:23,1,1,1
-BRDA:23,2,0,90
-BRDA:23,2,1,90
+BRDA:23,2,0,92
+BRDA:23,2,1,92
 BRF:6
 BRH:6
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/helpers/normalize.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/helpers/normalize.js
 FN:5,(anonymous_0)
 FN:8,(anonymous_1)
 FNF:2
@@ -83,7 +83,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/app.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/app.js
 FN:20,(anonymous_0)
 FN:32,(anonymous_1)
 FN:43,(anonymous_2)
@@ -102,7 +102,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/decks.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/decks.js
 FN:46,(anonymous_0)
 FN:49,(anonymous_1)
 FN:52,(anonymous_2)
@@ -133,11 +133,10 @@ FN:221,(anonymous_26)
 FN:224,(anonymous_27)
 FN:225,(anonymous_28)
 FN:233,(anonymous_29)
-FN:247,(anonymous_30)
+FN:249,(anonymous_30)
 FN:250,(anonymous_31)
-FN:251,(anonymous_32)
-FNF:33
-FNH:29
+FNF:32
+FNH:32
 FNDA:9,(anonymous_0)
 FNDA:10,(anonymous_1)
 FNDA:4,(anonymous_2)
@@ -167,10 +166,9 @@ FNDA:1,(anonymous_25)
 FNDA:4,(anonymous_26)
 FNDA:1,(anonymous_27)
 FNDA:3,(anonymous_28)
-FNDA:0,(anonymous_29)
-FNDA:0,(anonymous_30)
-FNDA:0,(anonymous_31)
-FNDA:0,(anonymous_32)
+FNDA:1,(anonymous_29)
+FNDA:1,(anonymous_30)
+FNDA:3,(anonymous_31)
 DA:15,4
 DA:17,4
 DA:20,4
@@ -222,19 +220,19 @@ DA:219,4
 DA:222,4
 DA:225,3
 DA:233,4
-DA:234,0
+DA:234,1
 DA:247,4
-DA:248,0
-DA:251,0
+DA:250,3
+DA:254,4
 LF:55
-LH:52
-BRDA:251,0,0,0
-BRDA:251,0,1,0
+LH:55
+BRDA:250,0,0,1
+BRDA:250,0,1,1
 BRF:2
-BRH:0
+BRH:2
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/questions.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/questions.js
 FN:36,(anonymous_0)
 FN:38,(anonymous_1)
 FN:41,(anonymous_2)
@@ -318,7 +316,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/quizzes.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/quizzes.js
 FN:27,(anonymous_0)
 FN:29,(anonymous_1)
 FN:31,(anonymous_2)
@@ -334,11 +332,10 @@ FN:100,(anonymous_11)
 FN:103,(anonymous_12)
 FN:104,(anonymous_13)
 FN:114,(anonymous_14)
-FN:128,(anonymous_15)
+FN:130,(anonymous_15)
 FN:131,(anonymous_16)
-FN:132,(anonymous_17)
-FNF:18
-FNH:14
+FNF:17
+FNH:17
 FNDA:6,(anonymous_0)
 FNDA:5,(anonymous_1)
 FNDA:4,(anonymous_2)
@@ -353,10 +350,9 @@ FNDA:1,(anonymous_10)
 FNDA:3,(anonymous_11)
 FNDA:1,(anonymous_12)
 FNDA:3,(anonymous_13)
-FNDA:0,(anonymous_14)
-FNDA:0,(anonymous_15)
-FNDA:0,(anonymous_16)
-FNDA:0,(anonymous_17)
+FNDA:1,(anonymous_14)
+FNDA:1,(anonymous_15)
+FNDA:3,(anonymous_16)
 DA:12,4
 DA:13,4
 DA:16,4
@@ -384,19 +380,19 @@ DA:98,4
 DA:101,3
 DA:104,3
 DA:114,4
-DA:115,0
+DA:115,1
 DA:128,4
-DA:129,0
-DA:132,0
+DA:131,3
+DA:135,4
 LF:31
-LH:28
-BRDA:132,0,0,0
-BRDA:132,0,1,0
+LH:31
+BRDA:131,0,0,1
+BRDA:131,0,1,1
 BRF:2
-BRH:0
+BRH:2
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/themes.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/modules/themes.js
 FN:29,(anonymous_0)
 FN:30,(anonymous_1)
 FN:38,(anonymous_2)
@@ -420,7 +416,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/schemas/decks.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/schemas/decks.js
 FN:11,(anonymous_0)
 FNF:1
 FNH:1
@@ -433,7 +429,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/schemas/index.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/schemas/index.js
 FNF:0
 FNH:0
 LF:0
@@ -442,7 +438,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/schemas/questions.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/schemas/questions.js
 FNF:0
 FNH:0
 DA:4,4
@@ -452,7 +448,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/src/store/schemas/quizzes.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/src/store/schemas/quizzes.js
 FNF:0
 FNH:0
 DA:5,4
@@ -462,7 +458,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/tests/setup.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/tests/setup.js
 FN:3,(anonymous_0)
 FNF:1
 FNH:1
@@ -476,7 +472,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/tests/stubs/deck.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/tests/stubs/deck.js
 FNF:0
 FNH:0
 LF:0
@@ -485,7 +481,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/tests/stubs/question.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/tests/stubs/question.js
 FNF:0
 FNH:0
 LF:0
@@ -494,7 +490,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/dmaia/SourceCode/Courses/Udacity/React Developer/reactnd-project-flashcards/tests/stubs/quiz.js
+SF:/Users/dmaia/SourceCode/Udacity/React Developer/reactnd-project-flashcards/tests/stubs/quiz.js
 FNF:0
 FNH:0
 LF:0

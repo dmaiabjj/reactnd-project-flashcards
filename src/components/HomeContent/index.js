@@ -60,7 +60,7 @@ class HomeContent extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    decks: getDecks()(state),
+    decks: getDecks(state),
   };
 }
 

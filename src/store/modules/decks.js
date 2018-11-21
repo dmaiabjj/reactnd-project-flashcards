@@ -244,13 +244,15 @@ const decksEntitiesSelector = (state) => {
  * @returns {Function} Returns a function that will receive the state and return an array with all
  * decks
  */
-export const getAll = () => {
-  return createSelector(
-    decksEntitiesSelector,
-    ({ decks, subjects }) => {
-      return subjects && _.orderBy(subjects.map((id) => decks[id]));
-    },
-  );
+const getAll = createSelector(
+  [decksEntitiesSelector],
+  ({ decks, subjects }) => {
+    return subjects && _.orderBy(subjects.map((id) => decks[id]));
+  },
+);
+
+export const Selectors = {
+  getAll,
 };
 
 /* SELECTORS */
