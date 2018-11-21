@@ -8,9 +8,10 @@ import normalize from '@helpers/normalize';
 import deckschema from '@store/schemas';
 import questionSchema from '@store/schemas/questions';
 import quizSchema from '@store/schemas/quizzes';
-import { getDecks, getDeck, saveDeck, removeDeck } from '@api/ServerAPI';
 import { Actions as QuestionActions } from '@store/modules/questions';
 import { Actions as QuizActions } from '@store/modules/quizzes';
+
+import { getDecks, getDeck, saveDeck, removeDeck } from '@api/ServerAPI';
 
 const INITIAL_STATE_COLLECTION = Immutable({});
 
@@ -31,39 +32,19 @@ export const Types = {
 
 const INITIAL_PAYLOAD = null;
 /* Actions  */
-const {
-  fetchRequest,
-  fetchSuccess,
-  fetchFailure,
-  saveRequest,
-  saveSuccess,
-  saveFailure,
-  deleteRequest,
-  deleteSuccess,
-  deleteFailure,
-} = createActions({
-  [Types.FETCH_REQUEST]: INITIAL_PAYLOAD,
-  [Types.FETCH_SUCCESS]: (decks, ids) => ({ decks, ids }),
-  [Types.FETCH_FAILURE]: INITIAL_PAYLOAD,
-  [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.SAVE_SUCCESS]: (decks, id) => ({ decks, ids: id }),
-  [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
-  [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.DELETE_SUCCESS]: (id) => ({ id }),
-  [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
+export const Actions = createActions({
+  DECK: {
+    [Types.FETCH_REQUEST]: INITIAL_PAYLOAD,
+    [Types.FETCH_SUCCESS]: (decks, ids) => ({ decks, ids }),
+    [Types.FETCH_FAILURE]: INITIAL_PAYLOAD,
+    [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
+    [Types.SAVE_SUCCESS]: (decks, id) => ({ decks, ids: id }),
+    [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
+    [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
+    [Types.DELETE_SUCCESS]: (id) => ({ id }),
+    [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
+  },
 });
-
-export const Actions = {
-  fetchRequest,
-  fetchSuccess,
-  fetchFailure,
-  saveRequest,
-  saveSuccess,
-  saveFailure,
-  deleteRequest,
-  deleteSuccess,
-  deleteFailure,
-};
 
 /**
  * @description Dispatch the sequence of actions
@@ -104,9 +85,9 @@ const dispatchFetchSucess = (dispatch, data) => {
     'result',
   );
 
-  dispatch(Actions.fetchSuccess(decks, deckIds));
-  dispatch(QuestionActions.fetchSuccess(cards, cardsIds));
-  dispatch(QuizActions.fetchSuccess(rounds, roundsIds));
+  dispatch(Actions.deck.fetchSuccess(decks, deckIds));
+  dispatch(QuestionActions.question.fetchSuccess(cards, cardsIds));
+  dispatch(QuizActions.quiz.fetchSuccess(rounds, roundsIds));
 };
 
 /* Action Creators */
@@ -121,13 +102,13 @@ export const Creators = {
    */
   fetch: () => {
     return (dispatch) => {
-      dispatch(Actions.fetchRequest());
+      dispatch(Actions.deck.fetchRequest());
       return getDecks()
         .then((data) => {
           dispatchFetchSucess(dispatch, data);
         })
         .catch((error) => {
-          dispatch(Actions.fetchFailure(error));
+          dispatch(Actions.deck.fetchFailure(error));
         });
     };
   },
@@ -142,13 +123,13 @@ export const Creators = {
    */
   fetchByTitle: (title) => {
     return (dispatch) => {
-      dispatch(Actions.fetchRequest());
+      dispatch(Actions.deck.fetchRequest());
       return getDeck(title)
         .then((data) => {
           dispatchFetchSucess(dispatch, data);
         })
         .catch((error) => {
-          dispatch(Actions.fetchFailure(error));
+          dispatch(Actions.deck.fetchFailure(error));
         });
     };
   },
@@ -161,7 +142,7 @@ export const Creators = {
    */
   add: (title) => {
     return (dispatch) => {
-      dispatch(Actions.saveRequest());
+      dispatch(Actions.deck.saveRequest());
       return saveDeck(title)
         .then((data) => {
           const normalized = Object.keys(data).map((key) => data[key]);
@@ -171,10 +152,10 @@ export const Creators = {
             'entities.decks',
             'result',
           );
-          dispatch(Actions.saveSuccess(decks, result));
+          dispatch(Actions.deck.saveSuccess(decks, result));
         })
         .catch((error) => {
-          dispatch(Actions.saveFailure(error));
+          dispatch(Actions.deck.saveFailure(error));
         });
     };
   },
@@ -189,15 +170,15 @@ export const Creators = {
    */
   delete: (deck) => {
     return (dispatch) => {
-      dispatch(Actions.deleteRequest());
+      dispatch(Actions.deck.deleteRequest());
       return removeDeck(deck.title)
         .then(() => {
-          dispatch(Actions.deleteSuccess(deck.title));
-          dispatch(QuestionActions.deleteSuccess(deck.questions));
-          dispatch(QuizActions.deleteSuccess(deck.quizzes));
+          dispatch(Actions.deck.deleteSuccess(deck.title));
+          dispatch(QuestionActions.question.deleteSuccess(deck.questions));
+          dispatch(QuizActions.quiz.deleteSuccess(deck.quizzes));
         })
         .catch((error) => {
-          dispatch(Actions.deleteFailure(error));
+          dispatch(Actions.deck.deleteFailure(error));
         });
     };
   },
@@ -206,10 +187,10 @@ export const Creators = {
 /* Reducer  */
 const collection = handleActions(
   {
-    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
+    [combineActions(Actions.deck.fetchSuccess, Actions.deck.saveSuccess)]: (state, { payload }) => {
       return Immutable.merge(state, payload.decks);
     },
-    [Actions.deleteSuccess]: (state, { payload }) => {
+    [Actions.deck.deleteSuccess]: (state, { payload }) => {
       return Immutable.without(state, payload.id);
     },
   },
@@ -218,10 +199,10 @@ const collection = handleActions(
 
 const ids = handleActions(
   {
-    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
+    [combineActions(Actions.deck.fetchSuccess, Actions.deck.saveSuccess)]: (state, { payload }) => {
       return [...state, ...payload.ids];
     },
-    [Actions.deleteSuccess]: (state, { payload }) => {
+    [Actions.deck.deleteSuccess]: (state, { payload }) => {
       return state.filter((id) => id !== payload.id);
     },
   },

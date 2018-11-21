@@ -6,7 +6,7 @@ import Styles from '@components/HomeContent/styles';
 import DeckCard from '@components/DeckCard';
 import CarouselCard from '@components/CarouselCard';
 import QuizContent from '@components/QuizContent';
-import { getAll as getDecks, Creators as DeckCreators } from '@store/modules/decks';
+import { Creators as DeckCreators, Selectors as DeckSelectors } from '@store/modules/decks';
 
 const imageSrc = require('../../../assets/images/background.png');
 
@@ -60,7 +60,7 @@ class HomeContent extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    decks: getDecks(state),
+    decks: DeckSelectors.getAll(state),
   };
 }
 

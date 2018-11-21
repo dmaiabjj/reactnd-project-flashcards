@@ -42,6 +42,9 @@ describe('MODULE - DECK', () => {
     decks,
     ids: Object.keys(decks),
     error: new Error('Something went wrong'),
+    formatAction: (action) => {
+      return `DECK/${action}`;
+    },
   };
 
   beforeEach(async () => {
@@ -55,47 +58,51 @@ describe('MODULE - DECK', () => {
 
   /* ACTIONS  */
   it('[ACTIONS] verify all actions creators', () => {
-    expect(Actions.fetchRequest()).toEqual({
-      type: Types.FETCH_REQUEST,
+    expect(Actions.deck.fetchRequest()).toEqual({
+      type: props.formatAction(Types.FETCH_REQUEST),
     });
 
-    expect(Actions.fetchSuccess(props.getDeck(props.title.react), [props.title.react])).toEqual({
-      type: Types.FETCH_SUCCESS,
+    expect(
+      Actions.deck.fetchSuccess(props.getDeck(props.title.react), [props.title.react]),
+    ).toEqual({
+      type: props.formatAction(Types.FETCH_SUCCESS),
       payload: { decks: props.getDeck(props.title.react), ids: [props.title.react] },
     });
 
-    expect(Actions.fetchFailure(props.error)).toEqual({
-      type: Types.FETCH_FAILURE,
+    expect(Actions.deck.fetchFailure(props.error)).toEqual({
+      type: props.formatAction(Types.FETCH_FAILURE),
       payload: props.error,
       error: true,
     });
 
-    expect(Actions.saveRequest()).toEqual({
-      type: Types.SAVE_REQUEST,
+    expect(Actions.deck.saveRequest()).toEqual({
+      type: props.formatAction(Types.SAVE_REQUEST),
     });
 
-    expect(Actions.saveSuccess(props.getDeck(props.title.react), [props.title.react])).toEqual({
-      type: Types.SAVE_SUCCESS,
-      payload: { decks: props.getDeck(props.title.react), ids: [props.title.react] },
-    });
+    expect(Actions.deck.saveSuccess(props.getDeck(props.title.react), [props.title.react])).toEqual(
+      {
+        type: props.formatAction(Types.SAVE_SUCCESS),
+        payload: { decks: props.getDeck(props.title.react), ids: [props.title.react] },
+      },
+    );
 
-    expect(Actions.saveFailure(props.error)).toEqual({
-      type: Types.SAVE_FAILURE,
+    expect(Actions.deck.saveFailure(props.error)).toEqual({
+      type: props.formatAction(Types.SAVE_FAILURE),
       payload: props.error,
       error: true,
     });
 
-    expect(Actions.deleteRequest()).toEqual({
-      type: Types.DELETE_REQUEST,
+    expect(Actions.deck.deleteRequest()).toEqual({
+      type: props.formatAction(Types.DELETE_REQUEST),
     });
 
-    expect(Actions.deleteSuccess(props.title.react)).toEqual({
-      type: Types.DELETE_SUCCESS,
+    expect(Actions.deck.deleteSuccess(props.title.react)).toEqual({
+      type: props.formatAction(Types.DELETE_SUCCESS),
       payload: { id: props.title.react },
     });
 
-    expect(Actions.deleteFailure(props.error)).toEqual({
-      type: Types.DELETE_FAILURE,
+    expect(Actions.deck.deleteFailure(props.error)).toEqual({
+      type: props.formatAction(Types.DELETE_FAILURE),
       payload: props.error,
       error: true,
     });
@@ -106,10 +113,10 @@ describe('MODULE - DECK', () => {
 
   it('[ACTION CREATORS] should dispatch a FETCH_REQUEST ->  FETCH_SUCCESS action ', async () => {
     const expectedActions = [
-      Actions.fetchRequest(),
-      Actions.fetchSuccess(props.decks, props.ids),
-      QuestionActions.fetchSuccess({}, []),
-      QuizzActions.fetchSuccess({}, []),
+      Actions.deck.fetchRequest(),
+      Actions.deck.fetchSuccess(props.decks, props.ids),
+      QuestionActions.question.fetchSuccess({}, []),
+      QuizzActions.quiz.fetchSuccess({}, []),
     ];
 
     return store
@@ -122,7 +129,7 @@ describe('MODULE - DECK', () => {
       return Promise.reject(new Error('Something went wrong'));
     });
 
-    const expectedActions = [Actions.fetchRequest(), Actions.fetchFailure(props.error)];
+    const expectedActions = [Actions.deck.fetchRequest(), Actions.deck.fetchFailure(props.error)];
 
     return store
       .dispatch(Creators.fetch())
@@ -138,10 +145,10 @@ describe('MODULE - DECK', () => {
     };
 
     const expectedActions = [
-      Actions.fetchRequest(),
-      Actions.fetchSuccess(expected, [props.title.react]),
-      QuestionActions.fetchSuccess(props.getQuestion(1), [1]),
-      QuizzActions.fetchSuccess(props.getQuizz(1), [1]),
+      Actions.deck.fetchRequest(),
+      Actions.deck.fetchSuccess(expected, [props.title.react]),
+      QuestionActions.question.fetchSuccess(props.getQuestion(1), [1]),
+      QuizzActions.quiz.fetchSuccess(props.getQuizz(1), [1]),
     ];
 
     return store
@@ -154,7 +161,7 @@ describe('MODULE - DECK', () => {
       return Promise.reject(new Error('Something went wrong'));
     });
 
-    const expectedActions = [Actions.fetchRequest(), Actions.fetchFailure(props.error)];
+    const expectedActions = [Actions.deck.fetchRequest(), Actions.deck.fetchFailure(props.error)];
 
     return store
       .dispatch(Creators.fetchByTitle(props.title.react))
@@ -163,8 +170,8 @@ describe('MODULE - DECK', () => {
 
   it('[ACTION CREATORS] should dispatch a SAVE_REQUEST->SAVE_SUCCESS', async () => {
     const expectedActions = [
-      Actions.saveRequest(),
-      Actions.saveSuccess(props.getDeck(props.title.react), [props.title.react]),
+      Actions.deck.saveRequest(),
+      Actions.deck.saveSuccess(props.getDeck(props.title.react), [props.title.react]),
     ];
 
     return store
@@ -177,7 +184,7 @@ describe('MODULE - DECK', () => {
       return Promise.reject(new Error('Something went wrong'));
     });
 
-    const expectedActions = [Actions.saveRequest(), Actions.saveFailure(props.error)];
+    const expectedActions = [Actions.deck.saveRequest(), Actions.deck.saveFailure(props.error)];
 
     return store
       .dispatch(Creators.add(props.title.react))
@@ -186,10 +193,10 @@ describe('MODULE - DECK', () => {
 
   it('[ACTION CREATORS] should dispatch a DELETE_REQUEST ->  DELETE_SUCCESS action ', async () => {
     const expectedActions = [
-      Actions.deleteRequest(),
-      Actions.deleteSuccess(props.title.react),
-      QuestionActions.deleteSuccess([]),
-      QuizzActions.deleteSuccess([]),
+      Actions.deck.deleteRequest(),
+      Actions.deck.deleteSuccess(props.title.react),
+      QuestionActions.question.deleteSuccess([]),
+      QuizzActions.quiz.deleteSuccess([]),
     ];
 
     return store
@@ -202,7 +209,7 @@ describe('MODULE - DECK', () => {
       return Promise.reject(new Error('Something went wrong'));
     });
 
-    const expectedActions = [Actions.deleteRequest(), Actions.deleteFailure(props.error)];
+    const expectedActions = [Actions.deck.deleteRequest(), Actions.deck.deleteFailure(props.error)];
 
     return store
       .dispatch(Creators.delete(props.decks[props.title.react]))
@@ -218,9 +225,9 @@ describe('MODULE - DECK', () => {
 
   it('[REDUCERS] should handle FETCH_ALL_SUCCESS action for all decks', () => {
     const expected = { collection: props.decks, ids: props.ids };
-    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(expected.collection, expected.ids))).toEqual(
-      expected,
-    );
+    expect(
+      reducer(INITIAL_STATE, Actions.deck.fetchSuccess(expected.collection, expected.ids)),
+    ).toEqual(expected);
   });
 
   it('[REDUCERS] should handle FETCH_SUCCESS action for a specific deck', () => {
@@ -228,9 +235,9 @@ describe('MODULE - DECK', () => {
       collection: props.getDeck(props.title.react),
       ids: props.ids.filter((id) => id === props.title.react),
     };
-    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(expected.collection, expected.ids))).toEqual(
-      expected,
-    );
+    expect(
+      reducer(INITIAL_STATE, Actions.deck.fetchSuccess(expected.collection, expected.ids)),
+    ).toEqual(expected);
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action with INITIAL_STATE EMPTY', () => {
@@ -238,9 +245,9 @@ describe('MODULE - DECK', () => {
       collection: props.getDeck(props.title.react),
       ids: props.ids.filter((id) => id === props.title.react),
     };
-    expect(reducer(INITIAL_STATE, Actions.saveSuccess(expected.collection, expected.ids))).toEqual(
-      expected,
-    );
+    expect(
+      reducer(INITIAL_STATE, Actions.deck.saveSuccess(expected.collection, expected.ids)),
+    ).toEqual(expected);
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action', () => {
@@ -255,7 +262,7 @@ describe('MODULE - DECK', () => {
       collection: { ...props.decks, ...entity },
       ids: props.ids.concat(Object.keys(entity)),
     };
-    expect(reducer(state, Actions.saveSuccess(entity, [props.title.react]))).toEqual(expected);
+    expect(reducer(state, Actions.deck.saveSuccess(entity, [props.title.react]))).toEqual(expected);
   });
 
   it('[REDUCERS] should handle DELETE_SUCCESS action', () => {
@@ -269,7 +276,7 @@ describe('MODULE - DECK', () => {
       ids: state.ids.filter((id) => id !== props.title.javascript),
     };
 
-    expect(reducer(state, Actions.deleteSuccess(props.title.javascript))).toEqual(expected);
+    expect(reducer(state, Actions.deck.deleteSuccess(props.title.javascript))).toEqual(expected);
   });
 
   /* REDUCERS */

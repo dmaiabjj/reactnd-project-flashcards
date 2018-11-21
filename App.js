@@ -5,6 +5,7 @@ import Route from '@routes/index';
 import themes from '@styles/settings/themes';
 import { Provider } from 'react-redux';
 import store from '@store';
+// import * as ServerAPI from '@api/ServerAPI';
 import Roboto from './assets/fonts/Roboto-Regular.ttf';
 
 const AppSection = styled.View`
@@ -19,6 +20,11 @@ export default class App extends React.Component {
       await Font.loadAsync({
         Roboto,
       });
+      /* await ServerAPI.saveDeck('React');
+      await ServerAPI.saveDeck('Redux');
+      await ServerAPI.saveDeck('Styled Components');
+      await ServerAPI.saveDeck('GraphQL');
+*/
       this.setState({ isReady: true });
     })();
   }

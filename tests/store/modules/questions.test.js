@@ -47,6 +47,9 @@ describe('MODULE - QUESTIONS', () => {
       ids: [1, 2, 3],
     },
     error: new Error('Something went wrong'),
+    formatAction: (action) => {
+      return `QUESTION/${action}`;
+    },
   };
 
   beforeEach(async () => {
@@ -57,37 +60,37 @@ describe('MODULE - QUESTIONS', () => {
 
   /* ACTIONS  */
   it('[ACTIONS] verify all actions creators', () => {
-    expect(Actions.fetchSuccess(props.getCard(1), [1])).toEqual({
-      type: Types.FETCH_SUCCESS,
+    expect(Actions.question.fetchSuccess(props.getCard(1), [1])).toEqual({
+      type: props.formatAction(Types.FETCH_SUCCESS),
       payload: { questions: props.getCard(1), ids: [1] },
     });
 
-    expect(Actions.saveRequest()).toEqual({
-      type: Types.SAVE_REQUEST,
+    expect(Actions.question.saveRequest()).toEqual({
+      type: props.formatAction(Types.SAVE_REQUEST),
     });
 
-    expect(Actions.saveSuccess(props.getCard(1), [1])).toEqual({
-      type: Types.SAVE_SUCCESS,
+    expect(Actions.question.saveSuccess(props.getCard(1), [1])).toEqual({
+      type: props.formatAction(Types.SAVE_SUCCESS),
       payload: { questions: props.getCard(1), ids: [1] },
     });
 
-    expect(Actions.saveFailure(props.error)).toEqual({
-      type: Types.SAVE_FAILURE,
+    expect(Actions.question.saveFailure(props.error)).toEqual({
+      type: props.formatAction(Types.SAVE_FAILURE),
       payload: props.error,
       error: true,
     });
 
-    expect(Actions.deleteRequest()).toEqual({
-      type: Types.DELETE_REQUEST,
+    expect(Actions.question.deleteRequest()).toEqual({
+      type: props.formatAction(Types.DELETE_REQUEST),
     });
 
-    expect(Actions.deleteSuccess(2)).toEqual({
-      type: Types.DELETE_SUCCESS,
+    expect(Actions.question.deleteSuccess(2)).toEqual({
+      type: props.formatAction(Types.DELETE_SUCCESS),
       payload: { id: 2 },
     });
 
-    expect(Actions.deleteFailure(props.error)).toEqual({
-      type: Types.DELETE_FAILURE,
+    expect(Actions.question.deleteFailure(props.error)).toEqual({
+      type: props.formatAction(Types.DELETE_FAILURE),
       payload: props.error,
       error: true,
     });
@@ -100,9 +103,9 @@ describe('MODULE - QUESTIONS', () => {
     const card = props.getCard(props.card.id.closure);
     const deck = props.getDeck(props.deck.title.react, [props.card.id.closure]);
     const expectedActions = [
-      Actions.saveRequest(),
-      DeckActions.saveSuccess(deck, [props.deck.title.react]),
-      Actions.saveSuccess(card, [props.card.id.closure]),
+      Actions.question.saveRequest(),
+      DeckActions.deck.saveSuccess(deck, [props.deck.title.react]),
+      Actions.question.saveSuccess(card, [props.card.id.closure]),
     ];
 
     return store
@@ -116,7 +119,10 @@ describe('MODULE - QUESTIONS', () => {
     });
 
     const card = props.getCard(props.card.id.closure);
-    const expectedActions = [Actions.saveRequest(), Actions.saveFailure(props.error)];
+    const expectedActions = [
+      Actions.question.saveRequest(),
+      Actions.question.saveFailure(props.error),
+    ];
 
     return store
       .dispatch(Creators.add(props.deck.title.react, card[props.card.id.closure]))
@@ -125,9 +131,11 @@ describe('MODULE - QUESTIONS', () => {
 
   it('[ACTION CREATORS] should dispatch a DELETE_REQUEST->DELETE_SUCCESS ', async () => {
     const expectedActions = [
-      Actions.deleteRequest(),
-      DeckActions.fetchSuccess(props.getDeck(props.deck.title.react, []), [props.deck.title.react]),
-      Actions.deleteSuccess([props.card.id.closure]),
+      Actions.question.deleteRequest(),
+      DeckActions.deck.fetchSuccess(props.getDeck(props.deck.title.react, []), [
+        props.deck.title.react,
+      ]),
+      Actions.question.deleteSuccess([props.card.id.closure]),
     ];
 
     return store
@@ -140,7 +148,10 @@ describe('MODULE - QUESTIONS', () => {
       return Promise.reject(new Error('Something went wrong'));
     });
 
-    const expectedActions = [Actions.deleteRequest(), Actions.saveFailure(props.error)];
+    const expectedActions = [
+      Actions.question.deleteRequest(),
+      Actions.question.saveFailure(props.error),
+    ];
 
     return store
       .dispatch(Creators.delete(props.deck.title.react, props.card.id.closure))
@@ -161,9 +172,9 @@ describe('MODULE - QUESTIONS', () => {
       ids: [props.card.id.closure],
     };
 
-    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(expected.collection, expected.ids))).toEqual(
-      expected,
-    );
+    expect(
+      reducer(INITIAL_STATE, Actions.question.fetchSuccess(expected.collection, expected.ids)),
+    ).toEqual(expected);
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action with INITIAL_STATE EMPTY', () => {
@@ -172,9 +183,9 @@ describe('MODULE - QUESTIONS', () => {
       ids: [props.card.id.closure],
     };
 
-    expect(reducer(INITIAL_STATE, Actions.saveSuccess(expected.collection, expected.ids))).toEqual(
-      expected,
-    );
+    expect(
+      reducer(INITIAL_STATE, Actions.question.saveSuccess(expected.collection, expected.ids)),
+    ).toEqual(expected);
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action', () => {
@@ -187,7 +198,9 @@ describe('MODULE - QUESTIONS', () => {
       collection: props.cards.collection,
       ids: props.cards.ids,
     };
-    expect(reducer(state, Actions.saveSuccess(entity, [props.card.id.closure]))).toEqual(expected);
+    expect(reducer(state, Actions.question.saveSuccess(entity, [props.card.id.closure]))).toEqual(
+      expected,
+    );
   });
 
   it('[REDUCERS] should handle DELETE_SUCCESS action', () => {
@@ -200,7 +213,9 @@ describe('MODULE - QUESTIONS', () => {
       ids: props.cards.ids.filter((id) => ![props.card.id.closure].includes(id)),
     };
 
-    expect(reducer(state, Actions.deleteSuccess([props.card.id.closure]))).toEqual(expected);
+    expect(reducer(state, Actions.question.deleteSuccess([props.card.id.closure]))).toEqual(
+      expected,
+    );
   });
 
   /* REDUCERS */

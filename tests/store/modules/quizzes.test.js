@@ -47,6 +47,9 @@ describe('MODULE - QUIZZES', () => {
       ids: [2, 3, 1],
     },
     error: new Error('Something went wrong'),
+    formatAction: (action) => {
+      return `QUIZ/${action}`;
+    },
   };
 
   beforeEach(async () => {
@@ -57,30 +60,32 @@ describe('MODULE - QUIZZES', () => {
 
   /* ACTIONS  */
   it('[ACTIONS] verify all actions creators', () => {
-    expect(Actions.fetchSuccess(props.getQuiz(props.quiz.id.first), [props.quiz.id.first])).toEqual(
-      {
-        type: Types.FETCH_SUCCESS,
-        payload: { quizzes: props.getQuiz(props.quiz.id.first), ids: [props.quiz.id.first] },
-      },
-    );
-
-    expect(Actions.saveRequest()).toEqual({
-      type: Types.SAVE_REQUEST,
-    });
-
-    expect(Actions.saveSuccess(props.getQuiz(props.quiz.id.first), [props.quiz.id.first])).toEqual({
-      type: Types.SAVE_SUCCESS,
+    expect(
+      Actions.quiz.fetchSuccess(props.getQuiz(props.quiz.id.first), [props.quiz.id.first]),
+    ).toEqual({
+      type: props.formatAction(Types.FETCH_SUCCESS),
       payload: { quizzes: props.getQuiz(props.quiz.id.first), ids: [props.quiz.id.first] },
     });
 
-    expect(Actions.saveFailure(props.error)).toEqual({
-      type: Types.SAVE_FAILURE,
+    expect(Actions.quiz.saveRequest()).toEqual({
+      type: props.formatAction(Types.SAVE_REQUEST),
+    });
+
+    expect(
+      Actions.quiz.saveSuccess(props.getQuiz(props.quiz.id.first), [props.quiz.id.first]),
+    ).toEqual({
+      type: props.formatAction(Types.SAVE_SUCCESS),
+      payload: { quizzes: props.getQuiz(props.quiz.id.first), ids: [props.quiz.id.first] },
+    });
+
+    expect(Actions.quiz.saveFailure(props.error)).toEqual({
+      type: props.formatAction(Types.SAVE_FAILURE),
       payload: props.error,
       error: true,
     });
 
-    expect(Actions.deleteSuccess([props.quiz.id.first])).toEqual({
-      type: Types.DELETE_SUCCESS,
+    expect(Actions.quiz.deleteSuccess([props.quiz.id.first])).toEqual({
+      type: props.formatAction(Types.DELETE_SUCCESS),
       payload: { id: [props.quiz.id.first] },
     });
   });
@@ -92,9 +97,9 @@ describe('MODULE - QUIZZES', () => {
     const quiz = props.getQuiz(props.quiz.id.first);
     const deck = props.getDeck(props.deck.title.react, [], [props.quiz.id.first]);
     const expectedActions = [
-      Actions.saveRequest(),
-      DeckActions.saveSuccess(deck, [props.deck.title.react]),
-      Actions.saveSuccess(quiz, [props.quiz.id.first]),
+      Actions.quiz.saveRequest(),
+      DeckActions.deck.saveSuccess(deck, [props.deck.title.react]),
+      Actions.quiz.saveSuccess(quiz, [props.quiz.id.first]),
     ];
 
     return store
@@ -108,7 +113,7 @@ describe('MODULE - QUIZZES', () => {
     });
 
     const quiz = props.getQuiz(props.quiz.id.first);
-    const expectedActions = [Actions.saveRequest(), Actions.saveFailure(props.error)];
+    const expectedActions = [Actions.quiz.saveRequest(), Actions.quiz.saveFailure(props.error)];
 
     return store
       .dispatch(Creators.add(props.deck.title.react, quiz[props.quiz.id.first]))
@@ -129,9 +134,9 @@ describe('MODULE - QUIZZES', () => {
       ids: [props.quiz.id.first],
     };
 
-    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(expected.collection, expected.ids))).toEqual(
-      expected,
-    );
+    expect(
+      reducer(INITIAL_STATE, Actions.quiz.fetchSuccess(expected.collection, expected.ids)),
+    ).toEqual(expected);
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action with INITIAL_STATE EMPTY', () => {
@@ -139,9 +144,9 @@ describe('MODULE - QUIZZES', () => {
       collection: props.getQuiz(props.quiz.id.first),
       ids: [props.quiz.id.first],
     };
-    expect(reducer(INITIAL_STATE, Actions.saveSuccess(expected.collection, expected.ids))).toEqual(
-      expected,
-    );
+    expect(
+      reducer(INITIAL_STATE, Actions.quiz.saveSuccess(expected.collection, expected.ids)),
+    ).toEqual(expected);
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action', () => {
@@ -154,7 +159,9 @@ describe('MODULE - QUIZZES', () => {
       collection: props.quizzes.collection,
       ids: props.quizzes.ids,
     };
-    expect(reducer(state, Actions.saveSuccess(entity, [props.quiz.id.first]))).toEqual(expected);
+    expect(reducer(state, Actions.quiz.saveSuccess(entity, [props.quiz.id.first]))).toEqual(
+      expected,
+    );
   });
 
   it('[REDUCERS] should handle DELETE_SUCCESS action', () => {
@@ -166,7 +173,7 @@ describe('MODULE - QUIZZES', () => {
       collection: Immutable.without(props.quizzes.collection, [props.quiz.id.first]),
       ids: props.quizzes.ids.filter((id) => ![props.quiz.id.first].includes(id)),
     };
-    expect(reducer(state, Actions.deleteSuccess([props.quiz.id.first]))).toEqual(expected);
+    expect(reducer(state, Actions.quiz.deleteSuccess([props.quiz.id.first]))).toEqual(expected);
   });
 
   /* REDUCERS */

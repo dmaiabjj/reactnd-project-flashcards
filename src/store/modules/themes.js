@@ -12,13 +12,11 @@ export const Types = {
 
 const INITIAL_PAYLOAD = null;
 /* Actions  */
-const { changeTheme } = createActions({
-  [Types.CHANGE_THEME]: INITIAL_PAYLOAD,
+export const Actions = createActions({
+  THEME: {
+    [Types.CHANGE_THEME]: INITIAL_PAYLOAD,
+  },
 });
-
-export const Actions = {
-  changeTheme,
-};
 
 /* Action Creators */
 export const Creators = {
@@ -28,14 +26,14 @@ export const Creators = {
    */
   changeTheme: (theme) => {
     return (dispatch) => {
-      dispatch(Actions.changeTheme(theme));
+      dispatch(Actions.theme.changeTheme(theme));
     };
   },
 };
 
 export default handleActions(
   {
-    [combineActions(Actions.changeTheme)]: (state, { payload }) => ({
+    [combineActions(Actions.theme.changeTheme)]: (state, { payload }) => ({
       payload,
     }),
   },

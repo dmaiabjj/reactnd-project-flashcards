@@ -22,8 +22,8 @@ describe('MODULE - THEME', () => {
   /* ACTIONS  */
 
   it('[ACTIONS] verify all actions creators', () => {
-    expect(Actions.changeTheme(props.theme.dark)).toEqual({
-      type: Types.CHANGE_THEME,
+    expect(Actions.theme.changeTheme(props.theme.dark)).toEqual({
+      type: `THEME/${Types.CHANGE_THEME}`,
       payload: props.theme.dark,
     });
   });
@@ -32,7 +32,7 @@ describe('MODULE - THEME', () => {
 
   /* ACTION CREATORS  */
   it('[ACTION CREATORS] should dispatch a CHANGE_THEME action ', async () => {
-    const expectedActions = [Actions.changeTheme(props.theme.dark)];
+    const expectedActions = [Actions.theme.changeTheme(props.theme.dark)];
 
     store.dispatch(Creators.changeTheme(props.theme.dark));
     return expect(store.getActions()).toEqual(expectedActions);
@@ -47,7 +47,7 @@ describe('MODULE - THEME', () => {
 
   it('[REDUCERS] should handle CHANGE_THEME action ', () => {
     const expected = { payload: props.theme.dark };
-    expect(reducer(INITIAL_STATE, Actions.changeTheme(props.theme.dark))).toEqual(expected);
+    expect(reducer(INITIAL_STATE, Actions.theme.changeTheme(props.theme.dark))).toEqual(expected);
   });
   /* REDUCERS */
 });

@@ -23,21 +23,15 @@ export const Types = {
 
 const INITIAL_PAYLOAD = null;
 /* Actions  */
-const { fetchSuccess, saveRequest, saveSuccess, saveFailure, deleteSuccess } = createActions({
-  [Types.FETCH_SUCCESS]: (quizzes, ids) => ({ quizzes, ids }),
-  [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.SAVE_SUCCESS]: (quizzes, id) => ({ quizzes, ids: id }),
-  [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
-  [Types.DELETE_SUCCESS]: (id) => ({ id }),
+export const Actions = createActions({
+  QUIZ: {
+    [Types.FETCH_SUCCESS]: (quizzes, ids) => ({ quizzes, ids }),
+    [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
+    [Types.SAVE_SUCCESS]: (quizzes, id) => ({ quizzes, ids: id }),
+    [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
+    [Types.DELETE_SUCCESS]: (id) => ({ id }),
+  },
 });
-
-export const Actions = {
-  fetchSuccess,
-  saveRequest,
-  saveSuccess,
-  saveFailure,
-  deleteSuccess,
-};
 
 /* Action Creators */
 export const Creators = {
@@ -51,7 +45,7 @@ export const Creators = {
    */
   add: (title, quiz) => {
     return (dispatch) => {
-      dispatch(Actions.saveRequest());
+      dispatch(Actions.quiz.saveRequest());
       return saveQuiz(title, quiz)
         .then((data) => {
           let normalized = Object.keys(data).map((key) => data[key]);
@@ -72,11 +66,11 @@ export const Creators = {
             'result',
           );
 
-          dispatch(DeckActions.saveSuccess(decks, deckIds));
-          dispatch(Actions.saveSuccess(cards, cardsIds));
+          dispatch(DeckActions.deck.saveSuccess(decks, deckIds));
+          dispatch(Actions.quiz.saveSuccess(cards, cardsIds));
         })
         .catch((error) => {
-          dispatch(Actions.saveFailure(error));
+          dispatch(Actions.quiz.saveFailure(error));
         });
     };
   },
@@ -85,10 +79,10 @@ export const Creators = {
 /* REDUCERS  */
 const collection = handleActions(
   {
-    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
+    [combineActions(Actions.quiz.fetchSuccess, Actions.quiz.saveSuccess)]: (state, { payload }) => {
       return Immutable.merge(state, payload.quizzes);
     },
-    [Actions.deleteSuccess]: (state, { payload }) => {
+    [Actions.quiz.deleteSuccess]: (state, { payload }) => {
       return Immutable.without(state, payload.id);
     },
   },
@@ -97,10 +91,10 @@ const collection = handleActions(
 
 const ids = handleActions(
   {
-    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
+    [combineActions(Actions.quiz.fetchSuccess, Actions.quiz.saveSuccess)]: (state, { payload }) => {
       return [...state, ...payload.ids];
     },
-    [Actions.deleteSuccess]: (state, { payload }) => {
+    [Actions.quiz.deleteSuccess]: (state, { payload }) => {
       return state.filter((id) => !payload.id.includes(id));
     },
   },

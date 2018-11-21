@@ -1,7 +1,8 @@
 import { handleActions, combineActions } from 'redux-actions';
-import { Actions as ActionDeck } from '@store/modules/decks';
-import { Actions as ActionCard } from '@store/modules/questions';
 import Immutable from 'seamless-immutable';
+
+import { Actions as ActionDeck } from '@store/modules/decks';
+import { Actions as ActionQuestion } from '@store/modules/questions';
 
 const INITIAL_STATE = Immutable({
   fetching: false,
@@ -12,11 +13,11 @@ const INITIAL_STATE = Immutable({
 export default handleActions(
   {
     [combineActions(
-      ActionDeck.fetchRequest,
-      ActionDeck.saveRequest,
-      ActionDeck.deleteRequest,
-      ActionCard.saveRequest,
-      ActionCard.deleteRequest,
+      ActionDeck.deck.fetchRequest,
+      ActionDeck.deck.saveRequest,
+      ActionDeck.deck.deleteRequest,
+      ActionQuestion.question.saveRequest,
+      ActionQuestion.question.deleteRequest,
     )]: (state) => ({
       ...state,
       fetched: false,
@@ -24,22 +25,22 @@ export default handleActions(
       error: null,
     }),
     [combineActions(
-      ActionDeck.fetchSuccess,
-      ActionDeck.saveSuccess,
-      ActionDeck.deleteSuccess,
-      ActionCard.saveSuccess,
-      ActionCard.deleteSuccess,
+      ActionDeck.deck.fetchSuccess,
+      ActionDeck.deck.saveSuccess,
+      ActionDeck.deck.deleteSuccess,
+      ActionQuestion.question.saveSuccess,
+      ActionQuestion.question.deleteSuccess,
     )]: (state) => ({
       ...state,
       fetched: true,
       fetching: false,
     }),
     [combineActions(
-      ActionDeck.fetchFailure,
-      ActionDeck.saveFailure,
-      ActionDeck.deleteFailure,
-      ActionCard.saveFailure,
-      ActionCard.deleteFailure,
+      ActionDeck.deck.fetchFailure,
+      ActionDeck.deck.saveFailure,
+      ActionDeck.deck.deleteFailure,
+      ActionQuestion.question.saveFailure,
+      ActionQuestion.question.deleteFailure,
     )]: (state, { payload }) => ({
       ...state,
       fetched: true,
