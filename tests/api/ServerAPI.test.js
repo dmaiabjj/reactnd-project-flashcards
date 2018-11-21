@@ -17,7 +17,7 @@ describe('API', () => {
     title: {
       react: 'React',
       javascript: 'JavaScript',
-      redux: 'Redux',
+      graphQL: 'GraphQL',
     },
     deck: (title) => {
       return { [title]: decks[title] };
@@ -65,6 +65,8 @@ describe('API', () => {
   it('[Method - getDeck] should handle insert decks', async () => {
     await saveDeck(props.title.react);
     await saveDeck(props.title.javascript);
+    await saveDeck(props.title.graphQL);
+
     const expected = await getDecks();
     expect(expected).toEqual(props.decks);
   });
@@ -85,6 +87,7 @@ describe('API', () => {
   it('[Method - removeDeck] should handle remove deck', async () => {
     await saveDeck(props.title.react);
     await saveDeck(props.title.javascript);
+    await saveDeck(props.title.graphQL);
 
     await removeDeck(props.title.react);
 

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
-import { createActions, handleActions } from 'redux-actions';
+import { createActions, handleActions, combineActions } from 'redux-actions';
 
 import normalize from '@helpers/normalize';
 import schema from '@store/schemas';
@@ -13,6 +13,7 @@ const INITIAL_STATE_IDS = Immutable([]);
 
 /* Action Types */
 export const Types = {
+  FETCH_SUCCESS: 'FETCH_SUCCESS',
   SAVE_REQUEST: 'SAVE_REQUEST',
   SAVE_SUCCESS: 'SAVE_SUCCESS',
   SAVE_FAILURE: 'SAVE_FAILURE',
@@ -24,6 +25,7 @@ export const Types = {
 const INITIAL_PAYLOAD = null;
 /* Actions  */
 const {
+  fetchSuccess,
   saveRequest,
   saveSuccess,
   saveFailure,
@@ -31,15 +33,17 @@ const {
   deleteSuccess,
   deleteFailure,
 } = createActions({
+  [Types.FETCH_SUCCESS]: (questions, ids) => ({ questions, ids }),
   [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.SAVE_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.SAVE_SUCCESS]: (questions, id) => ({ questions, ids: id }),
   [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
   [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.DELETE_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.DELETE_SUCCESS]: (id) => ({ id }),
   [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
 });
 
 export const Actions = {
+  fetchSuccess,
   saveRequest,
   saveSuccess,
   saveFailure,
@@ -80,8 +84,8 @@ export const Creators = {
             'result',
           );
 
-          dispatch(DeckActions.saveSuccess({ decks, ids: deckIds }));
-          dispatch(Actions.saveSuccess({ cards, ids: cardIds }));
+          dispatch(DeckActions.saveSuccess(decks, deckIds));
+          dispatch(Actions.saveSuccess(cards, cardIds));
         })
         .catch((error) => {
           dispatch(Actions.saveFailure(error));
@@ -109,8 +113,8 @@ export const Creators = {
               'entities.decks',
               'result',
             );
-            dispatch(DeckActions.fetchSuccess({ decks, ids: result }));
-            dispatch(Actions.deleteSuccess({ id }));
+            dispatch(DeckActions.fetchSuccess(decks, result));
+            dispatch(Actions.deleteSuccess([id]));
           });
         })
         .catch((error) => {
@@ -123,8 +127,8 @@ export const Creators = {
 /* Reducer  */
 const collection = handleActions(
   {
-    [Actions.saveSuccess]: (state, { payload }) => {
-      return Immutable.merge(state, payload.cards);
+    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
+      return Immutable.merge(state, payload.questions);
     },
     [Actions.deleteSuccess]: (state, { payload }) => {
       return Immutable.without(state, payload.id);
@@ -135,11 +139,11 @@ const collection = handleActions(
 
 const ids = handleActions(
   {
-    [Actions.saveSuccess]: (state, { payload }) => {
+    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) => {
       return [...state, ...payload.ids];
     },
     [Actions.deleteSuccess]: (state, { payload }) => {
-      return state.filter((id) => id !== payload.id);
+      return state.filter((id) => !payload.id.includes(id));
     },
   },
   INITIAL_STATE_IDS,

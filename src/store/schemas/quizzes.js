@@ -6,7 +6,7 @@ const quizSchema = new schema.Entity(
   'quizzes',
   {},
   {
-    cards: questionSchema,
+    questions: questionSchema,
   },
 );
 

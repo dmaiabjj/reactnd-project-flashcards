@@ -9,4 +9,9 @@ export default {
     questions: [],
     quizzes: [],
   },
+  GraphQL: {
+    title: 'GraphQL',
+    questions: [],
+    quizzes: [],
+  },
 };

@@ -3,9 +3,14 @@ import Immutable from 'seamless-immutable';
 import { createActions, handleActions, combineActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import _ from 'lodash';
+
 import normalize from '@helpers/normalize';
-import schema from '@store/schemas';
+import deckschema from '@store/schemas';
+import questionSchema from '@store/schemas/questions';
+import quizSchema from '@store/schemas/quizzes';
 import { getDecks, getDeck, saveDeck, removeDeck } from '@api/ServerAPI';
+import { Actions as QuestionActions } from '@store/modules/questions';
+import { Actions as QuizActions } from '@store/modules/quizzes';
 
 const INITIAL_STATE_COLLECTION = Immutable({});
 
@@ -38,13 +43,13 @@ const {
   deleteFailure,
 } = createActions({
   [Types.FETCH_REQUEST]: INITIAL_PAYLOAD,
-  [Types.FETCH_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.FETCH_SUCCESS]: (decks, ids) => ({ decks, ids }),
   [Types.FETCH_FAILURE]: INITIAL_PAYLOAD,
   [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.SAVE_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.SAVE_SUCCESS]: (decks, id) => ({ decks, ids: id }),
   [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
   [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.DELETE_SUCCESS]: INITIAL_PAYLOAD,
+  [Types.DELETE_SUCCESS]: (id) => ({ id }),
   [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
 });
 
@@ -60,22 +65,66 @@ export const Actions = {
   deleteFailure,
 };
 
+/**
+ * @description Dispatch the sequence of actions
+ * @param {Function} dispatch - Redux Function
+ * @param {Object} data - Deck's data
+ * Step 1                - Dispatch DELETE_REQUEST action
+ * Step 2    - Success   - Dispatch DELETE_SUCCESS action
+ * Step 2.2  - Success   - Dispatch QUESTION DELETE_SUCCESS action
+ * Step 2.3  - Success   - Dispatch QUIZZES DELETE_SUCCESS action
+ * Step 3    - Failure   - Dispatch DELETE_FAILURE action
+ */
+const dispatchFetchSucess = (dispatch, data) => {
+  let normalized = Object.keys(data).map((key) => data[key]);
+  const { decks, quizzes, questions, result: deckIds } = normalize.apply(
+    normalized,
+    deckschema,
+    'entities.decks',
+    'entities.quizzes',
+    'entities.questions',
+    'result',
+  );
+
+  normalized = Object.keys(questions).map((key) => questions[key]);
+
+  const { questions: cards, result: cardsIds } = normalize.apply(
+    normalized,
+    questionSchema,
+    'entities.questions',
+    'result',
+  );
+
+  normalized = Object.keys(quizzes).map((key) => quizzes[key]);
+
+  const { quizzes: rounds, result: roundsIds } = normalize.apply(
+    normalized,
+    quizSchema,
+    'entities.quizzes',
+    'result',
+  );
+
+  dispatch(Actions.fetchSuccess(decks, deckIds));
+  dispatch(QuestionActions.fetchSuccess(cards, cardsIds));
+  dispatch(QuizActions.fetchSuccess(rounds, roundsIds));
+};
+
 /* Action Creators */
 export const Creators = {
   /**
    * @description Fetch all decks
-   * Step 1                - Dispatch FETCH_REQUEST action
-   * Step 2.1  - Success   - Dispatch FETCH_SUCCESS action
-   * Step 2.2  - Failure   - Dispatch FETCH_FAILURE action
+   * Step 1                 - Dispatch FETCH_REQUEST action
+   * Step 2     - Success   - Dispatch FETCH_SUCCESS action
+   * Step 2.1               - Dispatch QUESTION FETCH_REQUEST action
+   * Step 2.3               - Dispatch QUIZZ FETCH_REQUEST action
+   * Step 3  - Failure      - Dispatch FETCH_FAILURE action
    */
   fetch: () => {
     return (dispatch) => {
       dispatch(Actions.fetchRequest());
       return getDecks()
         .then((data) => {
-          const normalized = Object.keys(data).map((key) => data[key]);
-          const { decks, result } = normalize.apply(normalized, schema, 'entities.decks', 'result');
-          dispatch(Actions.fetchSuccess({ decks, ids: result }));
+          dispatchFetchSucess(dispatch, data);
         })
         .catch((error) => {
           dispatch(Actions.fetchFailure(error));
@@ -84,19 +133,19 @@ export const Creators = {
   },
   /**
    * @description Fetch a specific Deck
-   * @param {Object} title - Deck`s title
-   * Step 1                - Dispatch FETCH_REQUEST action
-   * Step 2.1  - Success   - Dispatch FETCH_SUCCESS action
-   * Step 2.2  - Failure   - Dispatch FETCH_FAILURE action
+   * @param {Object} title  - Deck`s title
+   * Step 1                 - Dispatch FETCH_REQUEST action
+   * Step 2     - Success   - Dispatch FETCH_SUCCESS action
+   * Step 2.1               - Dispatch QUESTION FETCH_REQUEST action
+   * Step 2.3               - Dispatch QUIZZ FETCH_REQUEST action
+   * Step 3  - Failure      - Dispatch FETCH_FAILURE action
    */
   fetchByTitle: (title) => {
     return (dispatch) => {
       dispatch(Actions.fetchRequest());
       return getDeck(title)
         .then((data) => {
-          const normalized = Object.keys(data).map((key) => data[key]);
-          const { decks, result } = normalize.apply(normalized, schema, 'entities.decks', 'result');
-          dispatch(Actions.fetchSuccess({ decks, ids: result }));
+          dispatchFetchSucess(dispatch, data);
         })
         .catch((error) => {
           dispatch(Actions.fetchFailure(error));
@@ -116,8 +165,13 @@ export const Creators = {
       return saveDeck(title)
         .then((data) => {
           const normalized = Object.keys(data).map((key) => data[key]);
-          const { decks, result } = normalize.apply(normalized, schema, 'entities.decks', 'result');
-          dispatch(Actions.saveSuccess({ decks, ids: result }));
+          const { decks, result } = normalize.apply(
+            normalized,
+            deckschema,
+            'entities.decks',
+            'result',
+          );
+          dispatch(Actions.saveSuccess(decks, result));
         })
         .catch((error) => {
           dispatch(Actions.saveFailure(error));
@@ -128,15 +182,19 @@ export const Creators = {
    * @description Remove Deck
    * @param {Object} title - Deck`s title
    * Step 1                - Dispatch DELETE_REQUEST action
-   * Step 2.1  - Success   - Dispatch DELETE_SUCCESS action
-   * Step 2.2  - Failure   - Dispatch DELETE_FAILURE action
+   * Step 2    - Success   - Dispatch DELETE_SUCCESS action
+   * Step 2.2  - Success   - Dispatch QUESTION DELETE_SUCCESS action
+   * Step 2.3  - Success   - Dispatch QUIZZES DELETE_SUCCESS action
+   * Step 3    - Failure   - Dispatch DELETE_FAILURE action
    */
-  delete: (title) => {
+  delete: (deck) => {
     return (dispatch) => {
       dispatch(Actions.deleteRequest());
-      return removeDeck(title)
+      return removeDeck(deck.title)
         .then(() => {
-          dispatch(Actions.deleteSuccess({ id: title }));
+          dispatch(Actions.deleteSuccess(deck.title));
+          dispatch(QuestionActions.deleteSuccess(deck.questions));
+          dispatch(QuizActions.deleteSuccess(deck.quizzes));
         })
         .catch((error) => {
           dispatch(Actions.deleteFailure(error));
@@ -174,8 +232,8 @@ const ids = handleActions(
 
 const decksEntitiesSelector = (state) => {
   return {
-    decks: state.collection,
-    subjects: state.ids,
+    decks: state.decks.collection,
+    subjects: state.decks.ids,
   };
 };
 

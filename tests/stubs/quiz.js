@@ -2,7 +2,7 @@ export default {
   1: {
     id: 1,
     points: 66,
-    cards: [
+    questions: [
       {
         id: 1,
         question: 'React',

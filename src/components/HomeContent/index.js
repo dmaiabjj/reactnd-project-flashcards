@@ -6,8 +6,7 @@ import Styles from '@components/HomeContent/styles';
 import DeckCard from '@components/DeckCard';
 import CarouselCard from '@components/CarouselCard';
 import QuizContent from '@components/QuizContent';
-import { getAll as getDecks } from '@store/modules/decks';
-import { getAll as getQuizzes } from '@store/modules/quizzes';
+import { getAll as getDecks, Creators as DeckCreators } from '@store/modules/decks';
 
 const imageSrc = require('../../../assets/images/background.png');
 
@@ -16,6 +15,12 @@ class HomeContent extends PureComponent {
     activeDeck: 1,
   };
   */
+
+  componentDidMount() {
+    const { getAllDecks } = this.props;
+    getAllDecks();
+  }
+
   renderItem = ({ item, index }) => {
     return <DeckCard key={index} deck={item} />;
   };
@@ -56,7 +61,12 @@ class HomeContent extends PureComponent {
 function mapStateToProps(state) {
   return {
     decks: getDecks()(state),
-    quizzes: getQuizzes()(state),
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getAllDecks: () => dispatch(DeckCreators.fetch()),
   };
 }
 
@@ -64,9 +74,10 @@ HomeContent.propTypes = {
   theme: PropTypes.object.isRequired,
   decks: PropTypes.array,
   quizzes: PropTypes.array,
+  getAllDecks: PropTypes.func.isRequired,
 };
 
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(withTheme(HomeContent));

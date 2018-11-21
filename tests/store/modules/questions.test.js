@@ -57,13 +57,18 @@ describe('MODULE - QUESTIONS', () => {
 
   /* ACTIONS  */
   it('[ACTIONS] verify all actions creators', () => {
+    expect(Actions.fetchSuccess(props.getCard(1), [1])).toEqual({
+      type: Types.FETCH_SUCCESS,
+      payload: { questions: props.getCard(1), ids: [1] },
+    });
+
     expect(Actions.saveRequest()).toEqual({
       type: Types.SAVE_REQUEST,
     });
 
-    expect(Actions.saveSuccess(props.getCard(1))).toEqual({
+    expect(Actions.saveSuccess(props.getCard(1), [1])).toEqual({
       type: Types.SAVE_SUCCESS,
-      payload: props.getCard(1),
+      payload: { questions: props.getCard(1), ids: [1] },
     });
 
     expect(Actions.saveFailure(props.error)).toEqual({
@@ -76,9 +81,9 @@ describe('MODULE - QUESTIONS', () => {
       type: Types.DELETE_REQUEST,
     });
 
-    expect(Actions.deleteSuccess(props.getCard(2))).toEqual({
+    expect(Actions.deleteSuccess(2)).toEqual({
       type: Types.DELETE_SUCCESS,
-      payload: props.getCard(2),
+      payload: { id: 2 },
     });
 
     expect(Actions.deleteFailure(props.error)).toEqual({
@@ -96,14 +101,8 @@ describe('MODULE - QUESTIONS', () => {
     const deck = props.getDeck(props.deck.title.react, [props.card.id.closure]);
     const expectedActions = [
       Actions.saveRequest(),
-      DeckActions.saveSuccess({
-        decks: deck,
-        ids: [props.deck.title.react],
-      }),
-      Actions.saveSuccess({
-        cards: card,
-        ids: [props.card.id.closure],
-      }),
+      DeckActions.saveSuccess(deck, [props.deck.title.react]),
+      Actions.saveSuccess(card, [props.card.id.closure]),
     ];
 
     return store
@@ -127,13 +126,8 @@ describe('MODULE - QUESTIONS', () => {
   it('[ACTION CREATORS] should dispatch a DELETE_REQUEST->DELETE_SUCCESS ', async () => {
     const expectedActions = [
       Actions.deleteRequest(),
-      DeckActions.fetchSuccess({
-        decks: props.getDeck(props.deck.title.react, []),
-        ids: [props.deck.title.react],
-      }),
-      Actions.deleteSuccess({
-        id: props.card.id.closure,
-      }),
+      DeckActions.fetchSuccess(props.getDeck(props.deck.title.react, []), [props.deck.title.react]),
+      Actions.deleteSuccess([props.card.id.closure]),
     ];
 
     return store
@@ -161,13 +155,26 @@ describe('MODULE - QUESTIONS', () => {
     expect(reducer(INITIAL_STATE, {})).toEqual(INITIAL_STATE);
   });
 
+  it('[REDUCERS] should handle FETCH_SUCCESS action', () => {
+    const expected = {
+      collection: props.getCard(props.card.id.closure),
+      ids: [props.card.id.closure],
+    };
+
+    expect(reducer(INITIAL_STATE, Actions.fetchSuccess(expected.collection, expected.ids))).toEqual(
+      expected,
+    );
+  });
+
   it('[REDUCERS] should handle SAVE_SUCCESS action with INITIAL_STATE EMPTY', () => {
     const expected = {
       collection: props.getCard(props.card.id.closure),
       ids: [props.card.id.closure],
     };
-    const request = { cards: expected.collection, ids: expected.ids };
-    expect(reducer(INITIAL_STATE, Actions.saveSuccess(request))).toEqual(expected);
+
+    expect(reducer(INITIAL_STATE, Actions.saveSuccess(expected.collection, expected.ids))).toEqual(
+      expected,
+    );
   });
 
   it('[REDUCERS] should handle SAVE_SUCCESS action', () => {
@@ -180,8 +187,7 @@ describe('MODULE - QUESTIONS', () => {
       collection: props.cards.collection,
       ids: props.cards.ids,
     };
-    const request = { cards: entity, ids: [props.card.id.closure] };
-    expect(reducer(state, Actions.saveSuccess(request))).toEqual(expected);
+    expect(reducer(state, Actions.saveSuccess(entity, [props.card.id.closure]))).toEqual(expected);
   });
 
   it('[REDUCERS] should handle DELETE_SUCCESS action', () => {
@@ -191,10 +197,10 @@ describe('MODULE - QUESTIONS', () => {
     };
     const expected = {
       collection: Immutable.without(props.cards.collection, props.card.id.closure),
-      ids: props.cards.ids.filter((id) => props.card.id.closure !== id),
+      ids: props.cards.ids.filter((id) => ![props.card.id.closure].includes(id)),
     };
-    const request = { id: props.card.id.closure };
-    expect(reducer(state, Actions.deleteSuccess(request))).toEqual(expected);
+
+    expect(reducer(state, Actions.deleteSuccess([props.card.id.closure]))).toEqual(expected);
   });
 
   /* REDUCERS */

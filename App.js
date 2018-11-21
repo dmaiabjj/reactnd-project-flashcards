@@ -19,7 +19,6 @@ export default class App extends React.Component {
       await Font.loadAsync({
         Roboto,
       });
-
       this.setState({ isReady: true });
     })();
   }
