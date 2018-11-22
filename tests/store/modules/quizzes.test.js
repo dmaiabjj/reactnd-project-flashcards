@@ -193,5 +193,17 @@ describe('MODULE - QUIZZES', () => {
     expect(Selectors.getAll(state)).toEqual(expected);
   });
 
+  it('[SELECTORS] should handle getById quizzes', () => {
+    const state = {
+      quizzes: {
+        collection: props.quizzes.collection,
+        ids: props.quizzes.ids,
+      },
+    };
+
+    const expected = [3, 1, 2].map((id) => state.quizzes.collection[id]);
+    expect(Selectors.getByIds([1, 2, 3])(state)).toEqual(expected);
+  });
+
   /* SELECTORS */
 });

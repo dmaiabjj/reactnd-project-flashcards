@@ -291,7 +291,9 @@ describe('MODULE - DECK', () => {
       },
     };
 
-    const expected = _.orderBy(state.decks.ids.map((id) => state.decks.collection[id]));
+    const expected = _.orderBy(state.decks.ids, ['title'], ['desc']).map(
+      (id) => state.decks.collection[id],
+    );
 
     expect(Selectors.getAll(state)).toEqual(expected);
   });

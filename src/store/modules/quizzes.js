@@ -116,18 +116,35 @@ const quizzesEntitiesSelector = (state) => {
  * @description
  * Returns all quizzes inside an array
  *
- * @returns {Function} Returns a function that will receive the state and return an array with all
+ * @returns {Array} Returns an array with all
  * quizzes
  */
 const getAll = createSelector(
   [quizzesEntitiesSelector],
   ({ quizzes, subjects }) => {
-    return subjects && _.orderBy(subjects.map((id) => quizzes[id]));
+    return subjects && subjects.map((id) => quizzes[id]);
   },
 );
 
+/**
+ * @description
+ * Returns all quizzes related with specific ids provided
+ *
+ * @returns {Array} Returns an array with all
+ * quizzes
+ */
+const getByIds = (quizzesIds) => {
+  return createSelector(
+    quizzesEntitiesSelector,
+    ({ quizzes }) => {
+      return quizzesIds && _.orderBy(quizzesIds.map((id) => quizzes[id]), ['points'], ['desc']);
+    },
+  );
+};
+
 export const Selectors = {
   getAll,
+  getByIds,
 };
 
 /* SELECTORS */

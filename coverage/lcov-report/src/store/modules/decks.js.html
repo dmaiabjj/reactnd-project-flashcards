@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>61/61</span>
+        <span class='fraction'>60/60</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>55/55</span>
+        <span class='fraction'>54/54</span>
       </div>
     </div>
   </div>
@@ -284,26 +284,8 @@
 239
 240
 241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+242</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -336,17 +318,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -355,17 +328,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -573,9 +535,10 @@ import normalize from '@helpers/normalize';
 import deckschema from '@store/schemas';
 import questionSchema from '@store/schemas/questions';
 import quizSchema from '@store/schemas/quizzes';
-import { getDecks, getDeck, saveDeck, removeDeck } from '@api/ServerAPI';
 import { Actions as QuestionActions } from '@store/modules/questions';
 import { Actions as QuizActions } from '@store/modules/quizzes';
+&nbsp;
+import { getDecks, getDeck, saveDeck, removeDeck } from '@api/ServerAPI';
 &nbsp;
 const INITIAL_STATE_COLLECTION = Immutable({});
 &nbsp;
@@ -596,39 +559,19 @@ export const Types = {
 &nbsp;
 const INITIAL_PAYLOAD = null;
 /* Actions  */
-const {
-  fetchRequest,
-  fetchSuccess,
-  fetchFailure,
-  saveRequest,
-  saveSuccess,
-  saveFailure,
-  deleteRequest,
-  deleteSuccess,
-  deleteFailure,
-} = createActions({
-  [Types.FETCH_REQUEST]: INITIAL_PAYLOAD,
-  [Types.FETCH_SUCCESS]: (decks, ids) =&gt; ({ decks, ids }),
-  [Types.FETCH_FAILURE]: INITIAL_PAYLOAD,
-  [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.SAVE_SUCCESS]: (decks, id) =&gt; ({ decks, ids: id }),
-  [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
-  [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
-  [Types.DELETE_SUCCESS]: (id) =&gt; ({ id }),
-  [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
+export const Actions = createActions({
+  DECK: {
+    [Types.FETCH_REQUEST]: INITIAL_PAYLOAD,
+    [Types.FETCH_SUCCESS]: (decks, ids) =&gt; ({ decks, ids }),
+    [Types.FETCH_FAILURE]: INITIAL_PAYLOAD,
+    [Types.SAVE_REQUEST]: INITIAL_PAYLOAD,
+    [Types.SAVE_SUCCESS]: (decks, id) =&gt; ({ decks, ids: id }),
+    [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
+    [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
+    [Types.DELETE_SUCCESS]: (id) =&gt; ({ id }),
+    [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
+  },
 });
-&nbsp;
-export const Actions = {
-  fetchRequest,
-  fetchSuccess,
-  fetchFailure,
-  saveRequest,
-  saveSuccess,
-  saveFailure,
-  deleteRequest,
-  deleteSuccess,
-  deleteFailure,
-};
 &nbsp;
 /**
  * @description Dispatch the sequence of actions
@@ -669,9 +612,9 @@ const dispatchFetchSucess = (dispatch, data) =&gt; {
     'result',
   );
 &nbsp;
-  dispatch(Actions.fetchSuccess(decks, deckIds));
-  dispatch(QuestionActions.fetchSuccess(cards, cardsIds));
-  dispatch(QuizActions.fetchSuccess(rounds, roundsIds));
+  dispatch(Actions.deck.fetchSuccess(decks, deckIds));
+  dispatch(QuestionActions.question.fetchSuccess(cards, cardsIds));
+  dispatch(QuizActions.quiz.fetchSuccess(rounds, roundsIds));
 };
 &nbsp;
 /* Action Creators */
@@ -686,13 +629,13 @@ export const Creators = {
    */
   fetch: () =&gt; {
     return (dispatch) =&gt; {
-      dispatch(Actions.fetchRequest());
+      dispatch(Actions.deck.fetchRequest());
       return getDecks()
         .then((data) =&gt; {
           dispatchFetchSucess(dispatch, data);
         })
         .catch((error) =&gt; {
-          dispatch(Actions.fetchFailure(error));
+          dispatch(Actions.deck.fetchFailure(error));
         });
     };
   },
@@ -707,13 +650,13 @@ export const Creators = {
    */
   fetchByTitle: (title) =&gt; {
     return (dispatch) =&gt; {
-      dispatch(Actions.fetchRequest());
+      dispatch(Actions.deck.fetchRequest());
       return getDeck(title)
         .then((data) =&gt; {
           dispatchFetchSucess(dispatch, data);
         })
         .catch((error) =&gt; {
-          dispatch(Actions.fetchFailure(error));
+          dispatch(Actions.deck.fetchFailure(error));
         });
     };
   },
@@ -726,7 +669,7 @@ export const Creators = {
    */
   add: (title) =&gt; {
     return (dispatch) =&gt; {
-      dispatch(Actions.saveRequest());
+      dispatch(Actions.deck.saveRequest());
       return saveDeck(title)
         .then((data) =&gt; {
           const normalized = Object.keys(data).map((key) =&gt; data[key]);
@@ -736,10 +679,10 @@ export const Creators = {
             'entities.decks',
             'result',
           );
-          dispatch(Actions.saveSuccess(decks, result));
+          dispatch(Actions.deck.saveSuccess(decks, result));
         })
         .catch((error) =&gt; {
-          dispatch(Actions.saveFailure(error));
+          dispatch(Actions.deck.saveFailure(error));
         });
     };
   },
@@ -754,15 +697,15 @@ export const Creators = {
    */
   delete: (deck) =&gt; {
     return (dispatch) =&gt; {
-      dispatch(Actions.deleteRequest());
+      dispatch(Actions.deck.deleteRequest());
       return removeDeck(deck.title)
         .then(() =&gt; {
-          dispatch(Actions.deleteSuccess(deck.title));
-          dispatch(QuestionActions.deleteSuccess(deck.questions));
-          dispatch(QuizActions.deleteSuccess(deck.quizzes));
+          dispatch(Actions.deck.deleteSuccess(deck.title));
+          dispatch(QuestionActions.question.deleteSuccess(deck.questions));
+          dispatch(QuizActions.quiz.deleteSuccess(deck.quizzes));
         })
         .catch((error) =&gt; {
-          dispatch(Actions.deleteFailure(error));
+          dispatch(Actions.deck.deleteFailure(error));
         });
     };
   },
@@ -771,10 +714,10 @@ export const Creators = {
 /* Reducer  */
 const collection = handleActions(
   {
-    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) =&gt; {
+    [combineActions(Actions.deck.fetchSuccess, Actions.deck.saveSuccess)]: (state, { payload }) =&gt; {
       return Immutable.merge(state, payload.decks);
     },
-    [Actions.deleteSuccess]: (state, { payload }) =&gt; {
+    [Actions.deck.deleteSuccess]: (state, { payload }) =&gt; {
       return Immutable.without(state, payload.id);
     },
   },
@@ -783,10 +726,10 @@ const collection = handleActions(
 &nbsp;
 const ids = handleActions(
   {
-    [combineActions(Actions.fetchSuccess, Actions.saveSuccess)]: (state, { payload }) =&gt; {
+    [combineActions(Actions.deck.fetchSuccess, Actions.deck.saveSuccess)]: (state, { payload }) =&gt; {
       return [...state, ...payload.ids];
     },
-    [Actions.deleteSuccess]: (state, { payload }) =&gt; {
+    [Actions.deck.deleteSuccess]: (state, { payload }) =&gt; {
       return state.filter((id) =&gt; id !== payload.id);
     },
   },
@@ -806,13 +749,13 @@ const decksEntitiesSelector = (state) =&gt; {
  * @description
  * Returns all decks inside an array
  *
- * @returns {Function} Returns a function that will receive the state and return an array with all
+ * @returns {Array} Returns  an array with all
  * decks
  */
 const getAll = createSelector(
   [decksEntitiesSelector],
   ({ decks, subjects }) =&gt; {
-    return subjects &amp;&amp; _.orderBy(subjects.map((id) =&gt; decks[id]));
+    return subjects &amp;&amp; _.orderBy(subjects, ['title'], ['desc']).map((id) =&gt; decks[id]);
   },
 );
 &nbsp;
@@ -829,7 +772,7 @@ export default combineReducers({ collection, ids });
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 21 2018 16:21:29 GMT-0200 (-02)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 22 2018 20:46:04 GMT-0200 (-02)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
