@@ -25,6 +25,15 @@ const MessageStyledView = styled.View`
   margin: 25px auto;
 `;
 
+const MainStyledView = styled.View`
+  top: 50px;
+  flex: 1;
+  position: absolute;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+`;
+
 const MessageStyledText = styled.Text`
   font-size: ${(props) => props.size};
   font-weight: ${(props) => props.weight};
@@ -53,6 +62,7 @@ export default {
   BackgroundStyledView,
   BackgroundStyledImage,
   MessageStyledView,
+  MainStyledView,
   MessageStyledText,
   ContentStyledView,
   QuizTitleStyledText,

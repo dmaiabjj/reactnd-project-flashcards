@@ -4,6 +4,7 @@ const CardQuizScoreStyledView = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
+  margin: 10px 0px 20px 0px;
 `;
 
 const QuizScoreStyledText = styled.Text`
