@@ -85,9 +85,9 @@ const dispatchFetchSucess = (dispatch, data) => {
     'result',
   );
 
-  dispatch(Actions.deck.fetchSuccess(decks, deckIds));
-  dispatch(QuestionActions.question.fetchSuccess(cards, cardsIds));
   dispatch(QuizActions.quiz.fetchSuccess(rounds, roundsIds));
+  dispatch(QuestionActions.question.fetchSuccess(cards, cardsIds));
+  dispatch(Actions.deck.fetchSuccess(decks, deckIds));
 };
 
 /* Action Creators */

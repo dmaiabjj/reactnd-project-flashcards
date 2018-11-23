@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import Styles from '@components/ScoreGauge/styles';
 
-const ScoreGauge = ({ score, theme, style }) => {
+const ScoreGauge = ({ points, theme, style }) => {
   const colors = [
     { score: 50, color: '#ff0000' },
     { score: 70, color: '#ffc107' },
@@ -13,7 +13,7 @@ const ScoreGauge = ({ score, theme, style }) => {
 
   const color = _.get(
     _.find(colors, (c) => {
-      return score <= c.score;
+      return points <= c.score;
     }),
     'color',
     theme.font.color.fourth,
@@ -23,13 +23,13 @@ const ScoreGauge = ({ score, theme, style }) => {
     <Styles.CardQuizScoreStyledView {...style}>
       <Styles.QuizScoreStyledText>Score: </Styles.QuizScoreStyledText>
       <Styles.QuizScoreStyledText style={[{ color, fontWeight: '500' }]}>
-        {score}
+        {points}
       </Styles.QuizScoreStyledText>
       <Styles.QuizScoreStyledText style={[{ marginRight: 5 }]}>/100</Styles.QuizScoreStyledText>
       <AnimatedCircularProgress
         size={20}
         width={2}
-        fill={score}
+        fill={points}
         tintColor={color}
         backgroundColor={theme.shadow.color.first}
       />
@@ -38,7 +38,7 @@ const ScoreGauge = ({ score, theme, style }) => {
 };
 
 ScoreGauge.propTypes = {
-  score: PropTypes.number.isRequired,
+  points: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired,
 };
 

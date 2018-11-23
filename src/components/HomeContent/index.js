@@ -10,6 +10,7 @@ import QuizContent from '@components/QuizContent';
 import Loading from '@components/Loading';
 
 import { Creators as DeckCreators, Selectors as DeckSelectors } from '@store/modules/decks';
+import { Selectors as QuizSelectors } from '@store/modules/quizzes';
 
 const imageSrc = require('../../../assets/images/background.png');
 
@@ -34,6 +35,7 @@ class HomeContent extends PureComponent {
   render() {
     const { theme, app, decks = [] } = this.props;
     const { activeDeck } = this.state;
+
     return (
       <Styles.HomeContentStyledView>
         <Styles.BackgroundStyledView>
@@ -70,7 +72,12 @@ function mapStateToProps(state) {
   const { app } = state;
   return {
     app,
-    decks: DeckSelectors.getAll(state),
+    decks: DeckSelectors.getAll(state).map((d) => {
+      return {
+        ...d,
+        quizzes: QuizSelectors.getByIds(d.quizzes)(state),
+      };
+    }),
   };
 }
 

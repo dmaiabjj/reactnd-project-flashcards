@@ -20,10 +20,23 @@ export default class App extends React.Component {
       await Font.loadAsync({
         Roboto,
       });
-      /* await ServerAPI.saveDeck('React');
-      await ServerAPI.saveDeck('Redux');
-      await ServerAPI.saveDeck('Styled Components');
-      await ServerAPI.saveDeck('GraphQL');
+      /* await ServerAPI.saveCard('React', {
+        id: 1,
+        question: 'React',
+        answer: 'React',
+      });
+
+      await ServerAPI.saveCard('React', {
+        id: 2,
+        question: 'React',
+        answer: 'React',
+      });
+
+      await ServerAPI.saveCard('Redux', {
+        id: 3,
+        question: 'Redux',
+        answer: 'Redux',
+      });
 */
       this.setState({ isReady: true });
     })();

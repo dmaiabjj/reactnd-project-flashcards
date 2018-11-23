@@ -91,7 +91,7 @@ export function removeCard(title, id) {
  */
 export async function saveQuiz(title, quiz) {
   const all = await getDecks();
-  const quizzes = all[title].quizzes.concat(quiz);
+  const quizzes = [...all[title].quizzes, quiz];
   const decks = {
     ...all,
     [title]: { ...all[title], quizzes: _.take(_.sortBy(quizzes, ['points'], ['desc']), 3) },

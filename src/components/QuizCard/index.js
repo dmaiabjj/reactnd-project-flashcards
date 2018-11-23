@@ -7,7 +7,6 @@ import ScoreGauge from '@components/ScoreGauge';
 class QuizCard extends PureComponent {
   render() {
     const { quizz, theme, ranking } = this.props;
-
     return (
       <Styles.DescriptionCardStyledView>
         <Styles.DescriptionCardTitleStyledText>
@@ -16,7 +15,7 @@ class QuizCard extends PureComponent {
         <Styles.DescriptionCardDateStyledText>
           Start Date: {quizz.date}
         </Styles.DescriptionCardDateStyledText>
-        <ScoreGauge score={quizz.score} theme={theme} />
+        <ScoreGauge points={quizz.points} theme={theme} />
       </Styles.DescriptionCardStyledView>
     );
   }

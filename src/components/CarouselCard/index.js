@@ -8,7 +8,7 @@ import Icon from '@components/Icon';
 import Styles from '@components/CarouselCard/styles';
 
 class CarouselCard extends PureComponent {
-  FIRST_SLIDE_INDEX = 1;
+  FIRST_SLIDE_INDEX = 0;
 
   state = {
     activeSlide: this.FIRST_SLIDE_INDEX,

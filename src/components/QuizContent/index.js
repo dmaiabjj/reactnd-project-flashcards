@@ -6,9 +6,10 @@ import QuizCard, { QuizCardEmpty } from '@components/QuizCard';
 const QuizContent = ({ quizzes }) => {
   const generateComponent = () => {
     const hasQuizzes = quizzes && quizzes.length > 0;
+
     if (hasQuizzes) {
       return quizzes.map((quizz, index) => (
-        <QuizCard key={quizz.name} ranking={index} quizz={quizz} />
+        <QuizCard key={quizz.id} ranking={index} quizz={quizz} />
       ));
     }
 

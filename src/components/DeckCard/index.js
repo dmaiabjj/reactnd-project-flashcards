@@ -26,7 +26,7 @@ class DeckCard extends PureComponent {
         <Styles.CardDescriptionStyledText>
           {deck.questions.length} card(s)
         </Styles.CardDescriptionStyledText>
-        <ScoreGauge score={this.calcScore()} theme={theme} style={{ justifyContent: 'center' }} />
+        <ScoreGauge points={this.calcScore()} theme={theme} style={{ justifyContent: 'center' }} />
       </Styles.CardStyledView>
     );
   }
