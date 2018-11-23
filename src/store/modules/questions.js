@@ -6,7 +6,6 @@ import normalize from '@helpers/normalize';
 import schema from '@store/schemas';
 import questionSchema from '@store/schemas/questions';
 import { saveCard, removeCard, getDeck } from '@api/ServerAPI';
-import { Actions as DeckActions } from '@store/modules/decks';
 
 const INITIAL_STATE_COLLECTION = Immutable({});
 const INITIAL_STATE_IDS = Immutable([]);
@@ -20,6 +19,7 @@ export const Types = {
   DELETE_REQUEST: 'DELETE_REQUEST',
   DELETE_SUCCESS: 'DELETE_SUCCESS',
   DELETE_FAILURE: 'DELETE_FAILURE',
+  UPDATE_DECKS: 'UPDATE_DECKS',
 };
 
 const INITIAL_PAYLOAD = null;
@@ -33,6 +33,7 @@ export const Actions = createActions({
     [Types.DELETE_REQUEST]: INITIAL_PAYLOAD,
     [Types.DELETE_SUCCESS]: (id) => ({ id }),
     [Types.DELETE_FAILURE]: INITIAL_PAYLOAD,
+    [Types.UPDATE_DECKS]: (decks, ids) => ({ decks, ids }),
   },
 });
 
@@ -68,7 +69,7 @@ export const Creators = {
             'result',
           );
 
-          dispatch(DeckActions.deck.saveSuccess(decks, deckIds));
+          dispatch(Actions.question.updateDecks(decks, deckIds));
           dispatch(Actions.question.saveSuccess(cards, cardIds));
         })
         .catch((error) => {
@@ -97,7 +98,7 @@ export const Creators = {
               'entities.decks',
               'result',
             );
-            dispatch(DeckActions.deck.fetchSuccess(decks, result));
+            dispatch(Actions.question.updateDecks(decks, result));
             dispatch(Actions.question.deleteSuccess([id]));
           });
         })

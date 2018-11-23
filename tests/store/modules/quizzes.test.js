@@ -6,7 +6,6 @@ import _ from 'lodash';
 import quizzes from '@@stubs/quiz';
 import decks from '@@stubs/deck';
 import reducer, { Actions, Types, Creators, Selectors } from '@store/modules/quizzes';
-import { Actions as DeckActions } from '@store/modules/decks';
 
 import * as ServerAPI from '@api/ServerAPI';
 
@@ -98,7 +97,7 @@ describe('MODULE - QUIZZES', () => {
     const deck = props.getDeck(props.deck.title.react, [], [props.quiz.id.first]);
     const expectedActions = [
       Actions.quiz.saveRequest(),
-      DeckActions.deck.saveSuccess(deck, [props.deck.title.react]),
+      Actions.quiz.updateDecks(deck, [props.deck.title.react]),
       Actions.quiz.saveSuccess(quiz, [props.quiz.id.first]),
     ];
 

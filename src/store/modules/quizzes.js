@@ -7,7 +7,6 @@ import normalize from '@helpers/normalize';
 import schema from '@store/schemas';
 import quizSchema from '@store/schemas/quizzes';
 import { saveQuiz } from '@api/ServerAPI';
-import { Actions as DeckActions } from '@store/modules/decks';
 
 const INITIAL_STATE_COLLECTION = Immutable({});
 const INITIAL_STATE_IDS = Immutable([]);
@@ -19,6 +18,7 @@ export const Types = {
   SAVE_SUCCESS: 'SAVE_SUCCESS',
   SAVE_FAILURE: 'SAVE_FAILURE',
   DELETE_SUCCESS: 'DELETE_SUCCESS',
+  UPDATE_DECKS: 'UPDATE_DECKS',
 };
 
 const INITIAL_PAYLOAD = null;
@@ -30,6 +30,7 @@ export const Actions = createActions({
     [Types.SAVE_SUCCESS]: (quizzes, id) => ({ quizzes, ids: id }),
     [Types.SAVE_FAILURE]: INITIAL_PAYLOAD,
     [Types.DELETE_SUCCESS]: (id) => ({ id }),
+    [Types.UPDATE_DECKS]: (decks, ids) => ({ decks, ids }),
   },
 });
 
@@ -66,7 +67,7 @@ export const Creators = {
             'result',
           );
 
-          dispatch(DeckActions.deck.saveSuccess(decks, deckIds));
+          dispatch(Actions.quiz.updateDecks(decks, deckIds));
           dispatch(Actions.quiz.saveSuccess(cards, cardsIds));
         })
         .catch((error) => {

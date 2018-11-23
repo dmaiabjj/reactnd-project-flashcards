@@ -187,7 +187,12 @@ export const Creators = {
 /* Reducer  */
 const collection = handleActions(
   {
-    [combineActions(Actions.deck.fetchSuccess, Actions.deck.saveSuccess)]: (state, { payload }) => {
+    [combineActions(
+      Actions.deck.fetchSuccess,
+      Actions.deck.saveSuccess,
+      QuestionActions.question.updateDecks,
+      QuizActions.quiz.updateDecks,
+    )]: (state, { payload }) => {
       return Immutable.merge(state, payload.decks);
     },
     [Actions.deck.deleteSuccess]: (state, { payload }) => {

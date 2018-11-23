@@ -4,7 +4,6 @@ import Immutable from 'seamless-immutable';
 import decks from '@@stubs/deck';
 import questions from '@@stubs/question';
 import reducer, { Actions, Types, Creators } from '@store/modules/questions';
-import { Actions as DeckActions } from '@store/modules/decks';
 import * as ServerAPI from '@api/ServerAPI';
 
 const INITIAL_STATE = Immutable({
@@ -104,7 +103,7 @@ describe('MODULE - QUESTIONS', () => {
     const deck = props.getDeck(props.deck.title.react, [props.card.id.closure]);
     const expectedActions = [
       Actions.question.saveRequest(),
-      DeckActions.deck.saveSuccess(deck, [props.deck.title.react]),
+      Actions.question.updateDecks(deck, [props.deck.title.react]),
       Actions.question.saveSuccess(card, [props.card.id.closure]),
     ];
 
@@ -132,7 +131,7 @@ describe('MODULE - QUESTIONS', () => {
   it('[ACTION CREATORS] should dispatch a DELETE_REQUEST->DELETE_SUCCESS ', async () => {
     const expectedActions = [
       Actions.question.deleteRequest(),
-      DeckActions.deck.fetchSuccess(props.getDeck(props.deck.title.react, []), [
+      Actions.question.updateDecks(props.getDeck(props.deck.title.react, []), [
         props.deck.title.react,
       ]),
       Actions.question.deleteSuccess([props.card.id.closure]),

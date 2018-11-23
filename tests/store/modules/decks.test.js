@@ -8,8 +8,8 @@ import questions from '@@stubs/question';
 import quizzes from '@@stubs/quiz';
 
 import reducer, { Actions, Types, Creators, Selectors } from '@store/modules/decks';
-import { Actions as QuestionActions } from '@store/modules/questions';
-import { Actions as QuizzActions } from '@store/modules/quizzes';
+import { Types as QuestionTypes, Actions as QuestionActions } from '@store/modules/questions';
+import { Types as QuizTypes, Actions as QuizActions } from '@store/modules/quizzes';
 
 import * as ServerAPI from '@api/ServerAPI';
 
@@ -106,6 +106,20 @@ describe('MODULE - DECK', () => {
       payload: props.error,
       error: true,
     });
+
+    expect(
+      QuestionActions.question.updateDecks(props.getDeck(props.title.react), [props.title.react]),
+    ).toEqual({
+      type: `QUESTION/${QuestionTypes.UPDATE_DECKS}`,
+      payload: { decks: props.getDeck(props.title.react), ids: [props.title.react] },
+    });
+
+    expect(
+      QuizActions.quiz.updateDecks(props.getDeck(props.title.react), [props.title.react]),
+    ).toEqual({
+      type: `QUIZ/${QuizTypes.UPDATE_DECKS}`,
+      payload: { decks: props.getDeck(props.title.react), ids: [props.title.react] },
+    });
   });
   /* ACTIONS  */
 
@@ -114,9 +128,9 @@ describe('MODULE - DECK', () => {
   it('[ACTION CREATORS] should dispatch a FETCH_REQUEST ->  FETCH_SUCCESS action ', async () => {
     const expectedActions = [
       Actions.deck.fetchRequest(),
-      Actions.deck.fetchSuccess(props.decks, props.ids),
+      QuizActions.quiz.fetchSuccess({}, []),
       QuestionActions.question.fetchSuccess({}, []),
-      QuizzActions.quiz.fetchSuccess({}, []),
+      Actions.deck.fetchSuccess(props.decks, props.ids),
     ];
 
     return store
@@ -146,9 +160,9 @@ describe('MODULE - DECK', () => {
 
     const expectedActions = [
       Actions.deck.fetchRequest(),
-      Actions.deck.fetchSuccess(expected, [props.title.react]),
+      QuizActions.quiz.fetchSuccess(props.getQuizz(1), [1]),
       QuestionActions.question.fetchSuccess(props.getQuestion(1), [1]),
-      QuizzActions.quiz.fetchSuccess(props.getQuizz(1), [1]),
+      Actions.deck.fetchSuccess(expected, [props.title.react]),
     ];
 
     return store
@@ -196,7 +210,7 @@ describe('MODULE - DECK', () => {
       Actions.deck.deleteRequest(),
       Actions.deck.deleteSuccess(props.title.react),
       QuestionActions.question.deleteSuccess([]),
-      QuizzActions.quiz.deleteSuccess([]),
+      QuizActions.quiz.deleteSuccess([]),
     ];
 
     return store
