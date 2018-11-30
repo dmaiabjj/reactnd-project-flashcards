@@ -54,7 +54,7 @@ export default {
       color: { first: 'rgba(68, 68, 68, 0.3)', second: 'rgba(68, 68, 68, 0.1)' },
     },
     input: {
-      color: { first: '#495057' },
+      color: { first: '#fff' },
     },
   },
 };

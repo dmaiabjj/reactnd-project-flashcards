@@ -30,8 +30,10 @@ describe('MODULE - DECK', () => {
       javascript: 'JavaScript',
       graphQl: 'GraphQL',
     },
-    getDeck: (title, quizzCollection = [], questionCollection = []) => {
-      return { [title]: { title, quizzes: quizzCollection, questions: questionCollection } };
+    getDeck: (title, quizzCollection = [], questionCollection = [], timestamp = 1543520781) => {
+      return {
+        [title]: { title, quizzes: quizzCollection, questions: questionCollection, timestamp },
+      };
     },
     getQuestion: (id) => {
       return { [id]: questions[id] };
@@ -45,13 +47,14 @@ describe('MODULE - DECK', () => {
     formatAction: (action) => {
       return `DECK/${action}`;
     },
+    timestamp: 1543520781,
   };
 
   beforeEach(async () => {
     store.clearActions();
-    await ServerAPI.saveDeck(props.title.react);
-    await ServerAPI.saveDeck(props.title.javascript);
-    await ServerAPI.saveDeck(props.title.graphQl);
+    await ServerAPI.saveDeck(props.title.react, props.timestamp);
+    await ServerAPI.saveDeck(props.title.javascript, props.timestamp);
+    await ServerAPI.saveDeck(props.title.graphQl, props.timestamp);
   });
 
   afterAll(async () => {});
@@ -151,7 +154,7 @@ describe('MODULE - DECK', () => {
   });
 
   it('[ACTION CREATORS] should dispatch a FETCH_REQUEST -> FETCH_SUCCESS BY TITLE', async () => {
-    await ServerAPI.saveCard(props.title.react, props.getQuestion(1)[1]);
+    await ServerAPI.saveCard(props.title.react, props.getQuestion(1)[1], props.timestamp);
     await ServerAPI.saveQuiz(props.title.react, props.getQuizz(1)[1]);
 
     const expected = {
@@ -189,7 +192,7 @@ describe('MODULE - DECK', () => {
     ];
 
     return store
-      .dispatch(Creators.add(props.title.react))
+      .dispatch(Creators.add(props.title.react, props.timestamp))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
@@ -201,7 +204,7 @@ describe('MODULE - DECK', () => {
     const expectedActions = [Actions.deck.saveRequest(), Actions.deck.saveFailure(props.error)];
 
     return store
-      .dispatch(Creators.add(props.title.react))
+      .dispatch(Creators.add(props.title.react, props.timestamp))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 

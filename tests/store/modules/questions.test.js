@@ -49,12 +49,13 @@ describe('MODULE - QUESTIONS', () => {
     formatAction: (action) => {
       return `QUESTION/${action}`;
     },
+    timestamp: 1543520781,
   };
 
   beforeEach(async () => {
     store.clearActions();
-    await ServerAPI.saveDeck(props.deck.title.react);
-    await ServerAPI.saveDeck(props.deck.title.javascript);
+    await ServerAPI.saveDeck(props.deck.title.react, props.timestamp);
+    await ServerAPI.saveDeck(props.deck.title.javascript, props.timestamp);
   });
 
   /* ACTIONS  */
@@ -108,7 +109,7 @@ describe('MODULE - QUESTIONS', () => {
     ];
 
     return store
-      .dispatch(Creators.add(props.deck.title.react, card[props.card.id.closure]))
+      .dispatch(Creators.add(props.deck.title.react, card[props.card.id.closure], props.timestamp))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
@@ -124,7 +125,7 @@ describe('MODULE - QUESTIONS', () => {
     ];
 
     return store
-      .dispatch(Creators.add(props.deck.title.react, card[props.card.id.closure]))
+      .dispatch(Creators.add(props.deck.title.react, card[props.card.id.closure], props.timestamp))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 

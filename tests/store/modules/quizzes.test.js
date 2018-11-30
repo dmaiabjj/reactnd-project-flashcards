@@ -49,12 +49,13 @@ describe('MODULE - QUIZZES', () => {
     formatAction: (action) => {
       return `QUIZ/${action}`;
     },
+    timestamp: 1543520781,
   };
 
   beforeEach(async () => {
     store.clearActions();
-    await ServerAPI.saveDeck(props.deck.title.react);
-    await ServerAPI.saveDeck(props.deck.title.javascript);
+    await ServerAPI.saveDeck(props.deck.title.react, props.timestamp);
+    await ServerAPI.saveDeck(props.deck.title.javascript, props.timestamp);
   });
 
   /* ACTIONS  */

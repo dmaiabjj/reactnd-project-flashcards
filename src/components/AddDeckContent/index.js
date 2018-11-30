@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withTheme } from 'styled-components/native';
 import PropTypes from 'prop-types';
-import { LinearGradient } from 'expo';
 
 import Styles from '@components/AddDeckContent/styles';
 import DeckCard from '@components/DeckCard';
@@ -15,6 +14,14 @@ import { Creators as DeckCreators, Selectors as DeckSelectors } from '@store/mod
 const imageSrc = require('../../../assets/images/background.png');
 
 class AddDeckContent extends PureComponent {
+  INITIAL_STATE = {
+    title: '',
+    submited: false,
+    error: true,
+  };
+
+  state = this.INITIAL_STATE;
+
   componentDidMount() {
     const { getAllDecks } = this.props;
     getAllDecks();
@@ -24,13 +31,23 @@ class AddDeckContent extends PureComponent {
     return <DeckCard key={index} deck={item} />;
   };
 
-  selectedItem = (index) => {
-    this.setState(() => ({ activeDeck: index }));
+  selectedItem = () => {};
+
+  handleInputChange = (title) => {
+    const error = title.length < 3;
+    this.setState({ title, error, submited: true });
+  };
+
+  onPress = () => {
+    const { addDeck } = this.props;
+    const { title } = this.state;
+    addDeck(title);
+    this.setState(this.INITIAL_STATE);
   };
 
   render() {
     const { theme, app, decks = [] } = this.props;
-
+    const { title, error, submited } = this.state;
     return (
       <Styles.ContentStyledView>
         <MainBackground imageSrc={imageSrc} />
@@ -52,21 +69,23 @@ class AddDeckContent extends PureComponent {
                 <Styles.TitleStyledText>Deck Infos</Styles.TitleStyledText>
               </Styles.TitleTextStyledView>
               <Styles.DeckSubjectStyledView>
-                <Styles.DeckSubjectStyledText placeholder="Type here the subject!" />
+                <Styles.DeckSubjectStyledText
+                  placeholderTextColor={theme.input.color.first}
+                  placeholder="Type here the subject!"
+                  name="title"
+                  onChangeText={this.handleInputChange}
+                  value={title}
+                />
+                {error && submited && (
+                  <Styles.DeckSubjectErrorStyledText>
+                    Invalid Title: 3 digits at least
+                  </Styles.DeckSubjectErrorStyledText>
+                )}
               </Styles.DeckSubjectStyledView>
               <Styles.AddButtonStyledView>
-                <LinearGradient
-                  colors={['#1283f6', '#8811d3', 'transparent']}
-                  style={{
-                    borderRadius: 5,
-                  }}
-                  start={{ x: 0, y: 1 }}
-                  end={{ x: 1, y: 0 }}
-                >
-                  <Styles.AddButtonStyled>
-                    <Styles.AddButtonStyledText>Add</Styles.AddButtonStyledText>
-                  </Styles.AddButtonStyled>
-                </LinearGradient>
+                <Styles.AddButtonStyled onPress={() => !error && this.onPress()}>
+                  <Styles.AddButtonStyledText>Add</Styles.AddButtonStyledText>
+                </Styles.AddButtonStyled>
               </Styles.AddButtonStyledView>
             </Styles.MainContentStyledView>
           </Styles.MainStyledView>
@@ -91,6 +110,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getAllDecks: () => dispatch(DeckCreators.fetch()),
+    addDeck: (title) => dispatch(DeckCreators.add(title)),
   };
 }
 
@@ -99,6 +119,7 @@ AddDeckContent.propTypes = {
   app: PropTypes.object.isRequired,
   decks: PropTypes.array,
   getAllDecks: PropTypes.func.isRequired,
+  addDeck: PropTypes.func.isRequired,
 };
 
 export default connect(

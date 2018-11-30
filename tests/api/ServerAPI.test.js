@@ -33,6 +33,7 @@ describe('API', () => {
     },
     quizzes,
     cards: questions,
+    timestamp: 1543520781,
   };
 
   it('[Method - getDecks] should handle initial state', async () => {
@@ -41,8 +42,8 @@ describe('API', () => {
   });
 
   it('[Method - getDecks] should return a specific Deck', async () => {
-    await saveDeck(props.title.react);
-    await saveDeck(props.title.javascript);
+    await saveDeck(props.title.react, props.timestamp);
+    await saveDeck(props.title.javascript, props.timestamp);
 
     const expected = await getDeck(props.title.javascript);
 
@@ -50,32 +51,32 @@ describe('API', () => {
   });
 
   it('[Method - getDecks] should handle an unknown deck', async () => {
-    await saveDeck(props.title.react);
-    await saveDeck(props.title.javascript);
+    await saveDeck(props.title.react, props.timestamp);
+    await saveDeck(props.title.javascript, props.timestamp);
 
     const expected = await getDeck(props.title.redux);
     expect(expected).toEqual({});
   });
 
   it('[Method - saveDeck] should insert a new deck', async () => {
-    const expected = await saveDeck(props.title.react);
+    const expected = await saveDeck(props.title.react, props.timestamp);
     expect(expected).toEqual(props.deck(props.title.react));
   });
 
   it('[Method - getDeck] should handle insert decks', async () => {
-    await saveDeck(props.title.react);
-    await saveDeck(props.title.javascript);
-    await saveDeck(props.title.graphQL);
+    await saveDeck(props.title.react, props.timestamp);
+    await saveDeck(props.title.javascript, props.timestamp);
+    await saveDeck(props.title.graphQL, props.timestamp);
 
     const expected = await getDecks();
     expect(expected).toEqual(props.decks);
   });
 
   it('[Method - addCard] should handle insert cards on deck', async () => {
-    await saveDeck(props.title.react);
-    await saveCard(props.title.react, props.card.react);
-    await saveCard(props.title.react, props.card.ajax);
-    await saveCard(props.title.react, props.card.closure);
+    await saveDeck(props.title.react, props.timestamp);
+    await saveCard(props.title.react, props.card.react, props.timestamp);
+    await saveCard(props.title.react, props.card.ajax, props.timestamp);
+    await saveCard(props.title.react, props.card.closure, props.timestamp);
 
     const expected = await getDeck(props.title.react);
 
@@ -85,9 +86,9 @@ describe('API', () => {
   });
 
   it('[Method - removeDeck] should handle remove deck', async () => {
-    await saveDeck(props.title.react);
-    await saveDeck(props.title.javascript);
-    await saveDeck(props.title.graphQL);
+    await saveDeck(props.title.react, props.timestamp);
+    await saveDeck(props.title.javascript, props.timestamp);
+    await saveDeck(props.title.graphQL, props.timestamp);
 
     await removeDeck(props.title.react);
 
@@ -97,11 +98,11 @@ describe('API', () => {
   });
 
   it('[Method - removeCard] should handle remove card', async () => {
-    await saveDeck(props.title.react);
-    await saveDeck(props.title.javascript);
-    await saveCard(props.title.react, props.card.react);
-    await saveCard(props.title.javascript, props.card.ajax);
-    await saveCard(props.title.react, props.card.closure);
+    await saveDeck(props.title.react, props.timestamp);
+    await saveDeck(props.title.javascript, props.timestamp);
+    await saveCard(props.title.react, props.card.react, props.timestamp);
+    await saveCard(props.title.javascript, props.card.ajax, props.timestamp);
+    await saveCard(props.title.react, props.card.closure, props.timestamp);
 
     await removeCard(props.title.react, props.card.react.id);
 
@@ -113,7 +114,7 @@ describe('API', () => {
   it('[Method - saveQuiz] should handle add a quiz', async () => {
     const deck = props.deck(props.title.react);
     const quiz = props.quiz(1);
-    await saveDeck(props.title.react);
+    await saveDeck(props.title.react, props.timestamp);
     await saveQuiz(props.title.react, quiz);
 
     const expected = await getDeck(props.title.react);

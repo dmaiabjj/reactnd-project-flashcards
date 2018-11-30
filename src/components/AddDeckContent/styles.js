@@ -66,7 +66,12 @@ const DeckSubjectStyledText = styled.TextInput`
   color: ${(props) => props.theme.input.color.first};
   margin: 20px 15px 20px 15px;
   font-size: 20px;
-  width: 100%;
+  text-align: center;
+`;
+
+const DeckSubjectErrorStyledText = styled.TextInput`
+  color: red;
+  font-size: 15px;
   text-align: center;
 `;
 
@@ -79,6 +84,8 @@ const AddButtonStyled = styled.TouchableOpacity`
   padding: 5px;
   align-items: center;
   width: 150;
+  border-radius: 5px;
+  background-color: ${(props) => props.theme.background.color.second};
 `;
 
 const AddButtonStyledText = styled.Text`
@@ -98,6 +105,7 @@ export default {
   TitleStyledText,
   DeckSubjectStyledView,
   DeckSubjectStyledText,
+  DeckSubjectErrorStyledText,
   AddButtonStyledView,
   AddButtonStyled,
   AddButtonStyledText,

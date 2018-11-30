@@ -28,11 +28,11 @@ export async function getDeck(title) {
  * @description Add/Up the deck
  * @param {String} title - Deck Title
  */
-export async function saveDeck(title) {
+export async function saveDeck(title, timestamp) {
   const all = await getDecks();
   const decks = {
     ...all,
-    [title]: { title, questions: [], quizzes: [] },
+    [title]: { title, questions: [], quizzes: [], timestamp },
   };
 
   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
@@ -45,11 +45,11 @@ export async function saveDeck(title) {
  * @param {String} title - Deck Title
  * @param {Object}  card  - Card
  */
-export async function saveCard(title, card) {
+export async function saveCard(title, card, timestamp) {
   const all = await getDecks();
   const decks = {
     ...all,
-    [title]: { ...all[title], questions: all[title].questions.concat(card) },
+    [title]: { ...all[title], questions: all[title].questions.concat(card), timestamp },
   };
 
   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));

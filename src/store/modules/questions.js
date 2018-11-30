@@ -43,14 +43,15 @@ export const Creators = {
    * @description Add Deck
    * @param {Object} title - Deck`s title
    * @param {Object} question - Question
+   * @param {Number} timestamp - Date Now
    * Step 1                - Dispatch SAVE_REQUEST action
    * Step 2.1  - Success   - Dispatch SAVE_SUCCESS action
    * Step 2.2  - Failure   - Dispatch SAVE_FAILURE action
    */
-  add: (title, question) => {
+  add: (title, question, timestamp) => {
     return (dispatch) => {
       dispatch(Actions.question.saveRequest());
-      return saveCard(title, question)
+      return saveCard(title, question, timestamp)
         .then((data) => {
           let normalized = Object.keys(data).map((key) => data[key]);
           const { decks, questions, result: deckIds } = normalize.apply(
