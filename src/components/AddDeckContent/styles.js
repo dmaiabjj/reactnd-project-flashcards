@@ -22,6 +22,7 @@ const MainStyledView = styled.View`
 `;
 
 const MessageStyledText = styled.Text`
+  text-transform: uppercase;
   font-size: ${(props) => props.size};
   font-weight: ${(props) => props.weight};
   color: ${(props) => props.theme.font.color.second};
@@ -31,11 +32,12 @@ const MessageStyledText = styled.Text`
 `;
 const MainContentStyledView = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
   background: ${(props) => props.theme.background.color.first};
 `;
 
-const QuizTitleStyledText = styled.Text`
-  margin: 0px 15px 20px 15px;
+const TitleStyledText = styled.Text`
   text-transform: uppercase;
   line-height: 16px;
   overflow: hidden;
@@ -50,5 +52,5 @@ export default {
   MainStyledView,
   MessageStyledText,
   MainContentStyledView,
-  QuizTitleStyledText,
+  TitleStyledText,
 };
