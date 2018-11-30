@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withTheme } from 'styled-components/native';
 import PropTypes from 'prop-types';
+import { LinearGradient } from 'expo';
 
 import Styles from '@components/AddDeckContent/styles';
 import DeckCard from '@components/DeckCard';
@@ -47,7 +48,26 @@ class AddDeckContent extends PureComponent {
               selectedItem={this.selectedItem}
             />
             <Styles.MainContentStyledView>
-              <Styles.TitleStyledText>Deck Infos</Styles.TitleStyledText>
+              <Styles.TitleTextStyledView>
+                <Styles.TitleStyledText>Deck Infos</Styles.TitleStyledText>
+              </Styles.TitleTextStyledView>
+              <Styles.DeckSubjectStyledView>
+                <Styles.DeckSubjectStyledText placeholder="Type here the subject!" />
+              </Styles.DeckSubjectStyledView>
+              <Styles.AddButtonStyledView>
+                <LinearGradient
+                  colors={['#1283f6', '#8811d3', 'transparent']}
+                  style={{
+                    borderRadius: 5,
+                  }}
+                  start={{ x: 0, y: 1 }}
+                  end={{ x: 1, y: 0 }}
+                >
+                  <Styles.AddButtonStyled>
+                    <Styles.AddButtonStyledText>Add</Styles.AddButtonStyledText>
+                  </Styles.AddButtonStyled>
+                </LinearGradient>
+              </Styles.AddButtonStyledView>
             </Styles.MainContentStyledView>
           </Styles.MainStyledView>
         )}

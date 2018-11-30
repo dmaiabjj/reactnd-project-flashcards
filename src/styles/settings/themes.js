@@ -24,6 +24,9 @@ export default {
     shadow: {
       color: { first: 'rgba(68, 68, 68, 0.6)', second: 'rgba(68, 68, 68, 0.1)' },
     },
+    input: {
+      color: { first: '#495057' },
+    },
   },
   dark: {
     background: {
@@ -49,6 +52,9 @@ export default {
     },
     shadow: {
       color: { first: 'rgba(68, 68, 68, 0.3)', second: 'rgba(68, 68, 68, 0.1)' },
+    },
+    input: {
+      color: { first: '#495057' },
     },
   },
 };
