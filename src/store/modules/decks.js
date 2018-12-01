@@ -174,9 +174,9 @@ export const Creators = {
       dispatch(Actions.deck.deleteRequest());
       return removeDeck(deck.title)
         .then(() => {
-          dispatch(Actions.deck.deleteSuccess(deck.title));
-          dispatch(QuestionActions.question.deleteSuccess(deck.questions));
           dispatch(QuizActions.quiz.deleteSuccess(deck.quizzes));
+          dispatch(QuestionActions.question.deleteSuccess(deck.questions));
+          dispatch(Actions.deck.deleteSuccess(deck.title));
         })
         .catch((error) => {
           dispatch(Actions.deck.deleteFailure(error));

@@ -30,7 +30,7 @@ class DeckDetail extends PureComponent {
       <DeckDetailStyled>
         <StatusBar />
         <Header navigation={navigation} />
-        <DeckDetailContent deck={deck} />
+        <DeckDetailContent deck={deck} navigation={navigation} />
         <Footer />
       </DeckDetailStyled>
     );
