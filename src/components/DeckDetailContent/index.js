@@ -11,13 +11,13 @@ const imageSrc = require('../../../assets/images/background.png');
 
 class DeckDetailContent extends PureComponent {
   render() {
-    const { theme, app } = this.props;
+    const { theme, app, deck } = this.props;
     return (
       <Styles.ContentStyledView>
         <MainBackground imageSrc={imageSrc} />
         <Styles.MessageStyledView>
           <Styles.MessageStyledText size={theme.font.size.second} weight={theme.font.weight.second}>
-            Deck
+            {deck.title}
           </Styles.MessageStyledText>
         </Styles.MessageStyledView>
         {!app.fetched && <Loading color={theme.font.color.first} />}
@@ -45,6 +45,7 @@ function mapDispatchToProps() {
 DeckDetailContent.propTypes = {
   theme: PropTypes.object.isRequired,
   app: PropTypes.object.isRequired,
+  deck: PropTypes.object.isRequired,
 };
 
 export default connect(

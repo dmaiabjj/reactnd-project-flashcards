@@ -16,10 +16,11 @@ class DeckCard extends PureComponent {
   };
 
   render() {
-    const { deck, theme } = this.props;
-
+    const { deck, theme, navigation } = this.props;
     return (
-      <Styles.CardStyledView>
+      <Styles.CardStyledTouchableOpacity
+        onPress={() => navigation.navigate('DeckDetail', { deck })}
+      >
         <Styles.CardTitleStyledView>
           <Styles.CardTitleStyledText>{deck.title}</Styles.CardTitleStyledText>
         </Styles.CardTitleStyledView>
@@ -27,7 +28,7 @@ class DeckCard extends PureComponent {
           {deck.questions.length} card(s)
         </Styles.CardDescriptionStyledText>
         <ScoreGauge points={this.calcScore()} theme={theme} style={{ justifyContent: 'center' }} />
-      </Styles.CardStyledView>
+      </Styles.CardStyledTouchableOpacity>
     );
   }
 }
@@ -35,6 +36,7 @@ class DeckCard extends PureComponent {
 DeckCard.propTypes = {
   theme: PropTypes.object.isRequired,
   deck: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default withTheme(DeckCard);

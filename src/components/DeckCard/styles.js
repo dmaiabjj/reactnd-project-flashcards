@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-const CardStyledView = styled.View`
+const CardStyledTouchableOpacity = styled.TouchableOpacity`
   border: 3px solid ${(props) => props.theme.border.color.first};
   background: ${(props) => props.theme.background.color.first};
   border-radius: 10px;
@@ -56,7 +56,7 @@ const QuizScoreStyledText = styled.Text`
 `;
 
 export default {
-  CardStyledView,
+  CardStyledTouchableOpacity,
   CardTitleStyledView,
   CardTitleStyledText,
   CardDescriptionStyledText,

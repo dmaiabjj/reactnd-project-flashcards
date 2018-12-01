@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
+import PropTypes from 'prop-types';
+
 import Header from '@components/Header';
 import StatusBar from '@components/StatusBar';
 import DeckDetailContent from '@components/DeckDetailContent';
@@ -16,15 +18,27 @@ class DeckDetail extends PureComponent {
   };
 
   render() {
+    const {
+      navigation,
+      navigation: {
+        state: {
+          params: { deck },
+        },
+      },
+    } = this.props;
     return (
       <DeckDetailStyled>
         <StatusBar />
-        <Header {...this.props} />
-        <DeckDetailContent />
+        <Header navigation={navigation} />
+        <DeckDetailContent deck={deck} />
         <Footer />
       </DeckDetailStyled>
     );
   }
 }
+
+DeckDetail.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default DeckDetail;

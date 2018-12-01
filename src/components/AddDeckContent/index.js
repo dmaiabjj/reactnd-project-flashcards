@@ -28,7 +28,8 @@ class AddDeckContent extends PureComponent {
   }
 
   renderItem = ({ item, index }) => {
-    return <DeckCard key={index} deck={item} />;
+    const { navigation } = this.props;
+    return <DeckCard key={index} deck={item} navigation={navigation} />;
   };
 
   selectedItem = () => {};
@@ -117,6 +118,7 @@ function mapDispatchToProps(dispatch) {
 AddDeckContent.propTypes = {
   theme: PropTypes.object.isRequired,
   app: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
   decks: PropTypes.array,
   getAllDecks: PropTypes.func.isRequired,
   addDeck: PropTypes.func.isRequired,

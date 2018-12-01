@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
+import PropTypes from 'prop-types';
+
 import Header from '@components/Header';
 import StatusBar from '@components/StatusBar';
 import HomeContent from '@components/HomeContent';
@@ -16,15 +18,20 @@ class Home extends PureComponent {
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <HomeStyled>
         <StatusBar />
-        <Header {...this.props} />
-        <HomeContent />
+        <Header navigation={navigation} />
+        <HomeContent navigation={navigation} />
         <Footer />
       </HomeStyled>
     );
   }
 }
+
+Home.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default Home;

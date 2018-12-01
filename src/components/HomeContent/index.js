@@ -26,7 +26,8 @@ class HomeContent extends PureComponent {
   }
 
   renderItem = ({ item, index }) => {
-    return <DeckCard key={index} deck={item} />;
+    const { navigation } = this.props;
+    return <DeckCard key={index} deck={item} navigation={navigation} />;
   };
 
   selectedItem = (index) => {
@@ -89,6 +90,7 @@ function mapDispatchToProps(dispatch) {
 HomeContent.propTypes = {
   theme: PropTypes.object.isRequired,
   app: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
   decks: PropTypes.array,
   quizzes: PropTypes.array,
   getAllDecks: PropTypes.func.isRequired,
