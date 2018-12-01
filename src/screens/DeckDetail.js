@@ -2,29 +2,29 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
 import Header from '@components/Header';
 import StatusBar from '@components/StatusBar';
-import HomeContent from '@components/HomeContent';
+import DeckDetailContent from '@components/DeckDetailContent';
 import Footer from '@components/Footer';
 
-const HomeStyled = styled.SafeAreaView`
+const DeckDetailStyled = styled.SafeAreaView`
   flex: 1;
   background-color: ${(props) => props.theme.background.color.first};
 `;
 
-class Home extends PureComponent {
+class DeckDetail extends PureComponent {
   static navigationOptions = {
-    drawerLabel: 'Home',
+    drawerLabel: 'Detail',
   };
 
   render() {
     return (
-      <HomeStyled>
+      <DeckDetailStyled>
         <StatusBar />
         <Header {...this.props} />
-        <HomeContent />
+        <DeckDetailContent />
         <Footer />
-      </HomeStyled>
+      </DeckDetailStyled>
     );
   }
 }
 
-export default Home;
+export default DeckDetail;

@@ -93,7 +93,7 @@ const collection = handleActions(
 const ids = handleActions(
   {
     [combineActions(Actions.quiz.fetchSuccess, Actions.quiz.saveSuccess)]: (state, { payload }) => {
-      return [...state, ...payload.ids];
+      return _.union(state, payload.ids);
     },
     [Actions.quiz.deleteSuccess]: (state, { payload }) => {
       return state.filter((id) => !payload.id.includes(id));

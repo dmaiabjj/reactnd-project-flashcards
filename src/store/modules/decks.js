@@ -206,7 +206,7 @@ const collection = handleActions(
 const ids = handleActions(
   {
     [combineActions(Actions.deck.fetchSuccess, Actions.deck.saveSuccess)]: (state, { payload }) => {
-      return [...state, ...payload.ids];
+      return _.union(state, payload.ids);
     },
     [Actions.deck.deleteSuccess]: (state, { payload }) => {
       return state.filter((id) => id !== payload.id);
@@ -234,7 +234,7 @@ const decksEntitiesSelector = (state) => {
 const getAll = createSelector(
   [decksEntitiesSelector],
   ({ decks, subjects }) => {
-    return subjects && _.orderBy(subjects, ['title'], ['desc']).map((id) => decks[id]);
+    return subjects && _.orderBy(subjects.map((id) => decks[id]), ['timestamp'], ['desc']);
   },
 );
 

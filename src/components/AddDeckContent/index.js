@@ -66,7 +66,7 @@ class AddDeckContent extends PureComponent {
             />
             <Styles.MainContentStyledView>
               <Styles.TitleTextStyledView>
-                <Styles.TitleStyledText>Deck Infos</Styles.TitleStyledText>
+                <Styles.TitleStyledText>What is the title of your new deck?</Styles.TitleStyledText>
               </Styles.TitleTextStyledView>
               <Styles.DeckSubjectStyledView>
                 <Styles.DeckSubjectStyledText
@@ -110,7 +110,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getAllDecks: () => dispatch(DeckCreators.fetch()),
-    addDeck: (title) => dispatch(DeckCreators.add(title)),
+    addDeck: (title) => dispatch(DeckCreators.add(title, Date.now())),
   };
 }
 

@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
 import { createActions, handleActions, combineActions } from 'redux-actions';
-
+import _ from 'lodash';
 import normalize from '@helpers/normalize';
+
 import schema from '@store/schemas';
 import questionSchema from '@store/schemas/questions';
 import { saveCard, removeCard, getDeck } from '@api/ServerAPI';
@@ -132,7 +133,7 @@ const ids = handleActions(
       state,
       { payload },
     ) => {
-      return [...state, ...payload.ids];
+      return _.union(state, payload.ids);
     },
     [Actions.question.deleteSuccess]: (state, { payload }) => {
       return state.filter((id) => !payload.id.includes(id));
