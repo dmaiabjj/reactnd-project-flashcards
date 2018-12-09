@@ -1,6 +1,7 @@
 import { createDrawerNavigator } from 'react-navigation';
 import Home from '@screens/Home';
 import AddDeck from '@screens/AddDeck';
+import AddCard from '@screens/AddCard';
 import DeckDetail from '@screens/DeckDetail';
 import themes from '@styles/settings/themes';
 
@@ -9,6 +10,7 @@ const DrawerComponent = createDrawerNavigator(
     Add: { screen: AddDeck },
     Home: { screen: Home },
     DeckDetail: { screen: DeckDetail },
+    Card: { screen: AddCard },
   },
   {
     navigationOptions: {

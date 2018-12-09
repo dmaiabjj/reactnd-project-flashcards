@@ -26,7 +26,7 @@ class CarouselCard extends PureComponent {
   };
 
   render() {
-    const { theme, data, renderItem, selectedItem } = this.props;
+    const { theme, data, renderItem, selectedItem, itemWidth = 160, itemHeight = 120 } = this.props;
     const { activeSlide } = this.state;
     const { width } = Dimensions.get('window');
     return (
@@ -40,8 +40,8 @@ class CarouselCard extends PureComponent {
           renderItem={renderItem}
           sliderWidth={width}
           sliderHeight={200}
-          itemWidth={160}
-          itemHeight={120}
+          itemWidth={itemWidth}
+          itemHeight={itemHeight}
           showSpinner
           inactiveSlideScale={0.9}
           inactiveSlideOpacity={0.6}
@@ -76,5 +76,7 @@ CarouselCard.propTypes = {
   data: PropTypes.array.isRequired,
   renderItem: PropTypes.func.isRequired,
   selectedItem: PropTypes.func.isRequired,
+  itemWidth: PropTypes.number,
+  itemHeight: PropTypes.number,
 };
 export default withTheme(CarouselCard);

@@ -2,8 +2,9 @@ import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
 import { createActions, handleActions, combineActions } from 'redux-actions';
 import _ from 'lodash';
-import normalize from '@helpers/normalize';
+import { createSelector } from 'reselect';
 
+import normalize from '@helpers/normalize';
 import schema from '@store/schemas';
 import questionSchema from '@store/schemas/questions';
 import { saveCard, removeCard, getDeck } from '@api/ServerAPI';
@@ -49,10 +50,10 @@ export const Creators = {
    * Step 2.1  - Success   - Dispatch SAVE_SUCCESS action
    * Step 2.2  - Failure   - Dispatch SAVE_FAILURE action
    */
-  add: (title, question, timestamp) => {
+  add: (title, card) => {
     return (dispatch) => {
       dispatch(Actions.question.saveRequest());
-      return saveCard(title, question, timestamp)
+      return saveCard(title, card)
         .then((data) => {
           let normalized = Object.keys(data).map((key) => data[key]);
           const { decks, questions, result: deckIds } = normalize.apply(
@@ -141,5 +142,36 @@ const ids = handleActions(
   },
   INITIAL_STATE_IDS,
 );
+
+/* SELECTORS */
+
+const questionsEntitiesSelector = (state) => {
+  return {
+    questions: state.questions.collection,
+    uuids: state.questions.ids,
+  };
+};
+
+/**
+ * @description
+ * Returns all questions inside an array
+ *
+ * @returns {Array} Returns  an array with all
+ * questions
+ */
+const getByIds = (uuids) => {
+  return createSelector(
+    [questionsEntitiesSelector],
+    ({ questions }) => {
+      return questions && _.orderBy(uuids.map((id) => questions[id]), ['timestamp'], ['desc']);
+    },
+  );
+};
+
+export const Selectors = {
+  getByIds,
+};
+
+/* SELECTORS */
 
 export default combineReducers({ collection, ids });

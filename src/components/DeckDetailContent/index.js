@@ -22,8 +22,7 @@ class DeckDetailContent extends PureComponent {
         {
           text: 'Confirm',
           onPress: () => {
-            deleteDeck(deck);
-            navigation.navigate('Add');
+            deleteDeck(deck).then(() => navigation.navigate('Add'));
           },
         },
         { text: 'Cancel', onPress: () => {}, style: 'cancel' },
@@ -33,7 +32,7 @@ class DeckDetailContent extends PureComponent {
   };
 
   render() {
-    const { theme, app, deck } = this.props;
+    const { theme, app, deck, navigation } = this.props;
     return (
       <Styles.ContentStyledView>
         <MainBackground imageSrc={imageSrc} />
@@ -50,7 +49,10 @@ class DeckDetailContent extends PureComponent {
           <Styles.MainStyledView>
             <Styles.MainContentStyledView>
               <Styles.ButtonStyledView>
-                <Styles.ButtonStyled color={theme.background.color.second}>
+                <Styles.ButtonStyled
+                  color={theme.background.color.second}
+                  onPress={() => navigation.navigate('Card', { deck })}
+                >
                   <Styles.ButtonStyledText color={theme.font.color.second}>
                     Add Card
                   </Styles.ButtonStyledText>

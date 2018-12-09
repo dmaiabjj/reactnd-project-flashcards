@@ -238,8 +238,25 @@ const getAll = createSelector(
   },
 );
 
+/**
+ * @description
+ * Returns specific deck
+ * @param {Object} title  - Deck`s title
+ * @returns {Object} Returns  the deck
+ * decks
+ */
+const getBytTitle = (title) => {
+  return createSelector(
+    [decksEntitiesSelector],
+    ({ decks }) => {
+      return decks && decks[title];
+    },
+  );
+};
+
 export const Selectors = {
   getAll,
+  getBytTitle,
 };
 
 /* SELECTORS */

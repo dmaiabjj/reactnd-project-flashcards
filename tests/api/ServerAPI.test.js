@@ -74,9 +74,9 @@ describe('API', () => {
 
   it('[Method - addCard] should handle insert cards on deck', async () => {
     await saveDeck(props.title.react, props.timestamp);
-    await saveCard(props.title.react, props.card.react, props.timestamp);
-    await saveCard(props.title.react, props.card.ajax, props.timestamp);
-    await saveCard(props.title.react, props.card.closure, props.timestamp);
+    await saveCard(props.title.react, props.card.react);
+    await saveCard(props.title.react, props.card.ajax);
+    await saveCard(props.title.react, props.card.closure);
 
     const expected = await getDeck(props.title.react);
 
@@ -100,9 +100,9 @@ describe('API', () => {
   it('[Method - removeCard] should handle remove card', async () => {
     await saveDeck(props.title.react, props.timestamp);
     await saveDeck(props.title.javascript, props.timestamp);
-    await saveCard(props.title.react, props.card.react, props.timestamp);
-    await saveCard(props.title.javascript, props.card.ajax, props.timestamp);
-    await saveCard(props.title.react, props.card.closure, props.timestamp);
+    await saveCard(props.title.react, props.card.react);
+    await saveCard(props.title.javascript, props.card.ajax);
+    await saveCard(props.title.react, props.card.closure);
 
     await removeCard(props.title.react, props.card.react.id);
 

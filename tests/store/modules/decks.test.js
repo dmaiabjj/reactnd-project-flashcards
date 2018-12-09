@@ -154,7 +154,7 @@ describe('MODULE - DECK', () => {
   });
 
   it('[ACTION CREATORS] should dispatch a FETCH_REQUEST -> FETCH_SUCCESS BY TITLE', async () => {
-    await ServerAPI.saveCard(props.title.react, props.getQuestion(1)[1], props.timestamp);
+    await ServerAPI.saveCard(props.title.react, props.getQuestion(1)[1]);
     await ServerAPI.saveQuiz(props.title.react, props.getQuizz(1)[1]);
 
     const expected = {
@@ -211,9 +211,9 @@ describe('MODULE - DECK', () => {
   it('[ACTION CREATORS] should dispatch a DELETE_REQUEST ->  DELETE_SUCCESS action ', async () => {
     const expectedActions = [
       Actions.deck.deleteRequest(),
-      Actions.deck.deleteSuccess(props.title.react),
-      QuestionActions.question.deleteSuccess([]),
       QuizActions.quiz.deleteSuccess([]),
+      QuestionActions.question.deleteSuccess([]),
+      Actions.deck.deleteSuccess(props.title.react),
     ];
 
     return store
@@ -277,7 +277,7 @@ describe('MODULE - DECK', () => {
     };
     const expected = {
       collection: { ...props.decks, ...entity },
-      ids: props.ids.concat(Object.keys(entity)),
+      ids: props.ids,
     };
     expect(reducer(state, Actions.deck.saveSuccess(entity, [props.title.react]))).toEqual(expected);
   });
