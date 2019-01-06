@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Header from '@components/Header';
-import StatusBar from '@components/StatusBar';
 import AddCardContent from '@components/AddCardContent';
-import Footer from '@components/Footer';
 
 const DeckDetailStyled = styled.SafeAreaView`
   flex: 1;
@@ -13,6 +12,16 @@ const DeckDetailStyled = styled.SafeAreaView`
 `;
 
 class DeckDetail extends PureComponent {
+  static navigationOptions = ({ screenProps: { theme } }) => {
+    return {
+      title: 'Deck Details',
+      headerStyle: {
+        backgroundColor: theme.background.color.first,
+      },
+      headerTintColor: theme.font.color.first,
+    };
+  };
+
   render() {
     const {
       navigation,
@@ -23,12 +32,23 @@ class DeckDetail extends PureComponent {
       },
     } = this.props;
     return (
-      <DeckDetailStyled>
-        <StatusBar />
-        <Header navigation={navigation} />
-        <AddCardContent navigation={navigation} deck={deck} />
-        <Footer />
-      </DeckDetailStyled>
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="always"
+        enableOnAndroid
+        enableAutomaticScroll={false}
+        contentContainerStyle={{ flex: 1 }}
+        innerRef={(ref) => {
+          this.scroll = ref;
+        }}
+        onKeyboardWillShow={() => {
+          this.scroll.props.scrollToPosition(0, 100);
+        }}
+      >
+        <DeckDetailStyled>
+          <Header navigation={navigation} />
+          <AddCardContent navigation={navigation} deck={deck} />
+        </DeckDetailStyled>
+      </KeyboardAwareScrollView>
     );
   }
 }

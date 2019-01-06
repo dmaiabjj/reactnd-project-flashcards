@@ -1,7 +1,14 @@
 export default {
   light: {
     background: {
-      color: { first: '#fff', second: '#007bff', third: '#007bff', fourth: '#007bff' },
+      color: {
+        first: '#fff',
+        second: '#007bff',
+        third: '#007bff',
+        fourth: '#007bff',
+        fifth: '#fff',
+        sixth: '#007bff',
+      },
     },
     border: {
       color: { first: '#ccc' },
@@ -30,7 +37,14 @@ export default {
   },
   dark: {
     background: {
-      color: { first: '#222', second: '#007bff', third: '#e8eaf3', fourth: '#1b1b1b' },
+      color: {
+        first: '#222',
+        second: '#007bff',
+        third: '#e8eaf3',
+        fourth: '#1b1b1b',
+        fifth: '#666666',
+        sixth: '#666666',
+      },
     },
     border: {
       color: { first: '#333' },

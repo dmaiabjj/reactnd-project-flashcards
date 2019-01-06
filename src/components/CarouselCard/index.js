@@ -39,21 +39,14 @@ class CarouselCard extends PureComponent {
           data={data}
           renderItem={renderItem}
           sliderWidth={width}
-          sliderHeight={200}
           itemWidth={itemWidth}
           itemHeight={itemHeight}
-          showSpinner
           inactiveSlideScale={0.9}
           inactiveSlideOpacity={0.6}
           firstItem={this.FIRST_SLIDE_INDEX}
           onSnapToItem={(index) => {
             this.setState({ activeSlide: index });
             selectedItem(index);
-          }}
-          activeAnimationType="spring"
-          activeAnimationOptions={{
-            friction: 4,
-            tension: 40,
           }}
         />
         <Pagination

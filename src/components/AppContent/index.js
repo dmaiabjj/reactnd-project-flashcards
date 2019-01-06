@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const AppContent = ({ theme }) => {
   return (
     <ThemeProvider theme={modes[theme]}>
-      <Route />
+      <Route screenProps={{ theme: modes[theme] }} />
     </ThemeProvider>
   );
 };

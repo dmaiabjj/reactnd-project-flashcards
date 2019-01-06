@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Header from '@components/Header';
 import StatusBar from '@components/StatusBar';
 import SettingContent from '@components/SettingContent';
-import Footer from '@components/Footer';
 
 const SettingStyled = styled.SafeAreaView`
   flex: 1;
@@ -24,7 +23,6 @@ class Setting extends PureComponent {
         <StatusBar />
         <Header navigation={navigation} />
         <SettingContent />
-        <Footer />
       </SettingStyled>
     );
   }

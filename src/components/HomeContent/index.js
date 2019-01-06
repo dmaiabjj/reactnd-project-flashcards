@@ -57,10 +57,12 @@ class HomeContent extends PureComponent {
               renderItem={this.renderItem}
               selectedItem={this.selectedItem}
             />
-            <Styles.MainContentStyledView>
-              <Styles.QuizTitleStyledText>Quizzes Point(s)</Styles.QuizTitleStyledText>
-              <QuizContent quizzes={decks[activeDeck].quizzes} />
-            </Styles.MainContentStyledView>
+            {decks[activeDeck] && (
+              <Styles.MainContentStyledView>
+                <Styles.QuizTitleStyledText>Quizzes Point(s)</Styles.QuizTitleStyledText>
+                <QuizContent quizzes={decks[activeDeck].quizzes} />
+              </Styles.MainContentStyledView>
+            )}
           </Styles.MainStyledView>
         )}
       </Styles.ContentStyledView>

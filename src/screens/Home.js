@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Header from '@components/Header';
 import StatusBar from '@components/StatusBar';
 import HomeContent from '@components/HomeContent';
-import Footer from '@components/Footer';
 
 const HomeStyled = styled.SafeAreaView`
   flex: 1;
@@ -20,7 +19,6 @@ class Home extends PureComponent {
         <StatusBar />
         <Header navigation={navigation} />
         <HomeContent navigation={navigation} />
-        <Footer />
       </HomeStyled>
     );
   }

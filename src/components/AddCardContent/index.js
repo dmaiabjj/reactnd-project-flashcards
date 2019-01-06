@@ -93,8 +93,9 @@ class AddCardContent extends PureComponent {
               renderItem={this.renderItem}
               selectedItem={this.selectedItem}
               itemWidth={300}
-              itemHeight={250}
+              itemHeight={150}
             />
+
             <Styles.MainContentStyledView>
               <Styles.TitleTextStyledView>
                 <Styles.TitleStyledText>What is your question?</Styles.TitleStyledText>
@@ -107,6 +108,7 @@ class AddCardContent extends PureComponent {
                   onChangeText={this.handleQuestionChange}
                   value={question}
                   multiline
+                  size={50}
                 />
                 {error && submited && (
                   <Styles.CardSubjectErrorStyledText>
@@ -122,6 +124,7 @@ class AddCardContent extends PureComponent {
                   onChangeText={this.handleAnswerChange}
                   value={answer}
                   multiline
+                  size={100}
                 />
                 {error && submited && (
                   <Styles.CardSubjectErrorStyledText>

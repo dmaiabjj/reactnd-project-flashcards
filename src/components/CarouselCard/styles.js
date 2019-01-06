@@ -1,16 +1,10 @@
 import styled from 'styled-components/native';
 
 const CaroseulStyledView = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
   width: ${(props) => props.width};
 `;
 
 const CardStyledView = styled.View`
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   border: 1px solid ${(props) => props.theme.border.color.first};
   background: ${(props) => props.theme.background.color.first};
   border-radius: 10px;

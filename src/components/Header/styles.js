@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 const HeaderStyledView = styled.View`
-  background: ${(props) => props.theme.background.color.first};
+  background: ${(props) => props.theme.background.color.fifth};
   flex-flow: row nowrap;
   height: 50px;
   border-radius: 1px;

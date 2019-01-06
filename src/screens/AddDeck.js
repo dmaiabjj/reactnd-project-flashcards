@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Header from '@components/Header';
 import StatusBar from '@components/StatusBar';
 import AddDeckContent from '@components/AddDeckContent';
-import Footer from '@components/Footer';
 
 const AddDeckStyled = styled.SafeAreaView`
   flex: 1;
@@ -16,12 +16,24 @@ class AddDeck extends PureComponent {
   render() {
     const { navigation } = this.props;
     return (
-      <AddDeckStyled>
-        <StatusBar />
-        <Header navigation={navigation} />
-        <AddDeckContent navigation={navigation} />
-        <Footer />
-      </AddDeckStyled>
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="always"
+        enableOnAndroid
+        enableAutomaticScroll={false}
+        contentContainerStyle={{ flex: 1 }}
+        innerRef={(ref) => {
+          this.scroll = ref;
+        }}
+        onKeyboardWillShow={() => {
+          this.scroll.props.scrollToPosition(0, 100);
+        }}
+      >
+        <AddDeckStyled>
+          <StatusBar />
+          <Header navigation={navigation} />
+          <AddDeckContent navigation={navigation} />
+        </AddDeckStyled>
+      </KeyboardAwareScrollView>
     );
   }
 }

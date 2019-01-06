@@ -6,18 +6,10 @@ const ContentStyledView = styled.View`
 `;
 
 const MessageStyledView = styled.View`
-  width: 100%;
-  margin: 60px auto;
+  margin: 10px auto;
 `;
 
-const MainStyledView = styled.View`
-  flex: 1;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  top: 50px;
-  position: absolute;
-`;
+const MainStyledView = styled.View``;
 
 const MessageStyledText = styled.Text`
   text-transform: uppercase;
@@ -25,19 +17,21 @@ const MessageStyledText = styled.Text`
   font-weight: ${(props) => props.weight};
   color: ${(props) => props.theme.font.color.second};
   text-align: center;
-  line-height: 25px;
   margin-bottom: 5px;
 `;
-const MainContentStyledView = styled.View``;
+const MainContentStyledView = styled.View`
+  margin-top: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 const TitleTextStyledView = styled.View`
-  flex: 1;
   padding-bottom: 5px;
   width: 100%;
   align-items: center;
-  margin-bottom: 20;
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.border.color.first};
+  margin-bottom: 10px;
 `;
 
 const TitleStyledText = styled.Text`
@@ -49,18 +43,16 @@ const TitleStyledText = styled.Text`
   color: ${(props) => props.theme.font.color.first};
 `;
 
-const CardSubjectStyledView = styled.View`
-  flex: 1;
-`;
+const CardSubjectStyledView = styled.View``;
 
 const CardSubjectStyledText = styled.TextInput`
   color: ${(props) => props.theme.input.color.first};
-  margin: 10px 15px 10px 15px;
+  margin: 5px 15px 5px 15px;
   font-size: 20px;
   text-align: center;
   border: 1px solid;
   border-radius: 10px;
-  height: 100px;
+  height: ${(props) => props.size};
 `;
 
 const CardSubjectErrorStyledText = styled.TextInput`
@@ -70,15 +62,14 @@ const CardSubjectErrorStyledText = styled.TextInput`
 `;
 
 const AddButtonStyledView = styled.View`
-  flex: 1;
   align-items: center;
-  margin-top: 10;
+  margin-top: 10px;
 `;
 
 const AddButtonStyled = styled.TouchableOpacity`
   padding: 5px;
   align-items: center;
-  width: 150;
+  width: 150px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.background.color.second};
 `;

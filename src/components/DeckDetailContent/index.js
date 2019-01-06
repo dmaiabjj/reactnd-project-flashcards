@@ -8,11 +8,19 @@ import Styles from '@components/DeckDetailContent/styles';
 import Loading from '@components/Loading';
 import MainBackground from '@components/MainBackground';
 
-import { Creators as DeckCreators } from '@store/modules/decks';
+import { Creators as DeckCreators, Selectors as DeckSelectors } from '@store/modules/decks';
 
 const imageSrc = require('../../../assets/images/background.png');
 
 class DeckDetailContent extends PureComponent {
+  componentDidMount() {
+    const {
+      getDeckByTitle,
+      deck: { title },
+    } = this.props;
+    getDeckByTitle(title);
+  }
+
   onHandleDelete = (deck) => {
     const { deleteDeck, navigation } = this.props;
     Alert.alert(
@@ -83,15 +91,18 @@ class DeckDetailContent extends PureComponent {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const { app } = state;
+  const deck = DeckSelectors.getBytTitle(ownProps.deck.title)(state);
   return {
     app,
+    deck,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    getDeckByTitle: (title) => dispatch(DeckCreators.fetchByTitle(title)),
     deleteDeck: (deck) => dispatch(DeckCreators.delete(deck)),
   };
 }
@@ -101,6 +112,7 @@ DeckDetailContent.propTypes = {
   app: PropTypes.object.isRequired,
   deck: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
+  getDeckByTitle: PropTypes.func.isRequired,
   deleteDeck: PropTypes.func.isRequired,
 };
 
