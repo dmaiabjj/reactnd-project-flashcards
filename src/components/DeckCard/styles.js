@@ -5,9 +5,8 @@ const CardStyledTouchableOpacity = styled.TouchableOpacity`
   background: ${(props) => props.theme.background.color.first};
   border-radius: 10px;
   margin: 40px 0 10px 0;
-  flex: 1;
   flex-flow: column wrap;
-  justify-content: space-between;
+  height: 150px;
   box-shadow: 5px 5px 5px ${(props) => props.theme.shadow.color.first};
 `;
 

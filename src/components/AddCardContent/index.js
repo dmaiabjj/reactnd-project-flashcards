@@ -27,6 +27,11 @@ class AddCardContent extends PureComponent {
 
   state = this.INITIAL_STATE;
 
+  componentDidMount() {
+    const { getDeckByTitle, deck } = this.props;
+    getDeckByTitle(deck.title);
+  }
+
   renderItem = ({ item, index }) => {
     const {
       theme,
@@ -86,7 +91,7 @@ class AddCardContent extends PureComponent {
           </Styles.MessageStyledText>
         </Styles.MessageStyledView>
         {!app.fetched && <Loading color={theme.font.color.first} />}
-        {app.fetched && (
+        {app.fetched && deck && cards && (
           <Styles.MainStyledView>
             <CarouselCard
               data={cards}

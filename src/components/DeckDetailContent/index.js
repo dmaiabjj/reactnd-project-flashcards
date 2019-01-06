@@ -44,14 +44,23 @@ class DeckDetailContent extends PureComponent {
     return (
       <Styles.ContentStyledView>
         <MainBackground imageSrc={imageSrc} />
-        <Styles.MessageStyledView>
-          <Styles.MessageStyledText size={theme.font.size.third} weight={theme.font.weight.second}>
-            {deck.title}
-          </Styles.MessageStyledText>
-          <Styles.MessageStyledText size={theme.font.size.first} weight={theme.font.weight.second}>
-            {deck.questions.length} Card(s)
-          </Styles.MessageStyledText>
-        </Styles.MessageStyledView>
+        {deck && (
+          <Styles.MessageStyledView>
+            <Styles.MessageStyledText
+              size={theme.font.size.third}
+              weight={theme.font.weight.second}
+            >
+              {deck.title}
+            </Styles.MessageStyledText>
+            <Styles.MessageStyledText
+              size={theme.font.size.first}
+              weight={theme.font.weight.second}
+            >
+              {deck.questions.length} Card(s)
+            </Styles.MessageStyledText>
+          </Styles.MessageStyledView>
+        )}
+
         {!app.fetched && <Loading color={theme.font.color.first} />}
         {app.fetched && (
           <Styles.MainStyledView>
@@ -110,7 +119,7 @@ function mapDispatchToProps(dispatch) {
 DeckDetailContent.propTypes = {
   theme: PropTypes.object.isRequired,
   app: PropTypes.object.isRequired,
-  deck: PropTypes.object.isRequired,
+  deck: PropTypes.object,
   navigation: PropTypes.object.isRequired,
   getDeckByTitle: PropTypes.func.isRequired,
   deleteDeck: PropTypes.func.isRequired,

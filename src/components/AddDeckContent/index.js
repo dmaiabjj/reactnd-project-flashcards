@@ -58,12 +58,14 @@ class AddDeckContent extends PureComponent {
           </Styles.MessageStyledText>
         </Styles.MessageStyledView>
         {!app.fetched && <Loading color={theme.font.color.first} />}
-        {app.fetched && (
+        {app.fetched && decks && (
           <Styles.MainStyledView>
             <CarouselCard
               data={decks}
               renderItem={this.renderItem}
               selectedItem={this.selectedItem}
+              itemWidth={300}
+              itemHeight={150}
             />
             <Styles.MainContentStyledView>
               <Styles.TitleTextStyledView>
@@ -76,6 +78,7 @@ class AddDeckContent extends PureComponent {
                   name="title"
                   onChangeText={this.handleInputChange}
                   value={title}
+                  size={100}
                 />
                 {error && submited && (
                   <Styles.DeckSubjectErrorStyledText>

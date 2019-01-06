@@ -3,21 +3,13 @@ import styled from 'styled-components/native';
 const ContentStyledView = styled.View`
   flex: 1;
   flex-direction: column;
-  width: 100%;
 `;
 
 const MessageStyledView = styled.View`
-  width: 100%;
-  margin: 25px auto;
+  margin: 10px auto;
 `;
 
-const MainStyledView = styled.View`
-  top: 50px;
-  position: absolute;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-`;
+const MainStyledView = styled.View``;
 
 const MessageStyledText = styled.Text`
   text-transform: uppercase;
@@ -25,27 +17,21 @@ const MessageStyledText = styled.Text`
   font-weight: ${(props) => props.weight};
   color: ${(props) => props.theme.font.color.second};
   text-align: center;
-  width: 100%;
-  line-height: 25px;
+  margin-bottom: 5px;
 `;
 const MainContentStyledView = styled.View`
-  margin-top: 50;
-  position: relative;
-  height: 100%;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  flex: 1;
+  margin-top: 10px;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const TitleTextStyledView = styled.View`
-  flex: 1;
   padding-bottom: 5px;
-  width: 90%;
+  width: 100%;
   align-items: center;
-  margin-bottom: 50;
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.border.color.first};
+  margin-bottom: 10px;
 `;
 
 const TitleStyledText = styled.Text`
@@ -57,16 +43,16 @@ const TitleStyledText = styled.Text`
   color: ${(props) => props.theme.font.color.first};
 `;
 
-const DeckSubjectStyledView = styled.View`
-  flex: 1;
-  margin-bottom: 20;
-`;
+const DeckSubjectStyledView = styled.View``;
 
 const DeckSubjectStyledText = styled.TextInput`
   color: ${(props) => props.theme.input.color.first};
-  margin: 20px 15px 20px 15px;
+  margin: 5px 15px 5px 15px;
   font-size: 20px;
   text-align: center;
+  border: 1px solid;
+  border-radius: 10px;
+  height: ${(props) => props.size};
 `;
 
 const DeckSubjectErrorStyledText = styled.TextInput`
@@ -76,14 +62,14 @@ const DeckSubjectErrorStyledText = styled.TextInput`
 `;
 
 const AddButtonStyledView = styled.View`
-  flex: 1;
-  height: 100%;
+  align-items: center;
+  margin-top: 10px;
 `;
 
 const AddButtonStyled = styled.TouchableOpacity`
   padding: 5px;
   align-items: center;
-  width: 150;
+  width: 150px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.background.color.second};
 `;

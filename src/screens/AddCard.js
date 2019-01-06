@@ -41,7 +41,7 @@ class DeckDetail extends PureComponent {
           this.scroll = ref;
         }}
         onKeyboardWillShow={() => {
-          this.scroll.props.scrollToPosition(0, 100);
+          this.scroll.props.scrollToPosition(0, 200);
         }}
       >
         <DeckDetailStyled>

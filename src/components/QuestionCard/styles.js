@@ -4,10 +4,10 @@ const CardStyledView = styled.View`
   border: 3px solid ${(props) => props.theme.border.color.first};
   background: ${(props) => props.theme.background.color.first};
   border-radius: 10px;
-  flex-flow: column;
-  box-shadow: 5px 5px 5px ${(props) => props.theme.shadow.color.first};
-  overflow: hidden;
+  margin: 40px 0 10px 0;
   height: 150px;
+  flex-flow: column wrap;
+  box-shadow: 5px 5px 5px ${(props) => props.theme.shadow.color.first};
 `;
 
 const CardTitleStyledView = styled.View`
@@ -21,9 +21,8 @@ const CardTitleStyledView = styled.View`
   border-left-color: transparent;
   border-bottom-color: ${(props) => props.theme.border.color.first};
   background: ${(props) => props.theme.shadow.color.second};
-  height: 43px;
+  height: 53px;
   margin: 0 0 10px 0;
-  width: 100%;
   box-shadow: 5px 5px 5px ${(props) => props.theme.shadow.color.first};
 `;
 

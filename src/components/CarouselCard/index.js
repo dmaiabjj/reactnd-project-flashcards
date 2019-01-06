@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { withTheme } from 'styled-components/native';
 import PropTypes from 'prop-types';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel from 'react-native-snap-carousel';
 import { Dimensions } from 'react-native';
 
 import Icon from '@components/Icon';
@@ -9,10 +9,6 @@ import Styles from '@components/CarouselCard/styles';
 
 class CarouselCard extends PureComponent {
   FIRST_SLIDE_INDEX = 0;
-
-  state = {
-    activeSlide: this.FIRST_SLIDE_INDEX,
-  };
 
   renderEmptyCard = (theme) => {
     return (
@@ -26,8 +22,7 @@ class CarouselCard extends PureComponent {
   };
 
   render() {
-    const { theme, data, renderItem, selectedItem, itemWidth = 160, itemHeight = 120 } = this.props;
-    const { activeSlide } = this.state;
+    const { theme, data, renderItem, selectedItem, itemHeight = 120 } = this.props;
     const { width } = Dimensions.get('window');
     return (
       <Styles.CaroseulStyledView width={width}>
@@ -39,25 +34,18 @@ class CarouselCard extends PureComponent {
           data={data}
           renderItem={renderItem}
           sliderWidth={width}
-          itemWidth={itemWidth}
+          itemWidth={300}
           itemHeight={itemHeight}
           inactiveSlideScale={0.9}
           inactiveSlideOpacity={0.6}
           firstItem={this.FIRST_SLIDE_INDEX}
           onSnapToItem={(index) => {
-            this.setState({ activeSlide: index });
             selectedItem(index);
           }}
-        />
-        <Pagination
-          activeDotIndex={activeSlide}
-          dotsLength={data.length}
-          dotColor={theme.font.color.first}
-          inactiveDotColor={theme.font.color.fifth}
-          inactiveDotOpacity={0.4}
-          inactiveDotScale={0.5}
-          carouselRef={this.carousel}
-          tappableDots={!!this.carousel}
+          lockScrollWhileSnapping
+          useScrollView
+          loop
+          loopClonesPerSide={1}
         />
       </Styles.CaroseulStyledView>
     );
