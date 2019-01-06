@@ -13,10 +13,6 @@ const AddDeckStyled = styled.SafeAreaView`
 `;
 
 class AddDeck extends PureComponent {
-  static navigationOptions = {
-    drawerLabel: 'Add Deck',
-  };
-
   render() {
     const { navigation } = this.props;
     return (

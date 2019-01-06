@@ -1,19 +1,18 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { Font } from 'expo';
-import Route from '@routes/index';
-import themes from '@styles/settings/themes';
 import { Provider } from 'react-redux';
 import store from '@store';
 // import * as ServerAPI from '@api/ServerAPI';
+import AppContent from '@components/AppContent';
 import Roboto from './assets/fonts/Roboto-Regular.ttf';
 
 const AppSection = styled.View`
   flex: 1;
 `;
 
-export default class App extends React.Component {
-  state = { isReady: false, theme: 'light' };
+class App extends React.Component {
+  state = { isReady: false };
 
   componentDidMount() {
     (async () => {
@@ -43,13 +42,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { isReady, theme } = this.state;
+    const { isReady } = this.state;
     return (
       <Provider store={store}>
-        <ThemeProvider theme={themes[theme]}>
-          <AppSection>{isReady && <Route />}</AppSection>
-        </ThemeProvider>
+        <AppSection>{isReady && <AppContent />}</AppSection>
       </Provider>
     );
   }
 }
+
+export default App;

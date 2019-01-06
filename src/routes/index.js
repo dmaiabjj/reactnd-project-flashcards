@@ -1,36 +1,37 @@
-import { createDrawerNavigator } from 'react-navigation';
+import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
+
 import Home from '@screens/Home';
 import AddDeck from '@screens/AddDeck';
 import AddCard from '@screens/AddCard';
 import DeckDetail from '@screens/DeckDetail';
-import themes from '@styles/settings/themes';
+import Setting from '@screens/Setting';
 
-const DrawerComponent = createDrawerNavigator(
-  {
-    Add: { screen: AddDeck },
-    Home: { screen: Home },
-    DeckDetail: { screen: DeckDetail },
-    Card: { screen: AddCard },
-  },
-  {
+const DrawerNavigator = createDrawerNavigator({
+  Home: { screen: Home, navigationOptions: { drawerLabel: 'Quizzes Statistics ' } },
+  Add: { screen: AddDeck, navigationOptions: { drawerLabel: 'Add Decks' } },
+  Settings: { screen: Setting, navigationOptions: { drawerLabel: 'Settings' } },
+});
+
+const AppNavigator = createStackNavigator({
+  Drawer: {
+    screen: DrawerNavigator,
     navigationOptions: {
       header: null,
-    },
-    drawerOptions: {
-      activeTintColor: themes.light.background.color.primary,
-      style: {
-        height: 56,
-        backgroundColor: themes.light.background.color.primary,
-        shadowColor: 'rgba(0, 0, 0, 0.24)',
-        shadowOffset: {
-          width: 0,
-          height: 3,
-        },
-        shadowRadius: 6,
-        shadowOpacity: 1,
-      },
+      gesturesEnabled: false,
     },
   },
-);
+  DeckDetail: {
+    screen: DeckDetail,
+    navigationOptions: {
+      title: 'Deck Detail',
+    },
+  },
+  Card: {
+    screen: AddCard,
+    navigationOptions: {
+      title: 'Add Card',
+    },
+  },
+});
 
-export default DrawerComponent;
+export default AppNavigator;

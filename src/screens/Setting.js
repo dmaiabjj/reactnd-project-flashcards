@@ -4,37 +4,34 @@ import PropTypes from 'prop-types';
 
 import Header from '@components/Header';
 import StatusBar from '@components/StatusBar';
-import DeckDetailContent from '@components/DeckDetailContent';
+import SettingContent from '@components/SettingContent';
 import Footer from '@components/Footer';
 
-const DeckDetailStyled = styled.SafeAreaView`
+const SettingStyled = styled.SafeAreaView`
   flex: 1;
   background-color: ${(props) => props.theme.background.color.first};
 `;
 
-class DeckDetail extends PureComponent {
+class Setting extends PureComponent {
+  static navigationOptions = {
+    title: 'Settings',
+  };
+
   render() {
-    const {
-      navigation,
-      navigation: {
-        state: {
-          params: { deck },
-        },
-      },
-    } = this.props;
+    const { navigation } = this.props;
     return (
-      <DeckDetailStyled>
+      <SettingStyled>
         <StatusBar />
         <Header navigation={navigation} />
-        <DeckDetailContent deck={deck} navigation={navigation} />
+        <SettingContent />
         <Footer />
-      </DeckDetailStyled>
+      </SettingStyled>
     );
   }
 }
 
-DeckDetail.propTypes = {
+Setting.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default DeckDetail;
+export default Setting;

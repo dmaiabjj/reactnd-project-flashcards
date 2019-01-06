@@ -33,9 +33,9 @@ export const Creators = {
 
 export default handleActions(
   {
-    [combineActions(Actions.theme.changeTheme)]: (state, { payload }) => ({
-      payload,
-    }),
+    [combineActions(Actions.theme.changeTheme)]: (state, { payload }) => {
+      return { ...state, theme: payload };
+    },
   },
   INITIAL_STATE,
 );

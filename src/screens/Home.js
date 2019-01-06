@@ -13,10 +13,6 @@ const HomeStyled = styled.SafeAreaView`
 `;
 
 class Home extends PureComponent {
-  static navigationOptions = {
-    drawerLabel: 'Home',
-  };
-
   render() {
     const { navigation } = this.props;
     return (
