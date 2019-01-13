@@ -52,7 +52,7 @@ Você criará o seu projeto utilizando o create-react-native-app. Não haverá c
 Install the dependencies and devDependencies and start the app.
 
 ```sh
-$ cd flash-cards
+$ cd reactnd-project-flashcards
 $ npm install 
-$ sudo expo start
+$ npm start
 ```
