@@ -3,7 +3,9 @@ import { Animated } from 'react-native';
 
 const CardStyledMainView = styled.View`
   width: 100%;
+  flex: 1;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const CardStyledView = styled(Animated.View)`
@@ -50,10 +52,34 @@ const CardDescriptionStyledText = styled.Text`
   text-align: center;
 `;
 
+const ButtonStyledView = styled.View`
+  align-items: center;
+  position: absolute;
+  bottom: 45%;
+`;
+
+const ButtonStyled = styled.TouchableOpacity`
+  padding: 5px;
+  align-items: center;
+  width: 150px;
+  border-radius: 5px;
+  background-color: ${(props) => props.color};
+`;
+
+const ButtonStyledText = styled.Text`
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  color: ${(props) => props.theme.font.color.second};
+`;
+
 export default {
   CardStyledMainView,
   CardStyledView,
   CardTitleStyledView,
   CardTitleStyledText,
   CardDescriptionStyledText,
+  ButtonStyledView,
+  ButtonStyled,
+  ButtonStyledText,
 };

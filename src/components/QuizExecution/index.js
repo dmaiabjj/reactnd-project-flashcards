@@ -94,7 +94,7 @@ class QuizExecution extends PureComponent {
             </Styles.MessageStyledText>
           )}
         </Styles.MessageStyledView>
-        {card && <QuizExecutionCard card={card} />}
+        {card && <QuizExecutionCard card={card} theme={theme} />}
         {!app.fetched && <Loading color={theme.font.color.first} />}
         {app.fetched && card && (
           <Styles.MainStyledView>
