@@ -11,7 +11,6 @@ class DeckCard extends PureComponent {
     const {
       deck: { quizzes },
     } = this.props;
-
     return quizzes.length > 0 ? _.meanBy(quizzes, (q) => q.points) : 0;
   };
 

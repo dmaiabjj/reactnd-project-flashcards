@@ -9,8 +9,8 @@ import DrawerContent from '@components/DrawerContent';
 
 const DrawerNavigator = createDrawerNavigator(
   {
-    Home: { screen: Home, navigationOptions: { drawerLabel: 'Quizzes Statistics ' } },
     Add: { screen: AddDeck, navigationOptions: { drawerLabel: 'Add Decks' } },
+    Home: { screen: Home, navigationOptions: { drawerLabel: 'Quizzes Statistics ' } },
     Settings: { screen: Setting, navigationOptions: { drawerLabel: 'Settings' } },
   },
   {

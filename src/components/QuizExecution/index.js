@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withTheme } from 'styled-components/native';
+import { Alert } from 'react-native';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
 
@@ -15,13 +16,34 @@ import { Creators as QuizCreators } from '@store/modules/quizzes';
 const imageSrc = require('../../../assets/images/background.png');
 
 class QuizExecution extends PureComponent {
-  state = {
-    index: 0,
-    questions: [],
-    score: 0,
-  };
+  INITIAL_STATE = { index: 0, questions: [], score: 0 };
 
-  componentDidMount() {}
+  state = this.INITIAL_STATE;
+
+  onHandleFinishQuiz = (score, total, points) => {
+    const { navigation } = this.props;
+    const title = points >= 50 ? 'Congratulations' : 'Sorry - Best luck next time';
+    Alert.alert(
+      title,
+      `You score ${score} of ${total} achieving ${points} point(s)`,
+      [
+        {
+          text: 'Try again',
+          onPress: () => {
+            this.setState(this.INITIAL_STATE);
+          },
+        },
+        {
+          text: 'Go to Home',
+          onPress: () => {
+            navigation.navigate('Add');
+          },
+          style: 'cancel',
+        },
+      ],
+      { cancelable: true },
+    );
+  };
 
   onHandleAction(hit) {
     const { cards } = this.props;
@@ -31,19 +53,24 @@ class QuizExecution extends PureComponent {
       return {
         ...prevState,
         ...{
-          index: prevState.index + 1,
+          index: prevState.index + 1 >= cards.length ? prevState.index : prevState.index + 1,
           questions: [...prevState.questions, { ...card, hit }],
           score: prevState.score + (hit ? 1 : 0),
         },
       };
-    });
+    }, this.finish);
+  }
 
+  finish() {
+    const { cards } = this.props;
+    const { index } = this.state;
     if (index + 1 >= cards.length) {
       const { deck, addQuizz } = this.props;
       const { questions, score } = this.state;
       const points = (score / questions.length) * 100;
       const quiz = { id: uuid(), questions, points, timestamp: Date.now() };
       addQuizz(deck.title, quiz);
+      this.onHandleFinishQuiz(score, questions.length, points);
     }
   }
 
@@ -58,11 +85,15 @@ class QuizExecution extends PureComponent {
           <Styles.MessageStyledText size={theme.font.size.second} weight={theme.font.weight.second}>
             {deck.title}
           </Styles.MessageStyledText>
-          <Styles.MessageStyledText size={theme.font.size.second} weight={theme.font.weight.second}>
-            {`Card ${index + 1} of ${cards.length} `}
-          </Styles.MessageStyledText>
+          {card && (
+            <Styles.MessageStyledText
+              size={theme.font.size.second}
+              weight={theme.font.weight.second}
+            >
+              {`Card ${index + 1} of ${cards.length} `}
+            </Styles.MessageStyledText>
+          )}
         </Styles.MessageStyledView>
-        {card && <QuizExecutionCard card={card} />}
         {card && <QuizExecutionCard card={card} />}
         {!app.fetched && <Loading color={theme.font.color.first} />}
         {app.fetched && card && (

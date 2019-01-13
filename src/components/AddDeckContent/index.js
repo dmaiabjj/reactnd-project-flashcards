@@ -10,6 +10,7 @@ import Loading from '@components/Loading';
 import MainBackground from '@components/MainBackground';
 
 import { Creators as DeckCreators, Selectors as DeckSelectors } from '@store/modules/decks';
+import { Selectors as QuizSelectors } from '@store/modules/quizzes';
 
 const imageSrc = require('../../../assets/images/background.png');
 
@@ -106,6 +107,7 @@ function mapStateToProps(state) {
     decks: DeckSelectors.getAll(state).map((d) => {
       return {
         ...d,
+        quizzes: QuizSelectors.getByIds(d.quizzes)(state).filter((item) => item != null),
       };
     }),
   };
