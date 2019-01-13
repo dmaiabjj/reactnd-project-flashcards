@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import Header from '@components/Header';
 import AddCardContent from '@components/AddCardContent';
 
 const DeckDetailStyled = styled.SafeAreaView`
@@ -41,11 +40,10 @@ class DeckDetail extends PureComponent {
           this.scroll = ref;
         }}
         onKeyboardWillShow={() => {
-          this.scroll.props.scrollToPosition(0, 200);
+          this.scroll.props.scrollToPosition(0, 300);
         }}
       >
         <DeckDetailStyled>
-          <Header navigation={navigation} />
           <AddCardContent navigation={navigation} deck={deck} />
         </DeckDetailStyled>
       </KeyboardAwareScrollView>

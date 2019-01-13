@@ -23,7 +23,7 @@ const ScoreGauge = ({ points, theme, style }) => {
     <Styles.CardQuizScoreStyledView {...style}>
       <Styles.QuizScoreStyledText>Score: </Styles.QuizScoreStyledText>
       <Styles.QuizScoreStyledText style={[{ color, fontWeight: '500' }]}>
-        {points}
+        {Math.trunc(points)}
       </Styles.QuizScoreStyledText>
       <Styles.QuizScoreStyledText style={[{ marginRight: 5 }]}>/100</Styles.QuizScoreStyledText>
       <AnimatedCircularProgress

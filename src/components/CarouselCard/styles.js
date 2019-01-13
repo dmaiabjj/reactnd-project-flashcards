@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 const CaroseulStyledView = styled.View`
   width: ${(props) => props.width};
+  align-items: center;
 `;
 
 const CardStyledView = styled.View`
@@ -11,6 +12,7 @@ const CardStyledView = styled.View`
   padding: 15px;
   margin: 40px 0 10px 0;
   box-shadow: 5px 5px 5px ${(props) => props.theme.shadow.color.first};
+  width: 90%;
 `;
 
 const CardTitleStyledText = styled.Text`

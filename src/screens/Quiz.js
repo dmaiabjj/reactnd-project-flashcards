@@ -2,14 +2,14 @@ import React, { PureComponent } from 'react';
 import styled, { withTheme } from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-import DeckDetailContent from '@components/DeckDetailContent';
+import QuizExecution from '@components/QuizExecution';
 
-const DeckDetailStyled = styled.SafeAreaView`
+const QuizStyled = styled.SafeAreaView`
   flex: 1;
   background-color: ${(props) => props.theme.background.color.first};
 `;
 
-class DeckDetail extends PureComponent {
+class Quiz extends PureComponent {
   static navigationOptions = ({ screenProps: { theme } }) => {
     return {
       title: 'Deck Details',
@@ -30,15 +30,15 @@ class DeckDetail extends PureComponent {
       },
     } = this.props;
     return (
-      <DeckDetailStyled>
-        <DeckDetailContent deck={deck} navigation={navigation} />
-      </DeckDetailStyled>
+      <QuizStyled>
+        <QuizExecution deck={deck} navigation={navigation} />
+      </QuizStyled>
     );
   }
 }
 
-DeckDetail.propTypes = {
+Quiz.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default withTheme(DeckDetail);
+export default withTheme(Quiz);

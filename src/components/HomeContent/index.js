@@ -37,7 +37,6 @@ class HomeContent extends PureComponent {
   render() {
     const { theme, app, decks = [] } = this.props;
     const { activeDeck } = this.state;
-
     return (
       <Styles.ContentStyledView>
         <MainBackground imageSrc={imageSrc} />
@@ -77,7 +76,7 @@ function mapStateToProps(state) {
     decks: DeckSelectors.getAll(state).map((d) => {
       return {
         ...d,
-        quizzes: QuizSelectors.getByIds(d.quizzes)(state),
+        quizzes: QuizSelectors.getByIds(d.quizzes)(state).filter((item) => item != null),
       };
     }),
   };

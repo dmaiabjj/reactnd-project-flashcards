@@ -62,7 +62,7 @@ class DeckDetailContent extends PureComponent {
         )}
 
         {!app.fetched && <Loading color={theme.font.color.first} />}
-        {app.fetched && (
+        {app.fetched && deck && (
           <Styles.MainStyledView>
             <Styles.MainContentStyledView>
               <Styles.ButtonStyledView>
@@ -75,16 +75,19 @@ class DeckDetailContent extends PureComponent {
                   </Styles.ButtonStyledText>
                 </Styles.ButtonStyled>
               </Styles.ButtonStyledView>
-              <Styles.ButtonStyledView>
-                <Styles.ButtonStyled
-                  style={{ borderWidth: 2, borderColor: theme.background.color.third }}
-                  color={theme.background.color.first}
-                >
-                  <Styles.ButtonStyledText color={theme.font.color.first}>
-                    Start Quiz
-                  </Styles.ButtonStyledText>
-                </Styles.ButtonStyled>
-              </Styles.ButtonStyledView>
+              {deck.questions && deck.questions.length > 0 && (
+                <Styles.ButtonStyledView>
+                  <Styles.ButtonStyled
+                    style={{ borderWidth: 2, borderColor: theme.background.color.third }}
+                    color={theme.background.color.first}
+                    onPress={() => navigation.navigate('Quiz', { deck })}
+                  >
+                    <Styles.ButtonStyledText color={theme.font.color.first}>
+                      Start Quiz
+                    </Styles.ButtonStyledText>
+                  </Styles.ButtonStyled>
+                </Styles.ButtonStyledView>
+              )}
               <Styles.ButtonStyledView>
                 <Styles.ButtonStyled color="red" onPress={() => this.onHandleDelete(deck)}>
                   <Styles.ButtonStyledText color={theme.font.color.second}>

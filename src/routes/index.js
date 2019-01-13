@@ -3,6 +3,7 @@ import Home from '@screens/Home';
 import AddDeck from '@screens/AddDeck';
 import AddCard from '@screens/AddCard';
 import DeckDetail from '@screens/DeckDetail';
+import Quiz from '@screens/Quiz';
 import Setting from '@screens/Setting';
 import DrawerContent from '@components/DrawerContent';
 
@@ -28,6 +29,12 @@ const AppNavigator = createStackNavigator(
     },
     DeckDetail: {
       screen: DeckDetail,
+    },
+    Quiz: {
+      screen: Quiz,
+      navigationOptions: {
+        title: 'Quiz',
+      },
     },
     Card: {
       screen: AddCard,

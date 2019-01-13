@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 const DescriptionCardStyledView = styled.View`
-  flex: 1;
   width: 100%;
   border-top-width: 1px;
   padding: 10px 15px;
@@ -17,7 +16,6 @@ const DescriptionCardTitleStyledText = styled.Text`
 `;
 
 const DescriptionCardDateStyledText = styled.Text`
-  margin-top: 5px;
   color: ${(props) => props.theme.font.color.fifth};
   font-size: ${(props) => props.theme.font.size.first};
 `;

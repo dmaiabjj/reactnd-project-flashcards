@@ -5,6 +5,17 @@ import Styles from '@components/QuizCard/styles';
 import ScoreGauge from '@components/ScoreGauge';
 
 class QuizCard extends PureComponent {
+  /**
+   * @description Recebe o timestamp e tranforma em uma data com formato legivel
+   * @param {number} timestamp
+   * @returns {string} Data formatada
+   */
+  formatDate = (timestamp) => {
+    const d = new Date(timestamp);
+    const time = d.toLocaleTimeString('en-US');
+    return `${time.substr(0, 5) + time.slice(-2)} | ${d.toLocaleDateString()}`;
+  };
+
   render() {
     const { quizz, theme, ranking } = this.props;
     return (
@@ -13,7 +24,7 @@ class QuizCard extends PureComponent {
           Ranked #{ranking + 1}
         </Styles.DescriptionCardTitleStyledText>
         <Styles.DescriptionCardDateStyledText>
-          Start Date: {quizz.date}
+          Start Date: {this.formatDate(quizz.timestamp)}
         </Styles.DescriptionCardDateStyledText>
         <ScoreGauge points={quizz.points} theme={theme} />
       </Styles.DescriptionCardStyledView>

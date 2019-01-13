@@ -67,8 +67,8 @@ export const Creators = {
             'result',
           );
 
-          dispatch(Actions.quiz.updateDecks(decks, deckIds));
           dispatch(Actions.quiz.saveSuccess(cards, cardsIds));
+          dispatch(Actions.quiz.updateDecks(decks, deckIds));
         })
         .catch((error) => {
           dispatch(Actions.quiz.saveFailure(error));
